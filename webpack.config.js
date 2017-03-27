@@ -13,9 +13,8 @@ const plugins = [
             'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'dev')
 
         }
-    }),
+    })
 
-    new webpack.optimize.DedupePlugin()
 ];
 
 // Environment specific config
@@ -48,7 +47,7 @@ switch (process.env.NODE_ENV) {
 module.exports = {
     plugins: plugins,
 
-    entry: {[
+    entry: [
         path.resolve(__dirname, 'src/scripts', 'manage.coffee')
     ],
 
@@ -65,7 +64,7 @@ module.exports = {
             // CoffeeScript (to JavaScript)
             {
                 test: /\.coffee$/,
-                loaders: ['coffee']
+                loaders: ['coffee-loader']
             },
 
             // CoffeeScript (lint)
@@ -75,7 +74,7 @@ module.exports = {
                 loader: 'coffeelint-loader'
             }
         ]
-    }
+    },
 
     // Dev server
     devServer: {
