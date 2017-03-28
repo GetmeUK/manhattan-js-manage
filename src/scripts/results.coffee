@@ -17,19 +17,50 @@ makeLink = (element, url) ->
         if ev.button is 1
             window.open url, '_blank'
 
-makeSorter = (element, form, sortWith, sortDirection) ->
+makeSorter = (element) ->
+    # Add support for ordering a table of results using the given element.
 
+    # Find the form containing the element
+    form = $.closest('.mh-form', element)
+
+    # Determine how the results are currently sorted
+    sortByField = $.one('[name="sort_by"]', form)
+    sortedBy = sortByField.value
+
+    # If the results are currently being sorted by this element then set the
+    # direction against the element.
+    sortWith = element.getAttribute('data-sort-with')
+    if sortedBy == sortWith
+        element.setAttribute('data-sort-direction', 'DESC')
+    else if sortedBy == "-#{sortWith}"
+        element.setAttribute('data-sort-direction', 'ASC')
+
+    # Implement the sort behaviour for the element
+    $.listen element, 'click': (ev) ->
+        if sortWith == sortedBy
+            sortByField.value = "-#{sortWith}"
+        else
+            sortByField.value = sortWith
+
+    # Submit the filter form to sort the results
+    form.submit()
 
 init = () ->
-
     # Make table rows behave as links
     for tableRow in $.many('tr[data-mh-url]')
         makeLink(tableRow, tableRow.getAttribute('data-mh-url'))
 
     # Make table headers behave as column sorters
+    for tableHeader in $.many('th[data-mh-sort-with]')
+        makeSorter(tableHeader)
 
-
-    # Jump to forms
+    # Prevent submission of the jump to page form if the page field is empty
+    for form in $.many('.mh-paging__jump')
+        $.listen form, 'submit': (ev) ->
+            pageNo = $.one('[name="page"]')
+            unless pageNo.value.trim()
+                ev.preventDefault()
+                pageNo.focus()
 
 {
     init: init,
