@@ -14,7 +14,7 @@
     "coffeelint-loader": "^0.1.1",
     "manhattan-assets": "^0.0.3",
     "manhattan-effects": "^0.0.2",
-    "manhattan-forms": "^0.0.1",
+    "manhattan-forms": "^0.0.2",
     "manhattan-date-picker": "^0.0.6",
     "manhattan-essentials": "^0.0.12",
     "manhattan-nav": "^0.0.1",
