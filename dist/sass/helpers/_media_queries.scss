@@ -1,0 +1,87 @@
+/**
+ * MEDIA QUERIES
+ * --
+ * These mixins make it easy to define blocks of CSS for the target devices. For
+ * example:
+--------------------------------------------------------------------------------
+    @include media-tablet() {
+        ...tablet CSS here...
+    }
+--------------------------------------------------------------------------------
+ * As a general rule the base CSS should target mobiles and conditional blocks
+ * should be added for tablet and desktop devices. Don't apply this rule over
+ * smaller more manageable code.
+ */
+
+
+@mixin media-mobile() {
+    @media (min-width: #{$mobile-width}) {
+        @content;
+    }
+}
+
+@mixin media-tablet-portrait() {
+    @media (min-width: #{$tablet-portrait-width}) {
+        @content;
+    }
+}
+
+@mixin media-tablet-landscape() {
+    @media (min-width: #{$tablet-landscape-width}) {
+        @content;
+    }
+}
+
+@mixin media-desktop() {
+    @media (min-width: #{$desktop-width}) {
+        @content;
+    }
+}
+
+@mixin media-outer() {
+    @media (min-width: #{$outer-width}) {
+        @content;
+    }
+}
+
+@mixin media-email-tablet() {
+    @media (max-width: #{$email-width - 1}) {
+        @content;
+    }
+}
+
+@mixin media-email-mobile() {
+    @media (max-width: #{$mobile-width - 1}) {
+        @content;
+    }
+}
+
+
+/**
+ * Media span
+ * --
+ * Rather than using the standard media queries (above), media-span allows you
+ * to specify a media query within a width range. You can pass it `$from` value
+ * and a `$to` value. To help with readability and to prevent any overlap with
+ * other media queries, the `$to` value automatically removes 1px. If you pass a
+ * 0 (zero) value for the `$from` value, it will only set a max-width value. If
+ * you pass a 0 (zero) value for the `$to` value, it will only set a min-width
+ * value. It assumes that your media query is a width query. However, you can
+ * instead set the `$direction` value to `height` to change it to a height
+ * query.
+ */
+@mixin media-span($from, $to, $direction: 'width') {
+    @if $from > 0 and $to > 0 {
+        @media (min-#{$direction}: #{$from}) and (max-#{$direction}: #{$to - 1}) {
+            @content;
+        }
+    } @else if $from > 0 {
+        @media (min-#{$direction}: #{$from}) {
+            @content;
+        }
+    } @else {
+        @media (max-#{$direction}: #{$to - 1}) {
+            @content;
+        }
+    }
+}

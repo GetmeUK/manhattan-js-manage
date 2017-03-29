@@ -1,0 +1,46 @@
+/**
+ * Breadcrumb
+ * --
+ * The main breadcrumb for the page. The main breadcrumb is positioned at the
+ * top of the page, it is used to help indicate to the user the steps taken to
+ * get to their current page.
+ */
+
+
+.mh-breadcrumb {
+    margin: 15px 20px;
+    @include type(small, $color: $color-font-light);
+
+    @include media-mobile() {
+        margin: 20px 0;
+        @include type-size(map-get($types, standard));
+    }
+
+    &:first-child { margin-top: 0; }
+    &:last-child { margin-top: 0; }
+
+    &__divider {
+        margin: 0 7.5px;
+    }
+
+    &__link {
+        color: $color-font-link;
+
+        &:hover, &:focus {
+            text-decoration: underline;
+        }
+
+        &--back {
+            padding-left: 9px;
+            position: relative;
+
+            &:after {
+                content: '';
+                display: block;
+                margin-top: -4px;
+                @include position(absolute, 50% null null 0px);
+                @include triangle(8px 4px, nth($color-themes, 1), left);
+            }
+        }
+    }
+}

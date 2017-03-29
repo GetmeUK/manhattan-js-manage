@@ -1,0 +1,82 @@
+/**
+ * CMS
+ * --
+ * Contains all imports for all stylesheets used to format the admin UI.
+ * Stylesheets are broken up into multiple, more manageable files and imported
+ * into this stylesheet using SCSS.
+ */
+
+
+@charset 'UTF-8';
+
+
+/**
+ * Settings
+ * --
+ * A collection of commmonly used variables that are used across the different
+ * scss files.
+ */
+@import 'settings';
+
+
+/**
+ * Helpers
+ * --
+ * A set of useful helper mixins used to avoid duplication of commonly written
+ * CSS attributes. Also includes any external libraries.
+ */
+@import 'helpers/bourbon/bourbon';
+@import 'helpers/btn';
+@import 'helpers/column';
+@import 'helpers/homer';
+@import 'helpers/media_queries';
+@import 'helpers/type';
+
+
+/**
+ * Common
+ * --
+ * General stylesheets and styles that are used broadly across the entire
+ * website.
+ */
+@import 'reset';
+@import 'common';
+
+
+/**
+ * Structure
+ * --
+ * Stylesheets that are used to format the core structure of the admin UI, and
+ * used on every standard page of the UI.
+ */
+@import 'structure/frame';
+@import 'structure/main';
+@import 'structure/nav';
+
+
+/**
+ * Components
+ * --
+ * Single purpose stylesheets used for individual components/element blocks on
+ * the page that are flexible enough to be re-used across multiple pages and
+ * applied to different environments.
+ */
+@import 'components/actions';
+@import 'components/audio_controls';
+@import 'components/assets';
+@import 'components/breadcrumb';
+@import 'components/buttons';
+@import 'components/dataset';
+@import 'components/date_picker';
+@import 'components/filter';
+@import 'components/flash';
+@import 'components/form';
+@import 'components/formatted';
+@import 'components/heading';
+@import 'components/list';
+@import 'components/minimal';
+@import 'components/paging';
+@import 'components/popup';
+@import 'components/tabs';
+@import 'components/tag';
+@import 'components/typeahead';

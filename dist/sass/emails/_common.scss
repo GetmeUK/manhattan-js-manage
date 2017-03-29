@@ -1,0 +1,359 @@
+/**
+ * COMMON
+ * --
+ * A list of useful classes / formatting styles which help with general
+ * formatting of the email but do not have enough styles to warrant being
+ * a component.
+ */
+
+
+/**
+ * Inner
+ * --
+ * An outer container used to set the width of the main content area.
+ */
+.inner {
+	float: none;
+    margin: 0 auto;
+    text-align: left;
+    max-width: $email-width !important;
+    width: $email-width !important;
+    
+    @include media-email-tablet() {
+        table[class="body"] & {
+            min-width: 320px !important;
+            width: 100% !important;
+        }
+    }
+    
+    table {
+        width: 100%;
+    }
+}
+.inner > tr > td { @extend .inner; }
+
+
+/**
+ * Vertical spacer
+ * --
+ * A vertical spacer used to consistantly space between blocks of content.
+ */
+.vert-spacer {
+    height: 20px;
+    padding: 0;
+    
+    &--mobile-compact {
+        @include media-email-mobile() {
+            table[class="body"] & {
+                height: 10px !important;
+            }
+        }
+    }
+    
+    &--small {
+        height: 10px;
+    }
+    
+    &--large {
+        height: 30px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                height: 20px !important;
+            }
+        }
+    }
+}
+
+
+/**
+ * Divider
+ * --
+ * A horizontal rule with 
+ */
+.divider {
+    &__top {
+        height:10px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                height: 0 !important;
+            }
+        }
+    }
+
+    &__bottom {
+        border-top: 1px solid darken($color-bkg-main, 5%);
+        height:10px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                height: 0 !important;
+            }
+        }
+    }
+}
+
+
+/**
+ * Custom font sizes
+ */
+.large-text { @include type(large); }
+.normal-text { @include type(standard); }
+.small-text { @include type(small); }
+
+/**
+ * Font weights
+ */
+.bold { font-weight: 700; }
+.semi-bold { font-weight: 400; }
+.light { font-weight: 300; }
+
+
+/**
+ * Alignment
+ */
+.left, .l { text-align: left !important; }
+.center, .c { text-align: center !important; }
+.right, .r { text-align: right !important; }
+.top { vertical-align: top !important; }
+.middle { vertical-align: middle !important; }
+.bottom { vertical-align: bottom !important; }
+
+
+/**
+ * Useful styles
+ * --
+ * A collection of useful styles that do not have enough styles to warrant being
+ * a component.
+ */
+@include media-email-tablet() {
+    table[class="body"] .tab-hide {
+        display: none !important;
+    }
+}
+@include media-email-mobile() {
+    table[class="body"] .mob-hide {
+        display: none !important;
+    }
+}
+
+
+/**
+ * Buttons
+ * --
+ * A clickable button link that takes the user directly to the admin area
+ * relating to the subject of the email.
+ */
+.btns {
+    font-size: 0;
+    line-height: 0;
+
+    .btn {
+        margin-left: 10px;
+
+        @include media-email-mobile() {
+            table[class="body"] & {
+                margin-left: 0 !important;
+                margin-top: 10px !important;
+            }
+        }
+
+        &:first-child {
+            margin-left: 0;
+
+            @include media-email-mobile() {
+                table[class="body"] & {
+                    margin-top: 0 !important;
+                }
+            }
+        }
+    }
+}
+
+
+/**
+ * Button
+ * --
+ * A clickable button link that takes the user directly to the admin area
+ * relating to the subject of the email.
+ */
+.btn {
+    background-color: nth($color-themes, 1);
+    border-radius: $corner-radius;
+    display: inline-block;
+    height: $btn-small-height;
+    padding: 0 20px;
+    text-align: center;
+    text-decoration: none;
+    white-space: no-wrap;
+    @include type(
+        standard,
+        $color: #fff,
+        $font-weight: 400,
+        $line-height: $btn-small-height
+    );
+    
+    @include media-email-mobile() {
+        table[class="body"] & {
+            display: block !important;
+        }
+    }
+}
+
+
+/**
+ * Formatted
+ * --
+ * A class added to the container which adds basic formatting to any direct
+ * children. It also adds consistant spacing between block elements using
+ * padding.
+ */
+.formatted {
+    > h2,
+    > h3 {
+        padding-bottom: 10px;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    > h1,
+    > p,
+    > ul,
+    > ol,
+    > table {
+        padding-bottom: 20px;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+}
+.formatted > h1, .h1 { @include type(h1, $font-weight: 400); }
+.formatted > h2, .h2 { @include type(h2, $font-weight: 400); }
+.formatted > h3, .h3 { @include type(h3, $font-weight: 400); }
+
+
+/**
+ * Content
+ * --
+ * Blocks of content pre-formatted for certain uses. Each content block can
+ * optionally have a heading at the top.
+ */
+.content {
+    &__heading {
+        padding-bottom: 10px;
+        @include type(h2, $font-weight: 400);
+    }
+
+
+    /**
+     * Content box | .content-box
+     * --
+     * A simple container used to wrap a block of content inside of a coloured
+     * box.
+     */
+    &-box {
+        background-color: lighten($color-bkg-main, 2%);
+        border-radius: $corner-radius;
+
+        &__top, &__bottom {
+            height: 20px;
+        }
+
+        &__left, &__right {
+            width: 20px;
+        }
+    }
+
+
+    /**
+     * Content list | .content-list
+     * --
+     * A neatly formatted list of values each with an associated label
+     */
+    &-list {
+        @include media-email-mobile() {
+            table[class="body"] & {
+                &
+                > tbody,
+                .content-list__row,
+                .content-list__label,
+                .content-list__spacer,
+                .content-list__value {
+                    display: block !important;
+                    width: 100% !important;
+                }
+            }
+        }
+
+        &__row {
+            .content-list__label,
+            .content-list__spacer,
+            .content-list__value {
+                border-top: 10px solid #fff;
+                
+                @include media-email-mobile() {
+                    table[class="body"] & {
+                        border-top: none !important;
+                    }
+                }
+            }
+            
+            @include media-email-mobile() {
+                table[class="body"] & {
+                    border-top: 10px solid #fff !important;
+                }
+            }
+
+            &:first-child {
+                .content-list__label,
+                .content-list__spacer,
+                .content-list__value {
+                    border-top: none;
+                }
+            }
+        }
+
+        &__label {
+            font-weight: 400;
+            width: 30%;
+            vertical-align: middle;
+            
+            @include media-email-mobile() {
+                table[class="body"] & {
+                    width: 100% !important;
+                }
+            }
+        }
+
+        &__spacer {
+            width: 20px;
+        }
+
+        &__value {
+            vertical-align: middle;
+
+            .content-list-value {
+                background-color: lighten($color-bkg-main, 2%);
+                border-radius: $corner-radius;
+                
+                @include media-email-mobile() {
+                    table[class="body"] & {
+                        width: 100% !important;
+                    }
+                }
+
+                &__top, &__bottom {
+                    height: 5px;
+                }
+
+                &__left, &__right {
+                    width: 10px;
+                }
+            }
+        }
+    }
+}

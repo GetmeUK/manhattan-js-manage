@@ -1,0 +1,63 @@
+/**
+ * Typeahead
+ * --
+ * Contains all of the CSS used to format the JS typeahead plugin. This allows
+ * a user to type text into an input field and get returned a list of results
+ * matching their text. These results are shown in a dropdown box below the
+ * field from which they can select from and autofill the input field with.
+ */
+
+
+.mh-typeahead {
+    background-color: #fff;
+    border-radius: $corner-radius;
+    box-shadow:
+        0 2px 0 0 rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    max-width: calc(100% - 40px);
+    padding: 10px 1px;
+    position: absolute;
+    width: 300px;
+    z-index: 4;
+
+    @include media-mobile() {
+        max-width: calc(100% - 80px);
+    }
+
+    &--closed {
+        display: none;
+    }
+
+    &__suggestion {
+        padding: 5px 10px;
+
+        &:nth-child(even) {
+            background-color: lighten($color-bkg-main, 2%);
+        }
+
+        &:hover {
+            background-color: rgba(nth($color-themes, 1), 0.15);
+            cursor: pointer;
+        }
+
+        > mark {
+            background-color: transparent;
+            border-radius: $corner-radius;
+            color: $color-font;
+            font-weight: 700;
+        }
+
+        &--focused,
+        &--focused:hover,
+        &--focused:nth-child(even) {
+            background-color: nth($color-themes, 1);
+            color: #fff;
+
+            > mark {
+                color: #fff;
+            }
+        }
+    }
+
+}

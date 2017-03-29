@@ -1,0 +1,102 @@
+/**
+ * Paging
+ * --
+ * Contains all of the CSS used to format the paging component that usually
+ * appears at the bottom of lists.
+ */
+
+
+.mh-paging {
+    font-size: 0;
+    line-height: 0;
+
+    @include media-tablet-portrait() {
+        display: flex;
+    }
+
+    &__steps {
+        margin: 0 -20px;
+        text-align: center;
+
+        @include media-tablet-portrait() {
+            flex: auto;
+            margin: 0;
+            text-align: left;
+        }
+
+        &-number {
+            display: inline-block;
+            margin: 0 20px;
+            vertical-align: middle;
+            @include type(small);
+        }
+
+        &-btn {
+            display: inline-block;
+            vertical-align: middle;
+            @include btn(small, $display: inline-block, $width: 75px);
+
+            &--disabled {
+                @include btn-type($type: disabled);
+            }
+        }
+    }
+
+    &__jump {
+        border-top: 1px solid $color-bkg-main;
+        display: flex;
+        margin: 20px -20px 0;
+        padding: 20px 20px 0;
+        position: relative;
+
+        @include media-tablet-portrait() {
+            border: none;
+            flex: auto;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+        }
+
+        &-results {
+            flex: 1;
+            margin-right: 20px;
+            @include ellipsis();
+            @include type(small, $line-height: $field-small-height);
+
+            @include media-tablet-portrait() {
+                flex: auto;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        &-field {
+            padding-top: 0;
+            text-align: center;
+            width: 80px !important;
+
+            @include media-tablet-portrait() {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            @include placeholder {
+                line-height: $field-small-height;
+            }
+
+            &:focus {
+                box-shadow:
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.25),
+                    inset 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+                color: $color-font;
+            }
+        }
+
+        &-btn {
+            flex: 0;
+            margin: 0 0 0 -1px;
+            min-width: 50px;
+            @include border-left-radius(0px);
+        }
+    }
+}

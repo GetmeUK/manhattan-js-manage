@@ -1,0 +1,163 @@
+/**
+ * Minimal
+ * --
+ * Stylesheet used to format a minimal style page. This is primarily used for
+ * the login related pages prior to accessing the CMS.
+ */
+
+
+.mh-minimal {
+    background-color: $color-bkg-nav;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    
+    @if (not $logo-desktop) {
+        @include media-span($from: 0, $to: $mobile-width) {
+            background-color: darken($color-bkg-main, 5%);
+        }
+    }
+
+    @include media-mobile() {
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100%;
+        width: 100%;
+
+        @include media-mobile() {
+            align-items: center;
+            flex: 1;
+            padding: 30px;
+        }
+    }
+
+    &__logo {
+        @if ($logo-desktop) {
+            flex: 0 0 auto;
+            padding: 30px;
+            width: 100%;
+
+            @include media-mobile() {
+                max-width: 360px;
+                padding-top: 0;
+            }
+
+            &-image {
+                background: url($logo-desktop) center center no-repeat;
+                background-size: contain;
+                display: block;
+                max-height: 60px;
+                overflow: hidden;
+            }
+
+            &-push {
+                min-height: 40px;
+                padding-top: 25%;
+            }
+        } @else {
+            display: none;
+        }
+    }
+
+    &__flash {
+        margin: 30px 0;
+        max-width: 100%;
+        width: 100%;
+
+        @include media-span($from: 0, $to: $mobile-width) {
+            border-radius: 0;
+            margin: 0 !important;
+        }
+
+        @include media-mobile() {
+            max-width: 360px;
+        }
+    }
+
+    &__box {
+        background-color: darken($color-bkg-main, 5%);
+        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        max-width: 100%;
+        width: 100%;
+        
+        @if (not $logo-desktop) {
+            @include media-span($from: 0, $to: $mobile-width) {
+                box-shadow: none;
+            }
+        }
+
+        @include media-mobile() {
+            border-radius: $corner-radius;
+            max-width: 360px;
+        }
+    }
+
+    &__header {
+        background-color: $color-bkg-main;
+        padding: 30px 30px 0px;
+
+        @include media-mobile() {
+            @include border-top-radius($corner-radius);
+        }
+    }
+
+    &__heading {
+        @include type(h1, $font-weight: 400);
+    }
+
+    &__sub-heading {
+        @include type(large, $color: $color-font-light, $font-weight: 400);
+    }
+
+    &__content {
+        background-color: $color-bkg-main;
+        box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.075);
+        flex: 0 0 auto;
+
+        @include media-mobile() {
+            border-radius: $corner-radius;
+        }
+
+        > * {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 30px;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .mh-form__fieldset {
+            border: none;
+            padding: 0;
+        }
+    }
+
+    &__footer {
+        padding: 30px;
+        text-align: center;
+
+        @include media-mobile() {
+            flex: 0 0 auto;
+        }
+    }
+
+    .mh-field--btns {
+        @include media-mobile() {
+            margin-top: 20px;
+        }
+
+        .mh-field__btn {
+            max-width: none;
+        }
+    }
+}

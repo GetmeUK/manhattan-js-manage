@@ -1,0 +1,112 @@
+/**
+ * TYPE
+ * --
+ * A mixin that provides support for all text formatting types. It allows you to
+ * choose from a list of pre-defined font sizes and line-heights, but also
+ * override any of the parameters provided. This allows complete flexibility
+ * where you need it whilst still keeping consistancy across your website.
+ * 
+ * The type parameter can be passed in 2 ways. The first method allows you to
+ * choose from the pre-defined list of types below. The second method allows you
+ * to specify something entirely custom.
+ *
+ * The mixin assumes that the type attribute will have at least 2 values
+ * provided; font-size and line-height. However it will also accept a
+ * desktop version of them both.
+ *
+ * $type: (font-size, line-height, font-size-desktop, line-height-desktop)
+--------------------------------------------------------------------------------
+    @include type(h1);
+    @include type($type: (32px, 125%, 40px, 135%));
+    @include type-size(map-get($types, h1));
+    @include type-size($map: (32px, 125%, 40px, 135%));
+--------------------------------------------------------------------------------
+ */
+
+
+@mixin type(
+    $type: false,
+    $color: inherit,
+    $font-family: inherit,
+    $font-size: inherit,
+    $font-weight: inherit,
+    $line-height: inherit,
+    $types: $types
+    ) {
+    color: $color;
+    font-family: $font-family;
+    font-weight: $font-weight;
+    
+    @if ($type == false) {
+        font-size: $font-size;
+        line-height: $line-height;
+    } @else {
+        @if (length($type) > 1) {
+            @include type-size(
+                $type,
+                $font-size: $font-size,
+                $line-height: $line-height
+            );
+        } @else {
+            @each $i, $map in $types {
+                @if ($i == $type) {
+                    @include type-size(
+                        $map,
+                        $font-size: $font-size,
+                        $line-height: $line-height
+                    );
+                }
+            }
+        }
+    }
+}
+
+@mixin type-size($map, $font-size: inherit, $line-height: inherit) {
+    @if ($font-size != inherit) {
+        font-size: $font-size;
+    } @else {
+        font-size: nth($map, 1);
+    }
+
+    @if ($line-height != inherit) {
+        line-height: $line-height;
+    } @else {
+        line-height: nth($map, 2);
+    }
+
+    @if (length($map) > 2) {
+        @include media-tablet-portrait() {
+            @if ($font-size != inherit) {
+                font-size: $font-size;
+            } @else {
+                font-size: nth($map, 3);
+            }
+
+            @if (length($map) > 3) {
+                @if ($line-height != inherit) {
+                    line-height: $line-height;
+                } @else {
+                    line-height: nth($map, 4);
+                }
+            }
+        }
+
+        @if (length($map) > 4) {
+            @include media-desktop() {
+                @if ($font-size != inherit) {
+                    font-size: $font-size;
+                } @else {
+                    font-size: nth($map, 5);
+                }
+
+                @if (length($map) > 5) {
+                    @if ($line-height != inherit) {
+                        line-height: $line-height;
+                    } @else {
+                        line-height: nth($map, 6);
+                    }
+                }
+            }
+        }
+    }
+}

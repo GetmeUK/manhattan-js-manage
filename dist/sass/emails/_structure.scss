@@ -1,0 +1,188 @@
+/**
+ * STRUCTURE
+ * --
+ * Contains all of the sass used for formatting the header, footer, and framing
+ * of the email template.
+ */
+
+
+/**
+ * Body
+ * --
+ * The outer most containing table.
+ */
+.body, body {
+    background-color: $color-bkg-main;
+    
+    @include media-email-tablet() {
+        background-color: #fff !important;
+    }
+}
+
+
+/**
+ * Frame
+ * --
+ * A containing box used to frame the entire email.
+ */
+.frame {
+    background-color: #fff;
+    border-radius: $corner-radius;
+    border: 1px solid darken($color-bkg-main, 15%);
+    
+    @include media-email-tablet() {
+        table[class="body"] & {
+            border-radius: none !important;
+            border: none !important;
+        }
+    }
+}
+
+
+/**
+ * Header
+ * --
+ * The top part of the email template. Contains the company logo and social
+ * links.
+ */
+.header {
+    border-bottom: 1px solid darken($color-bkg-main, 5%);
+
+    &__top, &__bottom {
+        height: 30px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                height: 20px !important;
+            }
+        }
+    }
+
+    &__left, &__right {
+        width: 30px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                width: 20px !important;
+            }
+        }
+    }
+
+    &__mid {
+        @include media-email-mobile() {
+            table[class="body"] & {
+                > table,
+                > table > tbody,
+                > table > tbody > tr {
+                    display: block !important;
+                    width: 100% !important;
+                }
+            }
+        }
+    }
+
+    &__spacer {
+        min-width: 20px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                display: none !important;
+            }
+        }
+    }
+
+    &__logo {
+        text-align: left;
+        width: 220px;
+        vertical-align: middle;
+    }
+
+    &__btn {
+        width: 1px;
+        white-space: nowrap;
+        vertical-align: middle;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                display: none !important;
+            }
+        }
+    }
+
+
+    /**
+     * Logo
+     * --
+     * A logo shown in the email header relating to the admin UI.
+     */
+    .logo {
+        &__image {
+            max-width: 100%;
+            margin: 0 !important;
+            width: auto !important;
+
+            @include media-email-mobile() {
+                table[class="body"] & {
+                    display: block !important;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Main
+ * --
+ * The central part of the email template.
+ */
+.main {
+    &__top, &__bottom {
+        height: 30px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                height: 20px !important;
+            }
+        }
+    }
+
+    &__left, &__right {
+        width: 30px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                width: 20px !important;
+            }
+        }
+    }
+}
+
+
+/**
+ * Footer
+ * --
+ * The bottom part of the email template.
+ */
+.footer {
+    border-top: 1px solid darken($color-bkg-main, 5%);
+
+    &__top, &__bottom {
+        height: 30px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                height: 20px !important;
+            }
+        }
+    }
+
+    &__left, &__right {
+        width: 30px;
+        
+        @include media-email-mobile() {
+            table[class="body"] & {
+                width: 20px !important;
+            }
+        }
+    }
+}

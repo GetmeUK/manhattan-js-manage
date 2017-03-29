@@ -1,0 +1,160 @@
+/**
+ * BTN
+ * --
+ * A mixin used for formatting standard buttons on the website. The mixin uses
+ * 2 other mixins (size and type) to help split away the attributes that change
+ * depending on the button style. So rather than duplicating lots of code, if
+ * the user wants a different styled button, they can call the type or size
+ * mixin, without the need to call the main btn mixin again and repeating any of
+ * the btn attributes.
+ */
+
+
+@mixin btn(
+    $size:  standard, // standard|small
+    $color: nth($color-themes, 1) #fff,
+    $type:  standard, // standard|bordered|disabled
+
+    $border-radius: $corner-radius,
+    $display:       flex,
+    $height:        false,
+    $width:         100%
+    ) {
+
+    /**
+     * Custom button styles using the parameters passed.
+     */
+    @include btn-default($border-radius, $display, $width);
+    @include btn-size($size, $height);
+    @include btn-type($type, $color);
+}
+
+
+/**
+ * Btn default
+ * --
+ * A set of standard button formatting styles used as a default for every button
+ * style regardless of the theme, size, colour, etc.
+ */
+@mixin btn-default(
+    $border-radius: $corner-radius,
+    $display: flex,
+    $width: 100%
+    ) {
+    align-items: center;
+    border-radius: $border-radius;
+    border: none;
+    cursor: pointer;
+    display: $display;
+    font-family: inherit;
+    font-weight: 400;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+    text-align: center;
+    text-decoration: none;
+    width: $width;
+    @include ellipsis();
+
+    &:hover, &:focus {
+        outline: none;
+        text-decoration: none;
+    }
+
+    &:active {
+        box-shadow: inset 0 2px 0 0 rgba(0, 0, 0, 0.15);
+        padding-top: 1px;
+    }
+
+    &::-moz-focus-inner { border: 0; } // Remove Firefox button outline
+}
+
+
+/**
+ * Btn size
+ * --
+ * A mixin used in conjunction with the btn mixin to customise the height,
+ * line-height, and font-size of a standard button. Rather than passing a pixel
+ * value, a size name is passed, which then uses the IF tests below to determine
+ * how the button should be sized.
+ */
+@mixin btn-size($size: standard, $height: false) {
+    $btn-height: $height !default;
+
+    @if ($size == standard) {
+        @if ($height == false) {
+            $btn-height: 50px;
+        }
+
+        &, > * {
+            font-size: 17px;
+            height: $btn-height;
+            line-height: $btn-height;
+        }
+    } @else if ($size == small) {
+        @if ($height == false) {
+            $btn-height: 36px;
+        }
+
+        &, > * {
+            font-size: 15px;
+            height: $btn-height;
+            line-height: $btn-height;
+        }
+    }
+}
+
+
+/**
+ * Btn type
+ * --
+ * A mixin used in conjunction with the btn mixin to customise the style,
+ * background colour, and text colour of the button. Rather than passing the
+ * individiual parameters, styles are pre-determined in the if tests below.
+ */
+@mixin btn-type($type: standard, $color: nth($color-themes, 1) #fff) {
+    @if ($type == standard) {
+        background-color: nth($color, 1);
+
+        @if (length($color) > 1) {
+            color: nth($color, 2);
+        }
+
+        &:hover, &:focus {
+            background-color: darken(nth($color, 1), 5%);
+        }
+    } @else if ($type == bordered) {
+        background-color: transparent;
+        box-shadow: inset 0 0 0 1px nth($color, 1);
+        @if (length($color) > 1) {
+            color: nth($color, 2);
+        } @else {
+            color: nth($color, 1);
+        }
+
+        &:hover, &:focus {
+            background-color: rgba(nth($color, 1), 0.15);
+            box-shadow: none;
+        }
+
+        &:active {
+            background-color: rgba(nth($color, 1), 0.15);
+            box-shadow: inset 0 2px 0 0 rgba(nth($color, 1), 0.3);
+        }
+    } @else if ($type == disabled) {
+        background-color: $color-bkg-main !important;
+        color: $color-font-light;
+        cursor: not-allowed;
+
+        &:hover, &:focus {
+            box-shadow: none;
+        }
+
+        &:active {
+            box-shadow: none;
+            cursor: auto;
+            padding-top: 0;
+        }
+    }
+}

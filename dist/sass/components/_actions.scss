@@ -1,0 +1,423 @@
+/**
+ * Actions
+ * --
+ * A list of actions that the user can click which relate to the page the user
+ * is currently on. These are displayed as buttons to the right of the heading.
+ * In desktop view, up to X actions/buttons can be displayed. If more than X
+ * are available, a dropdown option is provided to the right of the buttons.
+ */
+
+
+.mh-body--has-actions {
+    .mh-frame {
+        @include media-span($from: 0, $to: $tablet-landscape-width) {
+            padding-bottom: $action-height !important;
+        }
+    }
+}
+
+
+.mh-actions {
+    /**
+     * Mobile
+     * --
+     * On mobile, heading actions are handled differently depending on whether
+     * they are relative to the page, or specific to a single area of the page
+     * and contained within a box. If they are page actions inside the main
+     * heading, they get fixed to the bottom of the page. If they are specific
+     * to a box, they are positioned to the top right hand side of the box and a
+     * dropdown is used to view them.
+     */
+    @include media-span($from: 0, $to: $tablet-landscape-width) {
+
+        /**
+         * Actions inside of the main page heading on mobile
+         */
+        .mh-main__inner > .mh-heading & {
+            background-color: $color-bkg-nav;
+            box-shadow: 0 -1px 0 0 #fff;
+            width: 100%;
+            z-index: 10;
+            transition: left 0.5s ease-in-out;
+            @include position(fixed, null null 0px 0px);
+
+            &--open {
+                @for $i from 1 through $max-actions {
+                    &.mh-actions--#{$i} {
+                        .mh-actions__list {
+                            height: (($action-height * $i) + 16px);
+                        }
+                    }
+                }
+            }
+
+            &__handle {
+                background-color: nth($color-themes, 1);
+                box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+                cursor: pointer;
+                display: block;
+                height: $action-height;
+                position: relative;
+
+                &:hover {
+                    background-color: darken(nth($color-themes, 1), 5%);
+                }
+
+                &-dots {
+                    left: 50%;
+                    margin: -2px 0 0 -2px;
+                    top: 50%;
+
+                    &, &:before, &:after {
+                        background-color: #fff;
+                        border-radius: 50%;
+                        content: '';
+                        display: block;
+                        height: 4px;
+                        position: absolute;
+                        width: 4px;
+                    }
+
+                    &:before {
+                        left: -200%;
+                        top: 0;
+                    }
+
+                    &:after {
+                        left: 200%;
+                        top: 0;
+                    }
+                }
+            }
+
+            &__list {
+                background-color: darken($color-bkg-nav, 2.5%);
+                height: 0;
+                overflow: hidden;
+                transition: height 0.2s ease-in-out;
+            }
+
+            &__link {
+                display: block;
+                padding: 6px 20px;
+                text-align: center;
+                @include type(sub-nav, $color: $color-font-reverse);
+
+                &:not(.mh-actions__link--disabled) {
+                    &:hover, &:focus {
+                        background-color: rgba(0, 0, 0, 0.1);
+                        color: #fff;
+                    }
+                }
+
+                &:first-child { margin-top: 8px; }
+                &:last-child { margin-bottom: 8px; }
+
+                &--disabled {
+                    cursor: not-allowed;
+                    opacity: 0.6;
+                }
+            }
+        }
+
+        /**
+         * Actions inside of heading in boxes on mobile
+         */
+        .mh-main__box .mh-heading & {
+            display: flex;
+            position: relative;
+
+            @for $count from 1 through $max-actions {
+                &--#{$count} .mh-actions__handle {
+                    display: block;
+
+                    &:after {
+                        height: (($action-height * $count) + 20px);
+                    }
+                }
+            }
+
+            &--open {
+                .mh-actions__handle {
+                    background-color: $color-bkg-nav !important;
+                    box-shadow: none !important;
+
+                    &:after { display: block; }
+
+                    &-dots {
+                        &, &:before, &:after {
+                            background-color: #fff;
+                        }
+                    }
+                }
+
+                .mh-actions__link {
+                    display: block;
+                }
+            }
+
+            &__list { display: flex; }
+
+            &__link {
+                display: none;
+                height: $action-height;
+                padding: 0 20px;
+                width: 140px;
+                z-index: 3;
+                @include ellipsis($width: 140px);
+                @include position(absolute, null 0px null null);
+                @include type(
+                    sub-nav,
+                    $color: $color-font-reverse,
+                    $line-height: $action-height
+                );
+
+                @for $i from 1 through $max-actions {
+                    &:nth-child(#{$i}) {
+                        top: calc(#{$action-height} + 20px + ((#{$i} - 1) * #{$action-height}));
+                        
+                        &:not(.mh-actions__link--disabled) {
+                            &:hover, &:focus {
+                                background-color: rgba(0, 0, 0, 0.1);
+                                color: #fff;
+                            }
+                        }
+                        
+                        &.mh-actions__link--disabled {
+                            cursor: not-allowed;
+                            opacity: 0.6;
+                        }
+                    }
+                }
+            }
+
+            &__handle {
+                margin-left: 10px !important; // Overide button styles
+                overflow: visible !important; //Overide button styles
+                position: relative;
+                @include btn(
+                    $display: none,
+                    $size: small,
+                    $type: bordered,
+                    $height: $action-height,
+                    $width: $action-height
+                );
+
+                &:after {
+                    background-color: $color-bkg-nav;
+                    box-shadow: 0 3px 1px -1px rgba(0, 0, 0, 0.15);
+                    border-radius: $corner-radius;
+                    content: '';
+                    display: none;
+                    width: 140px;
+                    z-index: 2;
+                    @include position(absolute, ($action-height + 10px) 0px null null);
+                }
+
+                &-dots {
+                    position: absolute;
+                    left: 50% !important; // Overide btn styles
+                    margin: -2px 0 0 -2px !important; // Overide btn styles
+                    top: 50% !important; // Overide btn styles
+
+                    &, &:before, &:after {
+                        background-color: nth($color-themes, 1);
+                        border-radius: 50%;
+                        content: '';
+                        display: block;
+                        height: 4px;
+                        overflow: visible;
+                        position: absolute;
+                        width: 4px;
+                        z-index: 100;
+                    }
+
+                    &:before {
+                        left: -200%;
+                        top: 0;
+                    }
+
+                    &:after {
+                        left: 200%;
+                        top: 0;
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Tablet/Desktop
+     * --
+     * Actions are absolutely positioned to the top right hand side of the
+     * heading on tablet/desktop devices. If the number of actions exceeds the
+     * max-actions limit, then additional actions are positioned into a dropdown
+     * list to the far right which the user can toggle to view or not. Due
+     * to this, tablet/desktop styles are entirely separated from mobile.
+     */
+    @include media-tablet-landscape() {
+        display: flex;
+        position: relative;
+
+        @for $count from 1 through $max-actions {
+            @if $count > $visible-actions {
+                &--#{$count} .mh-actions__handle {
+                    display: block;
+
+                    &:after {
+                        height: (($action-height * ($count - $visible-actions)) + 20px);
+                    }
+                }
+            }
+        }
+
+        &--open {
+            .mh-actions__handle {
+                background-color: $color-bkg-nav !important;
+                box-shadow: none !important;
+
+                &:after { display: block; }
+
+                &-dots {
+                    &, &:before, &:after {
+                        background-color: #fff;
+                    }
+                }
+            }
+
+            .mh-actions__link {
+                display: block;
+            }
+        }
+
+        @for $i from 1 through $max-actions {
+            @if ($visible-actions >= $i) {
+                &--#{$i} {
+                    .mh-actions__handle {
+                        display: none !important;
+                    }
+                }
+            }
+        }
+
+        &__list { display: flex; }
+
+        &__link {
+            display: none;
+            height: $action-height;
+            padding: 0 20px;
+            width: 140px;
+            z-index: 3;
+            @include ellipsis($width: 140px);
+            @include position(absolute, null 0px null null);
+            @include type(
+                sub-nav,
+                $color: $color-font-reverse,
+                $line-height: $action-height
+            );
+
+            @for $i from 1 through $max-actions {
+                @if $i > $visible-actions {
+                    &:nth-child(#{$i}) {
+                        top: calc(50% - ($action-height / 2));
+                        margin-top: calc(#{$action-height} + 20px + ((#{$i} - 1) * #{$action-height}) - (#{$action-height} * #{$visible-actions});
+                        
+                        &:not(.mh-actions__link--disabled) {
+                            &:hover, &:focus {
+                                background-color: rgba(0, 0, 0, 0.1);
+                                color: #fff;
+                            }
+                        }
+                        
+                        &.mh-actions__link--disabled {
+                            cursor: not-allowed;
+                            opacity: 0.6;
+                        }
+                    }
+                }
+            }
+
+            @for $i from 1 through $visible-actions {
+                &:nth-child(#{$i}) {
+                    display: block;
+                    margin-left: 10px !important; // Overide btn styles
+                    position: static;
+                    @include btn(
+                        $type: standard,
+                        $color: nth($color-themes, 1) #fff,
+                        $size: small,
+                        $height: $action-height,
+                        $width: 120px
+                    );
+
+                    /**
+                     * Loop through all of the btns and create custom classes
+                     * for each colour and type.
+                     */
+                    @each $name, $btn in $btns {
+                        &.mh-actions__link--#{$name} {
+                            @include btn-type(
+                                nth($btn, 2),
+                                nth($btn, 1)
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
+        &__handle {
+            margin-left: 10px !important; // Overide button styles
+            overflow: visible !important; //Overide button styles
+            position: relative;
+            @include btn(
+                $display: none,
+                $size: small,
+                $type: bordered,
+                $height: $action-height,
+                $width: $action-height
+            );
+
+            &:after {
+                background-color: $color-bkg-nav;
+                box-shadow: 0 3px 1px -1px rgba(0, 0, 0, 0.15);
+                border-radius: $corner-radius;
+                content: '';
+                display: none;
+                width: 140px;
+                z-index: 2;
+                @include position(absolute, ($action-height + 10px) 0px null null);
+            }
+
+            &-dots {
+                position: absolute;
+                left: 50% !important; // Overide btn styles
+                margin: -2px 0 0 -2px !important; // Overide btn styles
+                top: 50% !important; // Overide btn styles
+
+                &, &:before, &:after {
+                    background-color: nth($color-themes, 1);
+                    border-radius: 50%;
+                    content: '';
+                    display: block;
+                    height: 4px;
+                    overflow: visible;
+                    position: absolute;
+                    width: 4px;
+                    z-index: 100;
+                }
+
+                &:before {
+                    left: -200%;
+                    top: 0;
+                }
+
+                &:after {
+                    left: 200%;
+                    top: 0;
+                }
+            }
+        }
+    }
+}

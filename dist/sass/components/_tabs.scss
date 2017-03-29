@@ -1,0 +1,51 @@
+/**
+ * Tabs
+ * --
+ * A list of headings/tabs used as another level of navigation from the page.
+ * Positioned at the top of the page underneath the main heading.
+ */
+
+
+.mh-tabs {
+    bottom: -1px;
+    font-size: 0;
+    line-height: 0;
+    overflow: auto;
+    position: relative;
+    white-space: nowrap;
+
+    &__tab {
+        display: inline-block;
+        border-left: 1px solid $color-bkg-main;
+        border-bottom: 2px solid transparent;
+        padding: 5px 20px 5px;
+        @include type(
+            standard,
+            $color: $color-font-light,
+            $font-weight: 400
+        );
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:not(.mh-tabs__tab--disabled) {
+            &:hover, &:focus {
+                color: $color-font;
+            }
+        }
+
+        &--disabled {
+            color: $color-font-lighter;
+            cursor: not-allowed;
+            font-style: italic;
+        }
+
+        &--active {
+            &, &:hover, &:focus {
+                border-bottom: 2px solid nth($color-themes, 1);
+                color: $color-font;
+            }
+        }
+    }
+}

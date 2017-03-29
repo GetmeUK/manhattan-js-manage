@@ -1,0 +1,196 @@
+/**
+ * COMMON
+ * --
+ * Contains all of the CSS used to re-format text after using a reset sheet.
+ * Also contains a lot of the generic classes used to format text/elements on
+ * the page.
+ */
+
+
+/**
+ * Core element styles
+ * --
+ * General elements that need custom styles without the use of classes.
+ */
+body, html {
+    height: 100%;
+}
+
+html {
+    font-size: $base-font-size;
+
+    /**
+     * Preserve font-size when iPhone changes from portrait to landscape
+     */
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: $color-bkg-main;
+    overflow-x: hidden;
+    text-align: left;
+    @include type(
+        standard,
+        $color: $color-font,
+        $font-family: $font-family-1,
+        $font-weight: 300
+    );
+
+    @if ($permanent_scroll_bar) {
+        overflow-y: scroll;
+    }
+
+    &.mh-body--no-transitions * {
+        transition: none !important;
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/**
+ * Text selection
+ */
+::selection {
+    background-color: nth($color-themes, 1);
+    color: #fff;
+}
+::-moz-selection {
+    background-color: nth($color-themes, 1);
+    color: #fff;
+}
+
+
+/**
+ * Common class styles
+ * --
+ * Generic regular use classes and styles that can be used throughout the admin
+ * UI.
+ */
+
+/**
+ * Hide/show classes
+ */
+.ninja {
+    display: none !important;
+}
+
+.homer {
+    @include homer();
+}
+
+/**
+ * Prevent text from wrapping onto multiple lines
+ */
+.no-wrap {
+    white-space: nowrap;
+}
+
+.ellipsis {
+    @include ellipsis();
+}
+
+/**
+ * Text alignment variations
+ */
+.align-left,
+.l {
+    text-align: left !important;
+}
+
+.align-center,
+.c {
+    text-align: center !important;
+}
+
+.align-right,
+.r {
+    text-align: right !important;
+}
+
+/**
+ * Consistant font sizes
+ */
+.small-text {
+    @include type-size(map-get($types, small));
+}
+
+.standard-text {
+    @include type-size(map-get($types, standard));
+}
+
+.large-text {
+    @include type-size(map-get($types, large));
+}
+
+.h3 {
+    @include type-size(map-get($types, h3));
+}
+
+.h2 {
+    @include type-size(map-get($types, h2));
+}
+
+.h1 {
+    @include type-size(map-get($types, h1));
+}
+
+/**
+ * Font weights
+ */
+.norm {
+    font-weight: 300;
+}
+
+.semi-bold {
+    font-weight: 400;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+/**
+ * Font styles
+ */
+.italic {
+    font-style: italic;
+}
+
+/**
+ * Remove scrolling on an element
+ */
+.no-scroll {
+    overflow: hidden;
+}
+
+/**
+ * Font colours
+ */
+.lighter {
+    color: $color-font-lighter;
+}
+
+.light {
+    color: $color-font-light;
+}
+
+
+/**
+ * Trim
+ * --
+ * Used to remove the top margin from the first child and the bottom margin from
+ * the last child. This is a useful alternative to using .formatted.
+*/
+.trim {
+    > :first-child {
+        margin-top: 0 !important;
+    }
+
+    > :last-child {
+        margin-bottom: 0 !important;
+    }
+}

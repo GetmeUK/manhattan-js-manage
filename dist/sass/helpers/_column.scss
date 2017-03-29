@@ -1,0 +1,55 @@
+/**
+ * COLUMN
+ * --
+ * Mixin used to format single column widths within a multi-column layout.
+ * This mixin is a replacement of the bourbon neat 'span-columns' mixin. This
+ * mixin relies on calc to work out fixed gutter sizes.
+ *
+ * Simply specify the width of the column compared to the width of the
+ * container using the '$column' and '$span' parameter. For example, if you
+ * wanted a split grid layout of where you had 2 columns of equal width, each
+ * column would need to have $col:1 and $span:2. Another example, if you wanted
+ * a standard article layout where you have a main content area and a side
+ * content area, you could specify $col:8/$span:12 and $col:4/$span:12. You
+ * simply need to make sure that the number of columns across all children add
+ * up to the span value.
+ *
+ * Other parameters include $gutter and $apply_margin. $gutter is simply the
+ * amount of fixed space that you want between the columns. $apply_margin allows
+ * you to remove the margin-right attribute from the column.
+ */
+
+$col-spacing:20px;
+
+@function column_width($col, $span: 12, $width: 100%, $gutter: $col-spacing) {
+    @return calc(((#{$col} / #{$span}) * #{$width})  - (#{$gutter} * ((#{$span} - #{$col}) / #{$span})));
+}
+
+@mixin column($col:1, $span:12, $direction:ltr, $gutter:$col-spacing, $apply_margin:true) {
+    @if ($direction == ltr) {
+        float:left;
+
+        @if ($apply_margin == true) {
+            &:not(:last-child) {
+                /*
+                    Minus 0.01% from the gutter to account for IE calculating
+                    pixel widths poorly.
+                */
+                margin-right: calc(#{$gutter} - 0.01%);
+            }
+        }
+    } @else if ($direction == rtl) {
+        float:right;
+
+        @if ($apply_margin == true) {
+            &:not(:last-child) {
+                /*
+                    Minus 0.01% from the gutter to account for IE calculating
+                    pixel widths poorly.
+                */
+                margin-right: calc(#{$gutter} - 0.01%);
+            }
+        }
+    }
+    width: column_width($col, $span);
+}

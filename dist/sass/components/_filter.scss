@@ -1,0 +1,252 @@
+/**
+ * Filter
+ * --
+ * Contains all of the CSS used to format the search filter that is found at the
+ * top of a standard listing page.
+ */
+
+
+.mh-filter {
+    padding: 20px !important;
+
+    @include media-tablet-portrait() {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__field, &__common {
+        display: flex;
+        max-width: none !important;
+
+        @include media-tablet-portrait() {
+            flex: 0;
+            flex-basis: 200px;
+            margin-right: 20px;
+            margin-top: 0 !important;
+        }
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+
+        > * {
+            flex: 1;
+        }
+
+        .mh-field__text,
+        .mh-field__select,
+        .mh-field__textarea {
+            &:focus {
+                box-shadow:
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.25),
+                    inset 0 3px 3px 0 rgba(0, 0, 0, 0.1) !important;
+            }
+        }
+    }
+
+    &__common {
+        flex-basis: auto;
+
+        &--has-q {
+            flex-basis: 249px;
+
+            .mh-field__control {
+                flex-basis: 200px;
+                margin-right: -1px;
+
+                .mh-field__text {
+                    @include border-right-radius(0);
+                }
+            }
+
+            &.mh-filter__common--has-adv-filter {
+                flex-basis: 349px;
+            }
+        }
+
+        &--has-adv-filter {
+            flex-basis: auto;
+        }
+    }
+
+    &__search-btn {
+        background-color: nth($color-themes, 1);
+        border-radius: $corner-radius;
+        border: none;
+        cursor: pointer;
+        display: block;
+        height: $btn-standard-height;
+        margin: 0;
+        min-width: $btn-standard-height;
+        padding: 0;
+        position: relative;
+        z-index: 2;
+
+        &:hover, &:focus {
+            background-color: darken(nth($color-themes, 1), 5%);
+            outline: none;
+        }
+
+        &:not(:first-child) {
+            @include border-left-radius(0);
+        }
+
+        &:active {
+            box-shadow: inset 0 2px 0 0 rgba(0, 0, 0, 0.15);
+
+            &:before, &:after {
+                top: calc(50% + 1px);
+            }
+        }
+
+        &:before {
+            border: 3px solid #fff;
+            border-radius: 8px;
+            content: '';
+            display: block;
+            height: 16px;
+            margin: -10px -10px 0 0;
+            width: 16px;
+            @include position(absolute, 50% 50% null null);
+        }
+
+        &:after {
+            background-color: #fff;
+            content: '';
+            display: block;
+            height: 8px;
+            margin: 2px 4px 0 0;
+            width: 4px;
+            @include position(absolute, 50% 50% null null);
+            @include transform(rotate(45deg));
+        }
+
+        .mh-filter__search-btn-text {
+            display: none;
+        }
+
+        &-text {
+            border: 1px solid red;
+            display: none;
+        }
+    }
+
+
+    /**
+     * Filter advanced | .mh-filter-adv
+     * --
+     * A dropdown from the search filter which shows advanced form field options
+     * for the user to use to further filter their search results.
+     */
+    &-adv {
+        margin-left: 20px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &--open {
+            .mh-filter-adv__fields {
+                display: block;
+            }
+        }
+
+        &__handle {
+            min-width: 80px;
+            @include btn($color: $color-bkg-nav #fff, $width: auto);
+
+            &-badge {
+                background-color: nth($color-themes, 1);
+                border-radius: 6px;
+                display: inline-block;
+                height: 12px;
+                margin-left: 10px;
+                width: 12px;
+            }
+        }
+
+        &__rel {
+            @include media-mobile() {
+                position: relative;
+                z-index: 11;
+            }
+        }
+
+        &__close {
+            cursor: pointer;
+            display: block;
+            height: 28px;
+            width: 28px;
+            @include position(absolute, 20px 20px null null);
+
+            @include media-mobile() {
+                display: none;
+            }
+
+            @include media-tablet-portrait() {
+                height: 30px;
+                width: 30px;
+            }
+
+            @include media-desktop() {
+                height: 32px;
+                width: 32px;
+            }
+
+            &:hover {
+                &:before, &:after {
+                    background-color: $color-font;
+                }
+            }
+
+            &:before, &:after {
+                background-color: $color-font-light;
+                content: '';
+                display: block;
+                height: 20px;
+                margin: -10px 0 0 -2px;
+                transition: background-color 0.2s ease-in-out;
+                width: 4px;
+                @include position(absolute, 50% null null 50%);
+            }
+
+            &:before {
+                @include transform(rotate(45deg));
+            }
+
+            &:after {
+                @include transform(rotate(-45deg));
+            }
+        }
+
+        &__fields {
+            background-color: #fff;
+            display: none;
+            min-width: 320px;
+
+            @include media-span($from: 0, $to: $mobile-width) {
+                height: 100%;
+                overflow-y: auto;
+                width: 100%;
+                z-index: 15;
+                @include position(fixed, 0px null null 0px);
+            }
+
+            @include media-mobile() {
+                border-radius: $corner-radius;
+                box-shadow:
+                    0 2px 0 0 rgba(0, 0, 0, 0.1),
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+                @include position(absolute, calc(100% + 10px) 0px null null);
+            }
+        }
+
+        .mh-field--btns {
+            margin-top: 20px;
+        }
+    }
+}

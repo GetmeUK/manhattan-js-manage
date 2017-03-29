@@ -1,0 +1,901 @@
+/**
+ * Form
+ * --
+ * Contains all of the CSS used to format a standard form layout.
+--------------------------------------------------------------------------------
+<form
+    action="#"
+    method="get"
+    class="mh-form"
+    >
+    <fieldset class="mh-form__fieldset">
+        <legend class="mh-form__legend">My legend</legend>
+
+        <div class="[ mh-form__field ]  [ mh-field ]">
+            <div class="mh-field__control">
+                <label class="mh-field__label" for="full-name">
+                    <span class="mh-field__label-text">
+                        Full name
+                    </span>
+                </label>
+
+                <input
+                    class="mh-field__text"
+                    id="full-name"
+                    name="full_name"
+                    type="text"
+                    >
+            </div>
+        </div>
+
+        <div class="[ mh-form__field ]  [ mh-field  mh-field--btns ]">
+            <button
+                class="[ mh-field__btn ]  [ btn ]"
+                type="submit"
+                >
+                <span class="mh-field__btn-text">
+                    Submit
+                </span>
+            </button>
+
+            <a
+                class="[ mh-field__btn ]  [ btn ]"
+                href="#"
+                >
+                <span class="mh-field__btn-text">
+                    Cancel
+                </span>
+            </a>
+        </div>
+    </fieldset>
+</form>
+--------------------------------------------------------------------------------
+ */
+
+
+/**
+ * Set the maximum width of the `.mh-field` element. This also affects the width
+ * of the aside element when visible on desktop.
+ */
+$field_width: 600px;
+
+
+/**
+ * Form
+ * --
+ * Styles used to format the main form container, fieldset, legends, and notes.
+ */
+.mh-form {
+    padding: 0;
+
+    &:first-child { margin-top: 0; }
+    &:last-child { margin-bottom: 0; }
+
+    /**
+     * Reverse optional
+     * --
+     * Class used on the form to reverse the behaviour of optional field labels
+     * where-in all required fields will read `(Required)` and all optional
+     * fields will be blank.
+     */
+    &--reverse-optional {
+        .mh-field__label {
+            > .mh-field__label-text {
+                &:after {
+                    color: $color-font-light;
+                    content: ' (Required)';
+                    display: inline;
+                }
+            }
+
+            &--optional {
+                > .mh-field__label-text {
+                    &:after {
+                        display:none;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Fixed buttons
+     * --
+     * Class added using javascript which detects if the height of the page is
+     * larger than the user's window. Class is applied to either the `.mh-form` or
+     * `.mh-form__fieldset` depending on whether or not the `.mh-field--btns` are
+     * wrapped in a `.mh-form__fieldset` or not.
+     */
+    &--fixed-btns {
+        padding-bottom: 75px;
+        padding-top: 0;
+
+        @include media-mobile() {
+            padding-bottom: 55px;
+        }
+
+        @include media-tablet-portrait() {
+            padding-bottom: 69px;
+        }
+
+        > :first-child {
+            padding-top: 20px;
+        }
+
+        .mh-field--btns {
+            box-shadow:
+                0 -5px 5px -1px rgba(0, 0, 0, 0.05),
+                0 -1px 0 0 rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+            display: flex;
+            max-width: 1160px;
+            padding: 20px;
+            transition: box-shadow 0.2s ease-in-out;
+            width: 100%;
+            z-index: 5;
+            @include position(fixed, null null 0px null);
+
+            @include media-mobile() {
+                width: calc(100% - 40px);
+            }
+
+            @include media-tablet-landscape() {
+                width: calc((100% - #{$nav-width-min}) - 40px);
+            }
+
+            @include media-desktop() {
+                width: calc((100% - #{$nav-width-max}) - 40px);
+            }
+
+            .mh-field__btn {
+                max-width: 186.666666667px;
+                margin: 0 20px 0 0;
+
+                @include media-span($from: 0, $to: $tablet-portrait-width) {
+                    @include btn-size(small);
+                }
+
+                &:last-child { margin-right: 0; }
+            }
+
+            &-no-shadow {
+                box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+            }
+
+            /**
+             * If the page has any actions against it, push the form buttons
+             * further from the bottom to accommodate for actions on mobile.
+             */
+            .mh-body--has-actions & {
+                @include media-span($from: 0, $to: $tablet-landscape-width) {
+                    bottom: $action-height;
+                }
+            }
+        }
+    }
+
+    &__fieldset {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 20px;
+
+        &:last-child { border-bottom: none; }
+    }
+
+    &__legend {
+        float: left;
+        display: block;
+        margin-bottom: 20px;
+        width: 100%;
+        @include type(h3);
+
+        &:last-child { margin-top: 0; }
+    }
+
+    &__aside {
+        margin-top: 20px;
+        max-width: $field-width;
+
+        @include media-span($from: 0, $to: $desktop-width) {
+            color: $color-font-light;
+        }
+
+        @include media-desktop() {
+            background-color: lighten($color-bkg-main, 2%);
+            border-radius: $corner-radius;
+            clear: both;
+            float: right;
+            padding: 20px;
+            width: calc(100% - 620px);
+
+            &:first-of-type {
+                margin-top: 0;
+            }
+
+            &--label-above {
+                margin-top: 47px;
+            }
+        }
+
+        &:first-child { margin-top: 0; }
+    }
+
+    &__field {
+        clear: left;
+        margin-top: 20px;
+        max-width: $field_width;
+
+        &:first-child { margin-top: 0; }
+    }
+
+    /**
+     * Form notes / paragraphs. NOTE: This should be added to any paragraph or
+     * note container in order to correctly space it from the other fields.
+     */
+    &__note {
+        margin-top: 20px;
+        color: $color-font-light;
+
+        @include media-tablet-landscape() {
+            max-width: $field_width;
+        }
+
+        &:first-child { margin-top: 0; }
+    }
+}
+
+/**
+ * Field
+ * --
+ * Fields inside of a form. This includes text inputs, textareas, select
+ * dropdowns, booleans, etc.
+ */
+.mh-field {
+    flex-grow: 0;
+    @include clearfix;
+    
+    @include media-mobile() {
+        display: flex;
+    }
+
+    /**
+     * Btns
+     * --
+     * A field that contains the main submit button for the form. Usually
+     * positioned at the bottom of the form in the last fieldset.
+     */
+    &--btns {
+        margin: 20px 0;
+        max-width: none;
+
+        @include media-mobile() {
+            align-items: center;
+            display: flex;
+        }
+
+        @include media-tablet-portrait() {
+            margin: 30px 0;
+        }
+        
+        &:first-child { margin-top: 0; }
+        &:last-child { margin-bottom: 0; }
+
+        .mh-form > & {
+            margin-top: 0;
+            padding: 20px;
+        }
+
+        .mh-field__btn, > * {
+            margin: 20px 0;
+
+            @include media-mobile() {
+                max-width: 186.666666667px;
+                margin: 0 20px 0 0;
+
+                &:last-child { margin-right: 0; }
+            }
+            
+            &:first-child { margin-top: 0; }
+            &:last-child { margin-bottom: 0; }
+        }
+
+        > * {
+            align-items: center;
+            display: flex;
+            max-width: none;
+        }
+    }
+
+    /**
+     * Layouts
+     * --
+     * By default most layouts can be handled without needing to apply any
+     * custom classes to the container. In those cases, simply insert the fields
+     * the flex box will split the space evenly between them. However in cases
+     * where you need the layout to be none fixed, or you have a single control
+     * in a field that you want to be shorter than the rest, you need to use the
+     * custom layouts below.
+     */
+    &--2-4 {
+        @include media-mobile() {
+            > :nth-child(1) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
+            > :nth-child(2) { flex-basis: column_width(4, 6, $field_width); flex-grow: 0; }
+        }
+    }
+
+    &--4-2 {
+        @include media-mobile() {
+            > :nth-child(1) { flex-basis: column_width(4, 6, $field_width); flex-grow: 0; }
+            > :nth-child(2) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
+        }
+    }
+
+    &--3-3 {
+        @include media-mobile() {
+            > :nth-child(1), > :nth-child(2) {
+                flex-basis: column_width(3, 6, $field_width); flex-grow: 0;
+            }
+        }
+    }
+
+    &--2-2-1 {
+        @include media-mobile() {
+            > :nth-child(1) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
+            > :nth-child(2) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
+            > :nth-child(3) { flex-basis: column_width(1, 6, $field_width); flex-grow: 0; }
+        }
+    }
+
+    &--1-2-2 {
+        @include media-mobile() {
+            > :nth-child(1) { flex-basis: column_width(1, 6, $field_width); flex-grow: 0; }
+            > :nth-child(2) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
+            > :nth-child(3) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
+        }
+    }
+
+    &__control {
+        margin-top: 20px;
+        max-width: 100%;
+        position: relative;
+        z-index: 1;
+        
+        @include media-mobile() {
+            flex: 1;
+            margin: 0 20px 0 0;
+
+            &:last-child { margin-right: 0; }
+        }
+        
+        &:first-child { margin-top: 0; }
+
+        &:hover, &--active { z-index: 2; }
+
+        /**
+         * This class is applied to every field by default. However, when the
+         * field is focused-on or active, the styles change below.
+         */
+        &--inactive {
+            .mh-field__label {
+                padding: 0 20px;
+                @include type(standard, $font-weight: 400, $line-height: $field-standard-height);
+            }
+
+            .mh-field__text,
+            .mh-field__select,
+            .mh-field__textarea {
+                line-height: $field-standard-height;
+                padding-top: 0;
+
+                @include placeholder {
+                    color: #fff !important;
+                }
+            }
+
+            .mh-field__textarea {
+                padding-top: 16px;
+            }
+
+            .mh-field__select {
+                color: #fff;
+            }
+        }
+
+        /**
+         * Position field label above the field rather than inside the field.
+         * This style is added by default to tick fields and tick list fields.
+         */
+        &--label-above {
+            > .mh-field__label {
+                color: inherit !important;
+                cursor: default !important;
+                display: block !important;
+                font-weight: 400 !important;
+                padding: 0 0 3px !important;
+                pointer-events: auto !important;
+                position: static !important;
+                text-overflow: clip !important;
+                white-space: normal !important;
+                @include type(standard, $font-weight: 400);
+            }
+
+            .mh-field__text,
+            .mh-field__select,
+            .mh-field__textarea {
+                padding-left: 20px;
+                padding-top: 0;
+                transition: none;
+
+                @include placeholder {
+                    color: $color-font-light;
+                }
+            }
+
+            .mh-field__textarea {
+                padding: 20px;
+            }
+
+            .mh-field__select {
+                color: $color-font;
+            }
+        }
+
+        /**
+         * Shrink the width of the field control element so that it is only as
+         * wide as it needs to be by setting .
+         */
+        &--shrink {
+            flex: 0 0 auto;
+        }
+
+        /**
+         * A class added to the `field__control` element whenever there is an
+         * error against the field. For certain fields, a pop up error message
+         * is shown whenever the field is focused-on or active.
+         */
+        &--error {
+            > .mh-field__label {
+                color: $color-alert-error !important;
+                padding-right: 39px;
+
+                .mh-field__label-text {
+                    margin-right: 5px;
+                }
+            }
+
+            .mh-field__error {
+                display: block;
+                margin-top: 5px;
+                padding-left: 21px;
+                position: relative;
+
+                &-icon {
+                    background-color: $color-alert-error;
+                    border-radius: 50%;
+                    display: block;
+                    height: 16px;
+                    margin-top: -8px;
+                    pointer-events: none;
+                    width: 16px;
+                    @include position(absolute, 50% null null 0px);
+
+                    &:before, &:after {
+                        background-color: #fff;
+                        content: '';
+                        display: block;
+                        height: 8px;
+                        margin: -4px 0 0 -1px;
+                        width: 2px;
+                        @include position(absolute, 50% null null 50%);
+                    }
+
+                    &:before {
+                        @include transform(rotate(45deg));
+                    }
+
+                    &:after {
+                        @include transform(rotate(-45deg));
+                    }
+                }
+
+                &-text {
+                    color: $color-alert-error;
+                    @include type-size(map-get($types, standard));
+                }
+            }
+
+            .mh-field__text,
+            .mh-field__select,
+            .mh-field__textarea {
+                padding-right: 39px;
+
+                &:focus {
+                    box-shadow:
+                        0 3px 0 0 $color-alert-error,
+                        inset 0 -1px 0 0 $color-alert-error,
+                        inset 0 1px 0 0 rgba(0, 0, 0, 0.25),
+                        inset -1px 0 0 0 rgba(0, 0, 0, 0.25),
+                        inset 1px 0 0 0 rgba(0, 0, 0, 0.25),
+                        inset 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+                    color: $color-font;
+
+                    & + .mh-field__error {
+                        .mh-field__error-text {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                + .mh-field__error {
+                    margin-top: 0;
+                    padding-left: 0;
+
+                    .mh-field__error-text {
+                        background-color: $color-bkg-nav;
+                        border-radius: $corner-radius;
+                        max-width: 220px;
+                        opacity: 0;
+                        padding: 5px 10px;
+                        pointer-events: none;
+                        @include position(absolute, null 0px calc(#{$field-standard-height} - 6px) null);
+                        @include transition(opacity 0.2s ease-in-out);
+                        @include type(small, $color: #fff);
+
+                        &:before {
+                            content: '';
+                            display: block;
+                            @include position(absolute, 100% 21px null null);
+                            @include triangle(10px, $color-bkg-nav, down);
+                        }
+                    }
+
+                    .mh-field__error-icon {
+                        height: 26px;
+                        width: 26px;
+                        @include position(absolute, auto 13px 12px auto);
+
+                        &:before, &:after {
+                            height: 14px;
+                            margin: -7px 0 0 -2px;
+                            width: 4px;
+                        }
+                    }
+                }
+            }
+
+            .mh-field__select {
+                background-position: top 50% right 50px;
+                padding-right: 59px;
+            }
+
+            .mh-field__tick {
+                .mh-field__tick-input {
+                    &:focus + .mh-field__label {
+                        &:before {
+                            box-shadow:
+                                0 0 0 1px $color-alert-error,
+                                inset 0 -5px 8px -2px rgba(0, 0, 0, 0.15);
+                        }
+                    }
+
+                    &:checked:focus + .mh-field__label {
+                        &:before {
+                            box-shadow:
+                                0 0 0 1px rgba(0, 0, 0, 0.15),
+                                0 0 0 1px $color-alert-error,
+                                inset 0 -5px 8px -2px rgba(0, 0, 0, 0.15);
+                        }
+                    }
+                }
+
+                .mh-field__label {
+                    color: $color-font !important;
+                }
+            }
+        }
+    }
+
+    &__label {
+        cursor: text;
+        padding: 8px 10px 0;
+        pointer-events: none;
+        text-align: left;
+        transition:
+            color 0.2s ease-in-out,
+            font-size 0.2s ease-in-out,
+            font-weight 0.2s ease-in-out,
+            line-height 0.2s ease-in-out,
+            padding 0.2s ease-in-out;
+        z-index: 2;
+        @include ellipsis();
+        @include position(absolute, 0px null null 0px);
+        @include type(13px 13px, $color: $color-font-light);
+
+        &--optional {
+            > .mh-field__label-text {
+                &:after {
+                    color: $color-font-light;
+                    content: ' (Optional)';
+                    display: inline;
+                }
+            }
+
+            &.mh-field__label--required {
+                > .mh-field__label-text {
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .mh-field__error {
+            display: inline;
+            margin-top: 0;
+        }
+    }
+
+
+    /**
+     * Consistent formatting across text fields, select fields, and textarea
+     * fields.
+     */
+    &__text, &__asset, &__select, &__textarea {
+        background-color: #fff;
+        border: none;
+        border-radius: $corner-radius;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+        display: block;
+        height: $field-standard-height;
+        margin: 0;
+        padding: 18px 10px 0;
+        text-align: left;
+        transition:
+            line-height 0.2s ease-in-out,
+            padding 0.2s ease-in-out;
+        width: 100%;
+        @include type(standard, $color: $color-font, $font-weight:400);
+
+        @include placeholder {
+            color: $color-font-light !important;
+            padding: 0 !important;
+            transition: color 0.2s ease-in-out;
+            @include type(standard, $font-weight: 300, $line-height: $field-standard-height);
+        }
+
+        &:hover {
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+        }
+
+        &:focus {
+            box-shadow:
+                0 3px 0 0 nth($color-themes, 1),
+                inset 0 -1px 0 0 nth($color-themes, 1),
+                inset 0 1px 0 0 rgba(0, 0, 0, 0.25),
+                inset -1px 0 0 0 rgba(0, 0, 0, 0.25),
+                inset 1px 0 0 0 rgba(0, 0, 0, 0.25),
+                inset 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+            color: $color-font;
+        }
+    }
+
+    &__text--small, &__asset, &__select--small {
+        font-size: 14px;
+        height: $field-small-height;
+        line-height: $field-small-height;
+        padding-top: 0;
+        padding-left: 10px;
+
+        @include placeholder {
+            font-size: 14px;
+            line-height: $field-small-height;
+        }
+    }
+
+    /**
+     * Select
+     * --
+     * Custom formatting for select dropdown fields
+     */
+    &__select {
+        background:
+            #fff
+            url('../images/icon-arrow-down.svg')
+            right 15px top 50%
+            no-repeat;
+        background-size: 9px 4px;
+        color: $color-font;
+        cursor: pointer;
+        padding-right: 24px;
+        @include appearance(none);
+
+        &:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 $color-font;
+        }
+    }
+
+    /**
+     * Textarea
+     * --
+     * Custom formatting for textarea fields
+     */
+    &__textarea {
+        height: 200px;
+        min-height: 200px;
+        padding-top: 24px;
+        padding-bottom: 10px;
+        resize: vertical;
+        @include type-size(map-get($types, standard));
+
+        &--shrink {
+            height: 100px;
+            min-height: 100px;
+        }
+
+        &--grow {
+            height: 300px;
+            min-height: 300px;
+        }
+    }
+
+    /**
+     * Ticks
+     * --
+     * A container for showing a list of ticks
+     */
+    &__ticks {
+        margin-top: -5px;
+
+        &--flexible {
+            .mh-field__tick {
+                display: inline-block;
+                margin-right: 20px;
+            }
+        }
+
+        &--split {
+            @include media-mobile() {
+                display: flex;
+                flex-wrap: wrap;
+
+                .mh-field__tick {
+                    width: 50%;
+                }
+            }
+        }
+
+        .mh-field__tick {
+            margin-top: 5px;
+        }
+    }
+
+    /**
+     * Tick
+     * --
+     * A container for a single tick and it's associated label. The tick input
+     * is actually hidden, and instead the associated label is used to format
+     * a "fake" tick instead.
+     */
+    &__tick {
+
+        /**
+         * The tick input is actually hidden by default, and the associated
+         * label is used to format a "fake" tick instead.
+         */
+        &-input {
+            @include homer();
+
+            & + .mh-field__label {
+                cursor: pointer;
+                display: inline-block;
+                overflow: visible;
+                padding: 0 0 0 29px;
+                pointer-events: auto;
+                position: relative;
+                text-overflow: clip;
+                white-space: normal;
+                @include type(standard, $font-weight: 400);
+
+                &:hover {
+                    &:before {
+                        box-shadow:
+                            inset 0 0 0 1px rgba(0, 0, 0, 0.25),
+                            inset 0 -5px 8px -2px rgba(0, 0, 0, 0.15);
+                    }
+                }
+
+                &:before {
+                    background-color: #fff;
+                    border-radius: $corner-radius;
+                    box-shadow:
+                        inset 0 0 0 1px rgba(0, 0, 0, 0.15),
+                        inset 0 -5px 8px -2px rgba(0, 0, 0, 0.15);
+                    content: '';
+                    display: block;
+                    height: 19px;
+                    margin-top: -10px;
+                    width: 19px;
+                    @include position(absolute, 50% null null 0px);
+                }
+
+                .mh-field__label-text {
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+
+            /**
+             * A rounded style is used for tick fields with a type of radio.
+             */
+            &[type='radio'] + .mh-field__label {
+                &:before {
+                    border-radius: 50%;
+                }
+
+                &:after {
+                    background-color: #fff;
+                    border-radius: 50%;
+                    content: '';
+                    display: none;
+                    height: 7px;
+                    margin-top: -4px;
+                    width: 7px;
+                    @include position(absolute, 50% null null 6px);
+                }
+            }
+
+            /**
+             * A square style is used for tick fields with a type of checkbox.
+             */
+            &[type='checkbox'] + .mh-field__label {
+                &:after {
+                    border-bottom: 3px solid #fff;
+                    border-right: 3px solid #fff;
+                    content: '';
+                    display: none;
+                    height: 12px;
+                    margin-top: -8px !important;
+                    width: 7px;
+                    @include position(absolute, 50% null null 6px);
+                    @include transform(rotate(45deg));
+                }
+            }
+
+            &:focus + .mh-field__label {
+                &:before {
+                    box-shadow:
+                        0 0 0 1px nth($color-themes, 1),
+                        inset 0 -5px 8px -2px rgba(0, 0, 0, 0.15);
+                }
+            }
+
+            &:checked + .mh-field__label {
+                &:before { background-color: nth($color-themes, 1); }
+                &:after { display: block !important; }
+            }
+
+            &:checked:focus + .mh-field__label {
+                &:before {
+                    box-shadow:
+                        0 0 0 1px rgba(0, 0, 0, 0.15),
+                        0 0 0 1px nth($color-themes, 1),
+                        inset 0 -5px 8px -2px rgba(0, 0, 0, 0.15);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Btn
+     * --
+     * A button used to submit the form.
+     */
+    &__btn {
+        margin: 20px 0;
+        
+        &:first-child { margin-top: 0; }
+        &:last-child { margin-bottom: 0; }
+    }
+}

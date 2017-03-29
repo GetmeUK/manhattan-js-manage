@@ -1,0 +1,274 @@
+/**
+ * SETTINGS
+ * --
+ * Contains all of the commmonly used variables that are used across the SCSS
+ * files. For example, regularly used colours and sizes should be held here.
+ * This helps make these values more manageable as the UI progresses and
+ * changes.
+ */
+
+
+/**
+ * Standard sizes
+ */
+$frame-width:   1480px !default;
+$nav-width-min: 260px  !default;
+$nav-width-max: 280px  !default;
+
+
+/**
+ * Logo
+ * --
+ * You can choose whether or not to show a logo in the CMS UI on mobile and/or
+ * desktop. Hiding it, will still show the name of the project just without any
+ * image. By default the logo is hidden on mobile and visible on desktop as
+ * logos are often to large to fit in the space provided in the mobile header.
+ * As a background image is used for the logo, you can set a height and
+ * max-width for the logo container in desktop.
+ */
+$logo-mobile:  false                       !default;
+$logo-desktop: '../images/logo.svg'        !default;
+$logo-height:  70px                        !default; // Desktop height
+$logo-width:   220px                       !default; // Desktop max-width
+
+
+/**
+ * Mobile header height
+ * --
+ * You can modify the height of the header bar shown to mobile users. The menu
+ * links inside it will scale appropriately with the height.
+ */
+$mobile-header-height: 60px !default;
+
+
+/**
+ * User navigation height in desktop
+ * --
+ * To achieve a CSS transition style for opening/closing the options for the
+ * user navigation shown on the desktop view, we need to know the height of the
+ * sub-navigation area. Currently there are only 2 navigation links in the
+ * user navigation, however if more are added, then you'll need to modify the
+ * max-height variable used below appropriately.
+ */
+$user-nav-max-height-desktop: 148px;
+
+
+/**
+ * Corner radius
+ * --
+ * You can set the border radius that is used generically across the website on
+ * elements such as buttons, form fields, box containers, etc.
+ */
+$corner-radius: 3px !default;
+
+
+/**
+ * Menu burger icon sizes
+ * --
+ * You can set the size and style of the burger menu icon for mobile. It is
+ * broken down into different components to help achieve the animation effect.
+ *
+ * The styles used for the animation were originally written by a guy called Jon
+ * Suh. We have retained the class names but converted it all to use BEM and
+ * cut down on some of the unused styles/attributes. We have used the elastic
+ * animation style documented on his website. All of the documentation and
+ * available animations can be found on his website below:
+ *
+ * https://jonsuh.com/hamburgers/
+ */
+$burger-dash-width:   22px !default;
+$burger-dash-height:  3px  !default;
+$burger-dash-radius:  4px  !default;
+$burger-dash-spacing: 6px  !default;
+$burger-box-height:   $burger-dash-height * 3 + $burger-dash-spacing * 2 !default;
+
+
+/**
+ * User profile icon sizes
+ * --
+ * You can set the size of the user profile icon for both mobile and desktop.
+ */
+$user-profile-size: 30px !default;
+$user-profile-size-desktop: $user-profile-size * 1.2 !default;
+
+
+/**
+ * Sub nav list
+ * --
+ * To achieve a CSS transition style for open/close sub-navigation menus we need
+ * to know the height of each item. We then multiply that height by the number
+ * of items in the `.sub-list` to determine the maximum height of that element.
+ */
+$sub-nav-item-height: 36px !default;
+$sub-nav-items-max:   10   !default;
+
+
+/**
+ * Actions
+ * --
+ * Due to the way that actions are built as a single list but displayed as 2
+ * separate lists (in desktop), we need to know the height of each action, and
+ * the number in each list. The only reason to change the `action-height`, is if
+ * you want to change the size/style of action buttons. Setting the
+ * `visible-actions` determines the number of actions that are shown as buttons.
+ * Any actions that exceed this number are put into a seperate dropdown list.
+ * Due to the way that the actions list is generated in the CSS, we need to
+ * pre-define a number of styles based on the possible number of actions in any
+ * list. To help reduce the amount of CSS generated, we set a `max-actions`
+ * value. If you ever need more than X actions on any page, this value should be
+ * increased to accommodate it.
+ */
+$action-height:   36px !default;
+$max-actions:     6    !default;
+$visible-actions: 3    !default;
+
+
+/**
+ * Buttons
+ */
+$btn-standard-height: 50px;
+$btn-small-height:    36px;
+
+
+/**
+ * Form fields
+ */
+$field-standard-height: 50px;
+$field-small-height:    36px;
+
+
+/**
+ * Responsive breakpoints
+ */
+$mobile-width:           480px  !default;
+$email-width:            682px  !default;
+$tablet-portrait-width:  780px  !default;
+$tablet-landscape-width: 1080px !default;
+$desktop-width:          1280px !default;
+$outer-width:            1480px !default;
+
+
+/**
+ * Icons
+ * --
+ * All icons used on the website can be customised below. When adding more icons
+ * simply specify a name, path, and orientation. For example:
+--------------------------------------------------------------------------------
+$nav-icons: (
+    sign-out: ('../images/icon-sign-out.svg', 'right'),
+    update:   ('../images/icon-update.svg', 'left')
+);
+--------------------------------------------------------------------------------
+ * The icon name is used to build the icon class, the path is used for the
+ * background image, and the orientation sets where it lies in the element
+ * (`left` or `right`). To apply an icon to an applicable element, add the icon
+ * to the appropriate variable list below and then apply the class to the
+ * element in the page. For example:
+--------------------------------------------------------------------------------
+<a class="mh-nav__link-text  mh-nav__link-text--icon-sign-out" href="/sign-out">
+    Sign-out
+</a>
+
+<a class="mh-nav__link-text  mh-nav__link-text--icon-update" href="/update">
+    Update my profile
+</a>
+--------------------------------------------------------------------------------
+ * Please note that the class name is built as a modifier of the existing
+ * element class and so you don't need to include the original class in your
+ * icon name. I.e. 'mh-nav__link-text--icon-' + 'sign-out'.
+ */
+$nav-icons: (
+    sign-out: ('../images/icon-sign-out.svg', 'right')
+) !default;
+
+/**
+ * The user icon is positioned inside of the user navigation handle. If you
+ * don't like the existing profile icon built using CSS you can provide an image
+ * path below instead.
+ */
+$user-profile-icon: false !default;
+
+
+/**
+ * Type sizes
+ * --
+ * A list of standard font-sizes and line-heights that are used across the UI.
+ * The first value is the font-size and the second is the line-height. If using
+ * REMs you can set a base font-size from which it can scale from below. If not
+ * using REMs, this value would be ignored.
+ */
+$base-font-size: 14px !default;
+$types: (
+    h1:       (24px, 130%, 28px, 125%, 34px, 120%),
+    h2:       (21px, 140%, 24px, 135%, 27px, 130%),
+    h3:       (18px, 150%, 20px, 145%, 22px, 140%),
+    large:    (16px, 160%, 17px, 155%),
+    standard: (14px, 170%, 15px, 165%),
+    small:    (13px, 170%),
+    nav:      (17px, 155%),
+    sub-nav:  (15px, 165%)
+) !default;
+
+
+/**
+ * Font family
+ */
+$font-family-1: Ubuntu, sans-serif !default;
+
+
+/**
+ * Colour themes
+ * --
+ * You can call a colour theme using `nth($color-themes, 1)`. Where multiple
+ * colour themes can be used (i.e. Buttons), we loop through each one and
+ * generate styles based on the number of colour themes provided. This allows
+ * you to add as many colour themes as you want here and simply set a modifier
+ * class in the HTML to access them, without needing to modify the CSS.
+ */
+$color-themes: (
+    #E26A6A  // 1 - Sunset Red
+) !default;
+
+
+/**
+ * Standard colours
+ */
+$color-bkg-frame:     #d4dce0 !default; // Light grey
+$color-bkg-nav:       #334144 !default; // Very dark blue/grey
+$color-bkg-main:      #eff2f4 !default; // Very light grey
+
+$color-font:          #666666 !default; // Dark grey
+$color-font-light:    #999999 !default; // Grey
+$color-font-lighter:  #c5c5c5 !default; // Light Grey
+$color-font-reverse:  #dddddd !default; // Lighter grey
+$color-font-link:     nth($color-themes, 1) !default;
+
+$color-alert:         #26C281 !default; // Light green
+$color-alert-error:   #D64541 !default; // Vibrant red
+$color-alert-warning: #EB9532 !default; // Orange
+$color-alert-success: $color-alert !default;
+
+
+/**
+ * Btns
+ * --
+ * A list of buttons with their associated colour and type. Any values added to
+ * the list below can used as a class against an button element to apply the
+ * style. For example `primary` can be applied by adding the class
+ * `btn--primary` or `mh-action__link--primary`.
+ */
+$btns: (
+    primary:          (nth($color-themes, 1), standard),
+    primary-bordered: (nth($color-themes, 1), bordered),
+    disabled:         (false, disabled),
+) !default;
+
+
+/**
+ * Permanent scroll bar
+ * --
+ * To prevent there being a slight jolt in the appearance of the page when the
+ * user switches between pages with and without scoll bars, we've added a
+ * setting which permanently adds a scroll bar to the window if it is true.
+ */
+$permanent_scroll_bar: true !default;

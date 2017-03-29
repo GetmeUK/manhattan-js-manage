@@ -1,0 +1,341 @@
+/**
+ * Dataset
+ * --
+ * Contains all of the CSS used to format the datasets on view pages.
+ */
+
+
+.mh-dataset {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    padding: 0;
+    @include type(standard);
+
+    &__head {
+        padding: 20px;
+    }
+
+    &__heading {
+        flex: 0 0 auto;
+        @include type(h3);
+    }
+
+    &__row {
+        border-top: 1px solid $color-bkg-main;
+        flex: 0 0 auto;
+        padding: 0;
+
+        @include media-tablet-portrait() {
+            display: flex;
+        }
+
+        &:first-child {
+            border-top: none;
+
+            > .mh-dataset__column {
+                @include media-span($from: 0, $to: $tablet-portrait-width) {
+                    &:first-child {
+                        padding-top: 20px;
+                    }
+                }
+
+                @include media-tablet-portrait() {
+                    padding-top: 20px;
+                }
+            }
+        }
+
+        &:last-child {
+            flex: 1;
+
+            > .mh-dataset__column {
+                @include media-span($from: 0, $to: $tablet-portrait-width) {
+                    &:last-child {
+                        padding-bottom: 20px;
+                    }
+                }
+
+                @include media-tablet-portrait() {
+                    padding-bottom: 20px;
+                }
+            }
+        }
+
+        &--2-1 {
+            > :nth-child(1) { flex: 2 !important; }
+            > :nth-child(2) { flex: 1 !important; }
+        }
+
+        &--1-2 {
+            > :nth-child(1) { flex: 1 !important; }
+            > :nth-child(2) { flex: 2 !important; }
+        }
+
+        &--3-1 {
+            > :nth-child(1) { flex: 3 !important; }
+            > :nth-child(2) { flex: 1 !important; }
+        }
+
+        &--1-3 {
+            > :nth-child(1) { flex: 1 !important; }
+            > :nth-child(2) { flex: 3 !important; }
+        }
+
+        &--2-1-1 {
+            > :nth-child(1) { flex: 2 !important; }
+            > :nth-child(2) { flex: 1 !important; }
+            > :nth-child(3) { flex: 1 !important; }
+        }
+
+        &--1-2-1 {
+            > :nth-child(1) { flex: 1 !important; }
+            > :nth-child(2) { flex: 2 !important; }
+            > :nth-child(3) { flex: 1 !important; }
+        }
+
+        &--1-1-2 {
+            > :nth-child(1) { flex: 1 !important; }
+            > :nth-child(2) { flex: 1 !important; }
+            > :nth-child(3) { flex: 2 !important; }
+        }
+
+        .mh-dataset {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            flex: 1;
+
+            @include media-tablet-portrait() {
+                border-top: none;
+                border-left: 1px solid $color-bkg-main;
+            }
+
+            &:first-child {
+                border: none;
+
+                .mh-dataset__head {
+                    @include media-tablet-portrait() {
+                        padding-left: 20px;
+                    }
+                }
+
+                .mh-dataset__column {
+                    > * {
+                        @include media-tablet-portrait() {
+                            margin-left: 20px;
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                .mh-dataset__head {
+                    @include media-tablet-portrait() {
+                        padding-right: 20px;
+                    }
+                }
+
+                .mh-dataset__column {
+                    > * {
+                        @include media-tablet-portrait() {
+                            margin-right: 20px;
+                        }
+                    }
+                }
+            }
+
+            &__head {
+                @include media-tablet-portrait() {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+
+            &__row {
+                &:first-child > .mh-dataset__column {
+                    @include media-span($from: 0, $to: $tablet-portrait-width) {
+                        &:first-child {
+                            padding-top: 20px;
+                        }
+                    }
+
+                    @include media-tablet-portrait() {
+                        padding-top: 20px;
+                    }
+                }
+
+                &:last-child > .mh-dataset__column {
+                    @include media-span($from: 0, $to: $tablet-portrait-width) {
+                        &:last-child {
+                            padding-bottom: 20px;
+                        }
+                    }
+
+                    @include media-tablet-portrait() {
+                        padding-bottom: 20px;
+                    }
+                }
+            }
+
+            .mh-dataset__column {
+                > * {
+                    @include media-tablet-portrait() {
+                        margin-left: 10px;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        overflow-x: auto;
+        padding: 10px 0;
+
+        @include media-span($from: 0, $to: $tablet-portrait-width) {
+            border-top: 1px solid $color-bkg-main;
+
+            &:first-child {
+                border-top: none;
+            }
+        }
+
+        @include media-tablet-portrait() {
+            border-left: 1px solid $color-bkg-main;
+            flex: 1;
+
+            &:first-child {
+                border-left: none;
+
+                > * {
+                    margin-left: 20px;
+                }
+            }
+
+            &:last-child {
+                > * {
+                    margin-right: 20px;
+                }
+            }
+        }
+
+        > * {
+            margin-left: 10px;
+            margin-right: 10px;
+
+            @include media-span($from: 0, $to: $tablet-portrait-width) {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+
+        &--pad {
+            > * {
+                margin-left: 20px !important;
+                margin-right: 20px !important;
+            }
+        }
+    }
+
+    &__label {
+        flex: 0 0 auto;
+        margin-bottom:2px;
+        @include type(small, $color: $color-font-light);
+        @include ellipsis();
+    }
+
+    &__value,
+    &__image,
+    &__map {
+        flex: 1;
+    }
+
+    &__value {
+        > a {
+            color: $color-font-link;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        > audio {
+            display: block;
+            width: 100%;
+        }
+
+        &, &.mh-formatted {
+            font-weight: 400;
+        }
+    }
+
+    &__image {
+        align-items: stretch;
+        display: flex;
+        justify-content: center;
+
+        &:not(:first-child) {
+            margin-top: 5px;
+        }
+
+        &--flexible {
+            background-size: auto;
+        }
+
+        > a {
+            align-items: stretch;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        &-frame {
+            background: lighten($color-bkg-main, 2%) center center no-repeat;
+            background-size: contain;
+            border-radius: $corner-radius;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+            flex: 1;
+        }
+
+        &-elm {
+            display: block;
+            max-width: 100%;
+            visibility: hidden;
+        }
+    }
+
+    &__map {
+        max-height: 500px;
+        position: relative;
+        overflow: hidden;
+
+        &:not(:first-child) {
+            margin-top: 5px;
+        }
+
+        &--short { flex-basis: 250px; }
+
+        &-push {
+            min-height: 200px;
+            padding-top: 50%;
+        }
+
+        &-frame {
+            background-color: lighten($color-bkg-main, 2%);
+            border-radius: $corner-radius;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+            display: block;
+            height: 100% !important;;
+            left: 0 !important;
+            overflow: hidden;
+            position: absolute !important;
+            top: 0 !important;
+            width: 100% !important;;
+
+            canvas, iframe {
+                border-radius: $corner-radius;
+            }
+        }
+    }
+}

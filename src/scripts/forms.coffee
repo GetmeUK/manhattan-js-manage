@@ -87,14 +87,14 @@ inFieldLabels = () ->
             'blur': (ev) ->
                 field.classList.remove('mh-field__control--focused')
 
-            'fill': (ev) ->
+            'focus': (ev) ->
+                field.classList.add('mh-field__control--focused')
+
+            'mh-forms-fields--fill': (ev) ->
                 if ev.filled
                     field.classList.add('mh-field__control--filled')
                 else
                     field.classList.remove('mh-field__control--filled')
-
-            'focus': (ev) ->
-                field.classList.add('mh-field__control--focused')
 
 # ToggleFields
 

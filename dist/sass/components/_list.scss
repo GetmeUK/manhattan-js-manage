@@ -1,0 +1,231 @@
+/**
+ * List
+ * --
+ * Contains all of the CSS used to format the standard list style used within
+ * the main content area.
+ */
+
+
+.mh-list {
+    overflow-x: auto;
+    @include type(standard);
+
+    /**
+     * Table list type
+     * --
+     * A list of data in a tabular structure. This list type is used when you
+     * have a list of text data.
+     */
+    &__table {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 20px -20px;
+
+        &:first-child {
+            border-top: none;
+            margin-top: -20px !important;
+        }
+
+        &:last-child {
+            margin-bottom: -20px !important;
+        }
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.fixed {
+            @include media-tablet-portrait() {
+                table-layout: fixed;
+                min-width: 320px;
+
+                th, td { overflow: hidden; }
+            }
+        }
+    }
+
+    tr {
+        &[data-url]:hover {
+            td {
+                background-color: rgba(nth($color-themes, 1), 0.15);
+                cursor: pointer;
+            }
+        }
+
+        &:nth-child(2n) {
+            td {
+                background-color: lighten($color-bkg-main, 2%);
+            }
+        }
+
+        &.error {
+            td:first-child {
+                box-shadow: inset 5px 0 0 0 $color-alert-error;
+            }
+        }
+    }
+
+    th {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        flex: 1;
+        padding: 0 0 1px;
+        text-align: left;
+        white-space: nowrap;
+        @include type(large, $font-weight: 500);
+
+        &:first-child {
+            .th__wrap { padding-left: 20px; }
+        }
+
+        &:last-child {
+            .th__wrap { padding-right: 20px; }
+        }
+
+        &[data-sort-with] {
+            &[data-sort-direction="ASC"] {
+                padding-bottom: 0;
+                border-bottom: 2px solid nth($color-themes, 1);
+
+                .th__wrap {
+                    
+                    &:after {
+                        content: '';
+                        display: block;
+                        @include calc('bottom', '50% - 6px');
+                        @include position(absolute, null 16px null null);
+                        @include triangle(8px, $color-font, down);
+                    }
+                    
+                    &:before {
+                        background-color: $color-font;
+                        border: none;
+                        content: '';
+                        display: block;
+                        height: 7px;
+                        width: 2px;
+                        @include calc('top', '50% - 5px');
+                        @include position(absolute, null 19px null null);
+                    }
+                }
+            }
+
+            &[data-sort-direction="DESC"] {
+                padding-bottom: 0;
+                border-bottom: 2px solid nth($color-themes, 1);
+
+                .th__wrap {
+                    &:before {
+                        content: '';
+                        display: block;
+                        @include calc('top', '50% - 6px');
+                        @include position(absolute, null 16px null null);
+                        @include triangle(8px, $color-font, up);
+                    }
+                    
+                    &:after {
+                        background-color: $color-font;
+                        border: none;
+                        content: '';
+                        display: block;
+                        height: 7px;
+                        width: 2px;
+                        @include calc('bottom', '50% - 5px');
+                        @include position(absolute, null 19px null null);
+                    }
+                }
+            }
+
+            &:hover {
+                padding-bottom: 0;
+                border-bottom: 2px solid nth($color-themes, 1);
+
+                .th__wrap {
+                    &:before, &:after {
+                        background: none;
+                        content: '';
+                        display: block;
+                        height: auto;
+                        width: auto;
+                    }
+
+                    &:before {
+                        @include calc('top', '50% - 6px');
+                        @include position(absolute, null 16px null null);
+                        @include triangle(8px, $color-font, up);
+                    }
+
+                    &:after {
+                        @include calc('bottom', '50% - 6px');
+                        @include position(absolute, null 16px null null);
+                        @include triangle(8px, $color-font, down);
+                    }
+                }
+            }
+
+            .th__wrap {
+                cursor: pointer;
+                padding-right: 40px;
+                position: relative;
+
+                &:before, &:after {
+                    background: none;
+                    content: '';
+                    display: block;
+                    height: auto;
+                    width: auto;
+                }
+
+                &:before {
+                    @include calc('top', '50% - 6px');
+                    @include position(absolute, null 16px null null);
+                    @include triangle(8px, darken($color-bkg-main, 7.5%), up);
+                }
+
+                &:after {
+                    @include calc('bottom', '50% - 6px');
+                    @include position(absolute, null 16px null null);
+                    @include triangle(8px, darken($color-bkg-main, 7.5%), down);
+                }
+            }
+        }
+
+        .th__wrap {
+            padding: 12px 10px 10px;
+            white-space: nowrap;
+        }
+    }
+
+
+    td {
+        height: 50px;
+        padding: 5px 10px;
+        text-align: left;
+        vertical-align: middle;
+
+        &:first-child {
+            padding-left: 20px;
+        }
+        
+        &:last-child {
+            padding-right: 20px;
+        }
+    }
+
+    &__empty {
+        td {
+            font-style: italic;
+            height: 90px;
+            text-align: center;
+            @include type(h3, $color: $color-font-light);
+
+        }
+    }
+}

@@ -1,0 +1,132 @@
+/**
+ * RESET
+ * --
+ * A best attempt at setting a bunch of styles that reset any default formatting
+ * added to emails by each of the email clients.
+ */
+
+
+html {
+    font-size: $base-font-size;
+
+    /**
+     * Preserve font-size when iPhone changes from portrait to landscape
+     */
+    -webkit-text-size-adjust: 100%;
+}
+
+#outlook a {
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    min-width: 100%;
+    padding: 0;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+table.body {
+    height: 100%;
+    width: 100%;
+}
+
+.ExternalClass {
+    width: 100%;
+}
+
+#backgroundTable {
+    line-height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+img {
+    clear: both;
+    display: block;
+    float: left;
+    max-width: 100%;
+    outline: none;
+    text-decoration: none;
+    width: 100%;
+    -ms-interpolation-mode: bicubic;
+    
+    @include media-email-tablet() {
+        table[class="body"] & {
+            float: none !important;
+            height: auto !important;
+            margin-left: auto !important; margin-right: auto !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+    }
+}
+
+a img, a:hover img {
+    border: none;
+    text-decoration: none !important;
+}
+
+center {
+    margin: 0 auto;
+    min-width: $email-width;
+    width: 100%;
+    
+    @include media-email-tablet() {
+        table[class="body"] & {
+            min-width: 0 !important;
+        }
+    }
+}
+
+h1, h2, h3, p, ul, ol, img {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-spacing: 0;
+    letter-spacing: 0.01em;
+}
+
+td {
+    border-spacing: 0;
+    hyphens: auto;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+}
+
+table, tr, td {
+    padding: 0;
+    text-align: inherit;
+    vertical-align: top;
+}
+
+strong, b { font-weight: 700; }
+
+/**
+ * Outlook First
+ */
+body.outlook p {
+    display: inline;
+}
+
+/**
+ * Set a standard font size and line height against every html element by
+ * default.
+ */
+* {
+    color: $color-font;
+    font-family: $font-family-1;
+    font-weight: 300;
+    @include type-size(map-get($types, standard));
+}
+
+a {
+    color: nth($color-themes, 1);
+    text-decoration: underline;
+}

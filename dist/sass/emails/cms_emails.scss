@@ -1,0 +1,48 @@
+/**
+ * EMAILS
+ * --
+ * Contains all imports for all stylesheets used to format emails.
+ * Stylesheets are broken up into multiple, more manageable files and imported
+ * into this stylesheet using SCSS.
+ */
+
+
+@charset 'UTF-8';
+
+
+/**
+ * Settings
+ * --
+ * A collection of commmonly used variables that are used across the different
+ * scss files.
+ */
+@import '../settings';
+
+
+/**
+ * Helpers
+ * --
+ * A set of useful helper mixins used to avoid duplication of commonly written
+ * CSS attributes. Also includes any external libraries.
+ */
+@import '../helpers/bourbon/bourbon';
+@import '../helpers/media_queries';
+@import '../helpers/type';
+
+
+/**
+ * Common
+ * --
+ * General stylesheets and styles that are used broadly across the entire email.
+ */
+@import 'reset';
+@import 'common';
+
+
+/**
+ * Structure
+ * --
+ * Stylesheets that are used to format the core structure of the admin UI, and
+ * used on every standard page of the UI.
+ */
+@import 'structure';

@@ -1,0 +1,151 @@
+/**
+ * FRAME
+ * --
+ * Stylesheet used to format the outer frame of the CMS.
+ */
+
+
+.mh-frame {
+    background-color: $color-bkg-frame;
+    display: flex;
+    min-height: 100%;
+
+    @include media-span($from: 0, $to: $tablet-landscape-width) {
+        padding-top: $mobile-header-height;
+
+        &--prime-nav-open {
+            .mh-prime-nav__handle {
+                background-color: nth($color-themes, 1);
+
+                &-dash {
+                    transform:
+                        translate3d(
+                            0,
+                            ($burger-dash-spacing + $burger-dash-height),
+                            0
+                        )
+                        rotate(135deg);
+                    transition-delay: 0.1s;
+
+                    &:before {
+                        opacity: 0;
+                        transition-delay: 0s;
+                    }
+
+                    &:after {
+                        transform:
+                            translate3d(
+                                0,
+                                ($burger-dash-spacing + $burger-dash-height) * -2,
+                                0
+                            )
+                            rotate(-270deg);
+                        transition-delay: 0.1s;
+                    }
+                }
+            }
+
+            .mh-user-nav__list,
+            .mh-user-nav__handle-name {
+                right: (-($nav-width-min * 2));
+            }
+
+            .mh-frame__main {
+                margin-left: $nav-width-min;
+            }
+
+            .mh-prime-nav__list {
+                left: 0;
+            }
+
+            .mh-actions {
+                left: $nav-width-min;
+            }
+        }
+
+        &--user-nav-open {
+            .mh-user-nav__handle {
+                background-color: nth($color-themes, 1);
+
+                &-icon {
+                    &:before, &:after {
+                        background-color: nth($color-themes, 1);
+                    }
+                }
+            }
+
+            .mh-user-nav__handle-name,
+            .mh-user-nav__list {
+                right: 0;
+            }
+
+            .mh-frame__main {
+                margin-left: (-$nav-width-min);
+            }
+
+            .mh-prime-nav__list {
+                left: (-($nav-width-min * 2));
+            }
+
+            .mh-actions {
+                left: (-$nav-width-min);
+            }
+        }
+    }
+
+    @include media-span($from: $tablet-landscape-width, $to: 0) {
+        &--user-nav-open {
+            .mh-user-nav__handle {
+                box-shadow: none;
+
+                &:after {
+                    border: none;
+                    @include triangle(8px, $color-bkg-main, up);
+                }
+            }
+
+            .mh-user-nav__list {
+                @include media-tablet-landscape() {
+                    max-height: $user-nav-max-height-desktop;
+                }
+            }
+        }
+    }
+
+    @include media-outer() {
+        padding: 20px 0 0;
+    }
+    
+    @include media-span($from: $outer-width + 200px, $to: 0) {
+        padding-top: 40px;
+    }
+
+    @include media-span($from: $outer-width + 400px, $to: 0) {
+        padding-top: 60px;
+    }
+
+    &__inner {
+        background-color: $color-bkg-nav;
+        display: flex;
+        flex: 1;
+        margin: 0 auto;
+        max-width: 100%;
+        width: 100%;
+
+        @include media-span($from: 0, $to: $tablet-landscape-width) {
+            flex-direction: column;
+        }
+
+        @include media-span($from: $frame-width, $to: 0) {
+            max-width: $frame-width;
+        }
+
+        @include media-desktop() {
+            transition: border-radius 0.5s ease-in-out;
+        }
+
+        @include media-outer() {
+            border-radius: $corner-radius ($corner-radius * 2) 0 0;
+        }
+    }
+}
