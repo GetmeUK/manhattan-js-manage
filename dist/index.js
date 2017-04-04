@@ -100,7 +100,8 @@ results = __webpack_require__(5);
 
 init = function() {
   flashes.init();
-  return forms.init();
+  forms.init();
+  return nav.init();
 };
 
 module.exports = {
@@ -216,12 +217,15 @@ inFieldLabels = function() {
     }
     results.push($.listen(input, {
       'blur': function(ev) {
+        field = $.closest(this, '.mh-field__control');
         return field.classList.remove('mh-field__control--focused');
       },
       'focus': function(ev) {
+        field = $.closest(this, '.mh-field__control');
         return field.classList.add('mh-field__control--focused');
       },
       'mh-forms-fields--fill': function(ev) {
+        field = $.closest(this, '.mh-field__control');
         if (ev.filled) {
           return field.classList.add('mh-field__control--filled');
         } else {
@@ -456,7 +460,7 @@ init = function() {
       }
     });
   }
-  actionsNav = $.many('.mh-actions');
+  actionsNav = $.one('.mh-actions');
   if (actionsNav) {
     actionsHandle = $.one('.mh-actions__handle', actionsNav);
     new mhNav.NavItem(actionsHandle, {
@@ -476,7 +480,7 @@ init = function() {
       }
     });
   }
-  filterNav = $.many('.mh-filter-adv');
+  filterNav = $.one('.mh-filter-adv');
   if (filterNav) {
     filterHandle = $.one('.mh-filter-adv__handle', filterNav);
     new mhNav.NavItem(filterHandle, {
@@ -606,7 +610,7 @@ module.exports = {
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.ManhattanForms=t():e.ManhattanForms=t()}(this,function(){return function(e){function __webpack_require__(r){if(t[r])return t[r].exports;var n=t[r]={i:r,l:!1,exports:{}};return e[r].call(n.exports,n,n.exports,__webpack_require__),n.l=!0,n.exports}var t={};return __webpack_require__.m=e,__webpack_require__.c=t,__webpack_require__.i=function(e){return e},__webpack_require__.d=function(e,t,r){__webpack_require__.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,"a",t),t},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.p="",__webpack_require__(__webpack_require__.s=3)}([function(e,t,r){var n;n=r(1),e.exports={fields:n}},function(e,t,r){var n,i,o,u,a;n=r(2),i={},o={},u=!1,a=function(e){var t,r,a,l,c,s,_,p,f,d;for(null==e&&(e="input, select, textarea"),a=n.many(e),t=0,c=a.length;t<c;t++)r=a[t],o[r]||(n.dispatch(r,"fill",{filled:Boolean(r.value)}),_=function(e){return this.value?n.dispatch(this,"fill",{filled:!0}):n.dispatch(this,"fill",{filled:!1})},n.listen(r,{change:_,input:_}),o[r]=!0);if(n.cssSelectorSupported(":-webkit-autofill")){for(u||(d=document.createElement("style"),d.appendChild(document.createTextNode("")),document.head.appendChild(d),f=d.sheet,f.insertRule("@keyframes onAutoFillStart {  from {/**/}  to {/**/}}",0),f.insertRule("@keyframes onAutoFillCancel {  from {/**/}  to {/**/}}",0),f.insertRule("input:-webkit-autofill { animation-name: onAutoFillStart;",0),f.insertRule("input:not(:-webkit-autofill) { animation-name: onAutoFillCancel; }",0),u=!0),p=[],l=0,s=a.length;l<s;l++)r=a[l],i[r]!==!0&&(n.listen(r,{animationstart:function(e){var t;return"onAutoFillStart"===e.animationName?n.dispatch(this,"fill",{filled:"boo"}):"onAutoFillCancel"===e.animationName?(t=!1,this.value&&"password"!==this.type.toLowerCase()&&(t=!0),n.dispatch(this,"fill",{filled:t})):void 0}}),p.push(i[r]=!0));return p}},e.exports={listenForFill:a}},function(e,t,r){!function(t,r){e.exports=r()}(0,function(){return function(e){function __webpack_require__(r){if(t[r])return t[r].exports;var n=t[r]={exports:{},id:r,loaded:!1};return e[r].call(n.exports,n,n.exports,__webpack_require__),n.loaded=!0,n.exports}var t={};return __webpack_require__.m=e,__webpack_require__.c=t,__webpack_require__.p="",__webpack_require__(0)}([function(e,t,r){e.exports=r(1)},function(e,t){var r,n,i,o,u,a,l,c,s,_,p=[].indexOf||function(e){for(var t=0,r=this.length;t<r;t++)if(t in this&&this[t]===e)return t;return-1};r=function(e,t){var r;if(e.closest)return e.closest(t);for(r=e.matches||e.webkitMatchesSelector||e.mozMatchesSelector||e.msMatchesSelector;e&&!r.call(e,t);)e=e.parentElement;return e},i=function(e,t){var r,n,i;null==t&&(t={}),r=document.createElement(e);for(n in t)i=t[n],p.call(r,n)>=0?r[n]=i:r.setAttribute(n,i);return r},s=function(e,t){return null==t&&(t=document),Array.prototype.slice.call(t.querySelectorAll(e))},_=function(e,t){return null==t&&(t=document),t.querySelector(e)},u=function(e,t,r){var n,i,o;null==r&&(r={}),n=document.createEvent("Event"),n.initEvent(t,!0,!0);for(i in r)o=r[i],n[i]=o;return e.dispatchEvent(n)},l=function(e,t){var r,n,i,o;o=[];for(n in t)i=t[n],o.push(function(){var t,o,u,a;for(u=n.split(/\s+/),a=[],t=0,o=u.length;t<o;t++)r=u[t],a.push(e.removeEventListener(r,i));return a}());return o},c=function(e,t){var r,n,i,o;o=[];for(n in t)i=t[n],o.push(function(){var t,o,u,a;for(u=n.split(/\s+/),a=[],t=0,o=u.length;t<o;t++)r=u[t],a.push(e.addEventListener(r,i));return a}());return o},n=function(e,t,r,n,i){var o,u,a,l;null==i&&(i="data-"),a=[];for(u in t)l=t[u],e[u]=l,r.hasOwnProperty(u)&&(e[u]=r[u]),n&&(o=i+u.replace(/([a-z])([A-Z])/g,"$1-$2").toLowerCase(),n.hasAttribute(o)?"number"==typeof l?a.push(e[u]=parseInt(n.getAttribute(o))):l===!1?a.push(e[u]=!0):a.push(e[u]=n.getAttribute(o)):a.push(void 0));return a},a=function(e){return e.replace(/[\^\$\\\.\*\+\?\(\)\[\]\{\}\|]/g,"\\$&")},o=function(e){try{document.querySelector(e)}catch(e){return e,!1}return!0},e.exports={closest:r,create:i,one:_,many:s,dispatch:u,ignore:l,listen:c,config:n,escapeRegExp:a,cssSelectorSupported:o}}])})},function(e,t,r){e.exports=r(0)}])});
+!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.ManhattanForms=t():e.ManhattanForms=t()}(this,function(){return function(e){function __webpack_require__(r){if(t[r])return t[r].exports;var n=t[r]={i:r,l:!1,exports:{}};return e[r].call(n.exports,n,n.exports,__webpack_require__),n.l=!0,n.exports}var t={};return __webpack_require__.m=e,__webpack_require__.c=t,__webpack_require__.i=function(e){return e},__webpack_require__.d=function(e,t,r){__webpack_require__.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,"a",t),t},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.p="",__webpack_require__(__webpack_require__.s=3)}([function(e,t,r){var n;n=r(1),e.exports={fields:n}},function(e,t,r){var n,i,o,u,a;n=r(2),i={},o={},u=!1,a=function(e){var t,r,a,l,c,s,_,f,p,d;for(null==e&&(e="input, select, textarea"),a=n.many(e),t=0,c=a.length;t<c;t++)r=a[t],o[r]||(n.dispatch(r,"mh-forms-fields--fill",{filled:Boolean(r.value)}),_=function(e){return this.value?n.dispatch(this,"mh-forms-fields--fill",{filled:!0}):n.dispatch(this,"mh-forms-fields--fill",{filled:!1})},n.listen(r,{change:_,input:_}),o[r]=!0);if(n.cssSelectorSupported(":-webkit-autofill")){for(u||(d=document.createElement("style"),d.appendChild(document.createTextNode("")),document.head.appendChild(d),p=d.sheet,p.insertRule("@keyframes onAutoFillStart {  from {/**/}  to {/**/}}",0),p.insertRule("@keyframes onAutoFillCancel {  from {/**/}  to {/**/}}",0),p.insertRule("input:-webkit-autofill { animation-name: onAutoFillStart;",0),p.insertRule("input:not(:-webkit-autofill) { animation-name: onAutoFillCancel; }",0),u=!0),f=[],l=0,s=a.length;l<s;l++)r=a[l],i[r]!==!0&&(n.listen(r,{animationstart:function(e){var t;return"onAutoFillStart"===e.animationName?n.dispatch(this,"mh-forms-fields--fill",{filled:!0}):"onAutoFillCancel"===e.animationName?(t=!1,this.value&&"password"!==this.type.toLowerCase()&&(t=!0),n.dispatch(this,"mh-forms-fields--fill",{filled:t})):void 0}}),f.push(i[r]=!0));return f}},e.exports={listenForFill:a}},function(e,t,r){!function(t,r){e.exports=r()}(0,function(){return function(e){function __webpack_require__(r){if(t[r])return t[r].exports;var n=t[r]={exports:{},id:r,loaded:!1};return e[r].call(n.exports,n,n.exports,__webpack_require__),n.loaded=!0,n.exports}var t={};return __webpack_require__.m=e,__webpack_require__.c=t,__webpack_require__.p="",__webpack_require__(0)}([function(e,t,r){e.exports=r(1)},function(e,t){var r,n,i,o,u,a,l,c,s,_,f=[].indexOf||function(e){for(var t=0,r=this.length;t<r;t++)if(t in this&&this[t]===e)return t;return-1};r=function(e,t){var r;if(e.closest)return e.closest(t);for(r=e.matches||e.webkitMatchesSelector||e.mozMatchesSelector||e.msMatchesSelector;e&&!r.call(e,t);)e=e.parentElement;return e},i=function(e,t){var r,n,i;null==t&&(t={}),r=document.createElement(e);for(n in t)i=t[n],f.call(r,n)>=0?r[n]=i:r.setAttribute(n,i);return r},s=function(e,t){return null==t&&(t=document),Array.prototype.slice.call(t.querySelectorAll(e))},_=function(e,t){return null==t&&(t=document),t.querySelector(e)},u=function(e,t,r){var n,i,o;null==r&&(r={}),n=document.createEvent("Event"),n.initEvent(t,!0,!0);for(i in r)o=r[i],n[i]=o;return e.dispatchEvent(n)},l=function(e,t){var r,n,i,o;o=[];for(n in t)i=t[n],o.push(function(){var t,o,u,a;for(u=n.split(/\s+/),a=[],t=0,o=u.length;t<o;t++)r=u[t],a.push(e.removeEventListener(r,i));return a}());return o},c=function(e,t){var r,n,i,o;o=[];for(n in t)i=t[n],o.push(function(){var t,o,u,a;for(u=n.split(/\s+/),a=[],t=0,o=u.length;t<o;t++)r=u[t],a.push(e.addEventListener(r,i));return a}());return o},n=function(e,t,r,n,i){var o,u,a,l;null==i&&(i="data-"),a=[];for(u in t)l=t[u],e[u]=l,r.hasOwnProperty(u)&&(e[u]=r[u]),n&&(o=i+u.replace(/([a-z])([A-Z])/g,"$1-$2").toLowerCase(),n.hasAttribute(o)?"number"==typeof l?a.push(e[u]=parseInt(n.getAttribute(o))):l===!1?a.push(e[u]=!0):a.push(e[u]=n.getAttribute(o)):a.push(void 0));return a},a=function(e){return e.replace(/[\^\$\\\.\*\+\?\(\)\[\]\{\}\|]/g,"\\$&")},o=function(e){try{document.querySelector(e)}catch(e){return e,!1}return!0},e.exports={closest:r,create:i,one:_,many:s,dispatch:u,ignore:l,listen:c,config:n,escapeRegExp:a,cssSelectorSupported:o}}])})},function(e,t,r){e.exports=r(0)}])});
 
 /***/ }),
 /* 8 */

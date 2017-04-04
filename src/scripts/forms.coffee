@@ -86,12 +86,15 @@ inFieldLabels = () ->
 
         $.listen input,
             'blur': (ev) ->
+                field = $.closest(this, '.mh-field__control')
                 field.classList.remove('mh-field__control--focused')
 
             'focus': (ev) ->
+                field = $.closest(this, '.mh-field__control')
                 field.classList.add('mh-field__control--focused')
 
             'mh-forms-fields--fill': (ev) ->
+                field = $.closest(this, '.mh-field__control')
                 if ev.filled
                     field.classList.add('mh-field__control--filled')
                 else
@@ -124,7 +127,6 @@ init = () ->
     if primaryForm
         primaryFrame = $.closest('.mh-frame', primaryForm)
         if primaryFrame and primaryFrame.clientHeight > window.innerWidth
-
             affixButtons(primaryForm)
 
             # Enable the next error button to aid users navigating long forms

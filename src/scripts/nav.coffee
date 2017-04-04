@@ -125,7 +125,7 @@ init = () ->
                 closeNavs(['subNav', 'user'], exclude=['prime', this])
 
     # Actions
-    actionsNav = $.many('.mh-actions')
+    actionsNav = $.one('.mh-actions')
     if actionsNav
         actionsHandle = $.one('.mh-actions__handle', actionsNav)
         new mhNav.NavItem(
@@ -145,7 +145,7 @@ init = () ->
             ev.stopPropagation()
 
     # Advanced filters
-    filterNav = $.many('.mh-filter-adv')
+    filterNav = $.one('.mh-filter-adv')
     if filterNav
         filterHandle = $.one('.mh-filter-adv__handle', filterNav)
         new mhNav.NavItem(

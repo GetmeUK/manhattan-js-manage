@@ -9,8 +9,8 @@ init = () ->
 
     flashes.init()
     forms.init()
-#    nav.init()
-#    results.init()
+    nav.init()
+    #results.init()
 
 
 module.exports = {
