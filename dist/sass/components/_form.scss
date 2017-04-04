@@ -252,7 +252,7 @@ $field_width: 600px;
 .mh-field {
     flex-grow: 0;
     @include clearfix;
-    
+
     @include media-mobile() {
         display: flex;
     }
@@ -275,7 +275,7 @@ $field_width: 600px;
         @include media-tablet-portrait() {
             margin: 30px 0;
         }
-        
+
         &:first-child { margin-top: 0; }
         &:last-child { margin-bottom: 0; }
 
@@ -293,7 +293,7 @@ $field_width: 600px;
 
                 &:last-child { margin-right: 0; }
             }
-            
+
             &:first-child { margin-top: 0; }
             &:last-child { margin-bottom: 0; }
         }
@@ -358,14 +358,14 @@ $field_width: 600px;
         max-width: 100%;
         position: relative;
         z-index: 1;
-        
+
         @include media-mobile() {
             flex: 1;
             margin: 0 20px 0 0;
 
             &:last-child { margin-right: 0; }
         }
-        
+
         &:first-child { margin-top: 0; }
 
         &:hover, &--active { z-index: 2; }
@@ -699,7 +699,7 @@ $field_width: 600px;
     &__select {
         background:
             #fff
-            url('../images/icon-arrow-down.svg')
+            url('../node_modules/manhattan-manage/dist/images/icon-arrow-down.svg')
             right 15px top 50%
             no-repeat;
         background-size: 9px 4px;
@@ -894,7 +894,7 @@ $field_width: 600px;
      */
     &__btn {
         margin: 20px 0;
-        
+
         &:first-child { margin-top: 0; }
         &:last-child { margin-bottom: 0; }
     }

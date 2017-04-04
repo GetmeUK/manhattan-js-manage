@@ -5,7 +5,7 @@ mhNav = require 'manhattan-nav'
 # Table of registered nav items
 _navs = {}
 
-closeNavs: (navNames=null, exclude=[]) ->
+closeNavs = (navNames=null, exclude=[]) ->
     # Close a list of navs (defaults to all navs) except those in the exclude
     # list. The `exclude` option can take a list of name strings, `NavItem`
     # elements or a combination of both.
@@ -20,7 +20,7 @@ closeNavs: (navNames=null, exclude=[]) ->
                 continue
             nav.close()
 
-registerNav: (name, element) ->
+registerNav = (name, element) ->
     # Register a nav item against a name
     nav = element.__mh_navItem
     if _navs[name]
@@ -34,7 +34,7 @@ updateNavHeight = () ->
     nav = $.one('.mh-nav')
     top = $.one('.mh-frame__inner').getBoundingClient().top
     if top > 0
-        nav.style.maxHeight = "calc(100% - #{top}px"
+        nav.style.maxHeight = "calc(100% - #{top}px)"
     else
         nav.style.maxHeight = '100%'
 
@@ -169,7 +169,8 @@ init = () ->
         if not ev.defaultPrevented
             closeNavs(['actions', 'filters'])
 
-{
+
+module.exports = {
     closeNavs: closeNavs,
     init: init,
     registerNav: registerNav,

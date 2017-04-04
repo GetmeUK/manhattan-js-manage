@@ -62,7 +62,8 @@ init = () ->
                 ev.preventDefault()
                 pageNo.focus()
 
-{
+
+module.exports = {
     init: init,
     makeLink: makeLink,
     makeSorter: makeSorter

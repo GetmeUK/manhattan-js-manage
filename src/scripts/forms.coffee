@@ -79,6 +79,7 @@ inFieldLabels = () ->
     # Listen for fill, focus and blur events and modify the field state to
     # accommodate in-field lables.
     for input in $.many(inputSelector)
+
         field = $.closest(input, '.mh-field__control')
         if not field
             continue
@@ -120,9 +121,10 @@ init = () ->
     # Affix the form buttons to the bottom of the page if the form is longer
     # than the form's container frame.
     primaryForm = $.one('.mh-form--primary')
-    primaryFrame = $.closest('.mh-frame', primaryForm)
-    if primaryForm and primaryFrame
-        if primaryFrame.clientHeight > window.innerWidth
+    if primaryForm
+        primaryFrame = $.closest('.mh-frame', primaryForm)
+        if primaryFrame and primaryFrame.clientHeight > window.innerWidth
+
             affixButtons(primaryForm)
 
             # Enable the next error button to aid users navigating long forms
@@ -152,7 +154,8 @@ init = () ->
 
                 nextErrorBtn.classList.remove('mh-btn--hidden')
 
-{
+
+module.exports = {
     affixButtons: affixButtons,
     clearError: clearError,
     focusField: focusField,

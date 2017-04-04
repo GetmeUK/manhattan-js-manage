@@ -9,4 +9,4 @@ init = () ->
             @remove()
 
 
-{init: init}
+module.exports = {init: init}

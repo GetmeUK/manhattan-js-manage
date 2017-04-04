@@ -100,9 +100,15 @@ results = __webpack_require__(5);
 
 init = function() {
   flashes.init();
-  forms.init();
-  nav.init();
-  return results.init();
+  return forms.init();
+};
+
+module.exports = {
+  init: init,
+  flashes: flashes,
+  forms: forms,
+  nav: nav,
+  results: results
 };
 
 
@@ -127,9 +133,9 @@ init = function() {
   return results;
 };
 
-({
+module.exports = {
   init: init
-});
+};
 
 
 /***/ }),
@@ -246,9 +252,9 @@ init = function() {
     focusField(inputErrors[0]);
   }
   primaryForm = $.one('.mh-form--primary');
-  primaryFrame = $.closest('.mh-frame', primaryForm);
-  if (primaryForm && primaryFrame) {
-    if (primaryFrame.clientHeight > window.innerWidth) {
+  if (primaryForm) {
+    primaryFrame = $.closest('.mh-frame', primaryForm);
+    if (primaryFrame && primaryFrame.clientHeight > window.innerWidth) {
       affixButtons(primaryForm);
       nextErrorBtn = $.one('.mh-btn--error', primaryForm);
       if (nextErrorBtn) {
@@ -282,20 +288,20 @@ init = function() {
   }
 };
 
-({
+module.exports = {
   affixButtons: affixButtons,
   clearError: clearError,
   focusField: focusField,
   inFieldLabels: inFieldLabels,
   init: init
-});
+};
 
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $, _navs, init, mhNav, updateNavHeight;
+var $, _navs, closeNavs, init, mhNav, registerNav, updateNavHeight;
 
 $ = __webpack_require__(0);
 
@@ -303,64 +309,63 @@ mhNav = __webpack_require__(8);
 
 _navs = {};
 
-({
-  closeNavs: function(navNames, exclude) {
-    var i, key, len, name, nav, navs, results;
-    if (navNames == null) {
-      navNames = null;
-    }
-    if (exclude == null) {
-      exclude = [];
-    }
-    if (!navNames) {
-      navs = (function() {
-        var results;
-        results = [];
-        for (key in navs) {
-          results.push(key);
-        }
-        return results;
-      })();
-    }
-    results = [];
-    for (i = 0, len = navNames.length; i < len; i++) {
-      name = navNames[i];
-      if (exclude.indexOf(name) > 0) {
-        continue;
-      }
-      results.push((function() {
-        var j, len1, ref, results1;
-        ref = _navs[name];
-        results1 = [];
-        for (j = 0, len1 = ref.length; j < len1; j++) {
-          nav = ref[j];
-          if (exclude.indexOf(nav.element) > 0) {
-            continue;
-          }
-          results1.push(nav.close());
-        }
-        return results1;
-      })());
-    }
-    return results;
-  },
-  registerNav: function(name, element) {
-    var nav;
-    nav = element.__mh_navItem;
-    if (_navs[name]) {
-      return _navs[name].push(nav);
-    } else {
-      return _navs[name] = [nav];
-    }
+closeNavs = function(navNames, exclude) {
+  var i, key, len, name, nav, navs, results;
+  if (navNames == null) {
+    navNames = null;
   }
-});
+  if (exclude == null) {
+    exclude = [];
+  }
+  if (!navNames) {
+    navs = (function() {
+      var results;
+      results = [];
+      for (key in navs) {
+        results.push(key);
+      }
+      return results;
+    })();
+  }
+  results = [];
+  for (i = 0, len = navNames.length; i < len; i++) {
+    name = navNames[i];
+    if (exclude.indexOf(name) > 0) {
+      continue;
+    }
+    results.push((function() {
+      var j, len1, ref, results1;
+      ref = _navs[name];
+      results1 = [];
+      for (j = 0, len1 = ref.length; j < len1; j++) {
+        nav = ref[j];
+        if (exclude.indexOf(nav.element) > 0) {
+          continue;
+        }
+        results1.push(nav.close());
+      }
+      return results1;
+    })());
+  }
+  return results;
+};
+
+registerNav = function(name, element) {
+  var nav;
+  nav = element.__mh_navItem;
+  if (_navs[name]) {
+    return _navs[name].push(nav);
+  } else {
+    return _navs[name] = [nav];
+  }
+};
 
 updateNavHeight = function() {
   var nav, top;
   nav = $.one('.mh-nav');
   top = $.one('.mh-frame__inner').getBoundingClient().top;
   if (top > 0) {
-    return nav.style.maxHeight = "calc(100% - " + top + "px";
+    return nav.style.maxHeight = "calc(100% - " + top + "px)";
   } else {
     return nav.style.maxHeight = '100%';
   }
@@ -500,12 +505,12 @@ init = function() {
   });
 };
 
-({
+module.exports = {
   closeNavs: closeNavs,
   init: init,
   registerNav: registerNav,
   updateNavHeight: updateNavHeight
-});
+};
 
 
 /***/ }),
@@ -584,11 +589,11 @@ init = function() {
   return results;
 };
 
-({
+module.exports = {
   init: init,
   makeLink: makeLink,
   makeSorter: makeSorter
-});
+};
 
 
 /***/ }),

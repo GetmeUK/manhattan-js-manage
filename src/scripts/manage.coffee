@@ -9,5 +9,17 @@ init = () ->
 
     flashes.init()
     forms.init()
-    nav.init()
-    results.init()
+#    nav.init()
+#    results.init()
+
+
+module.exports = {
+    # Standard init
+    init: init,
+
+    # Separate behaviour modules
+    flashes: flashes,
+    forms: forms,
+    nav: nav,
+    results: results
+    }

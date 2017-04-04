@@ -7,12 +7,12 @@
 
 
 .mh-flash {
-    background: $color-alert url('../images/form-error-striping.png') top center repeat-x;
+    background: $color-alert url('../node_modules/manhattan-manage/dist/images/form-error-striping.png') top center repeat-x;
     padding: 12.5px 20px;
     position: relative;
     text-align: left;
     @include type(large, $color: #fff, $font-weight: 400);
-    
+
     @include media-span($from: 0, $to: $mobile-width) {
         margin: -15px 0 15px !important;
     }
