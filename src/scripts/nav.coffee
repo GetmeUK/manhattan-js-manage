@@ -10,11 +10,15 @@ closeNavs = (navNames=null, exclude=[]) ->
     # list. The `exclude` option can take a list of name strings, `NavItem`
     # elements or a combination of both.
     unless navNames
-        navs = (key for key of navs)
+        navNames = (key for key of _navs)
 
     for name in navNames
         if exclude.indexOf(name) > 0
             continue
+
+        unless _navs[name]
+            continue
+
         for nav in _navs[name]
             if exclude.indexOf(nav.element) > 0
                 continue
