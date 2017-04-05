@@ -209,6 +209,18 @@ $types: (
     sub-nav:  (15px, 165%)
 ) !default;
 
+/**
+ * Types used for the minimal page that don't have varying sizes.
+ */
+$minimal_types: (
+    h1:       (34px, 120%),
+    h2:       (27px, 130%),
+    h3:       (22px, 140%),
+    large:    (17px, 155%),
+    standard: (15px, 165%),
+    small:    (13px, 170%)
+) !default;
+
 
 /**
  * Font family

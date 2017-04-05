@@ -130,10 +130,10 @@ $field_width: 600px;
             display: flex;
             max-width: 1160px;
             padding: 20px;
-            transition: box-shadow 0.2s ease-in-out;
             width: 100%;
             z-index: 5;
             @include position(fixed, null null 0px null);
+            @include transition(box-shadow 0.2s ease-in-out);
 
             @include media-mobile() {
                 width: calc(100% - 40px);
@@ -368,35 +368,35 @@ $field_width: 600px;
 
         &:first-child { margin-top: 0; }
 
-        &:hover, &--active { z-index: 2; }
+        &--focused { z-index: 2; }
 
         /**
          * This class is applied to every field by default. However, when the
-         * field is focused-on or active, the styles change below.
+         * field is focused-on or filled in, the styles change below.
          */
-        &--inactive {
+        &--focused, &--filled {
             .mh-field__label {
-                padding: 0 20px;
-                @include type(standard, $font-weight: 400, $line-height: $field-standard-height);
+                padding: 8px 10px 0;
+                @include type(13px 13px, $color: $color-font-light);
             }
 
             .mh-field__text,
             .mh-field__select,
             .mh-field__textarea {
-                line-height: $field-standard-height;
-                padding-top: 0;
+                @include type-size(map-get($types, standard));
+                padding-top: 18px;
 
                 @include placeholder {
-                    color: #fff !important;
+                    color: $color-font-light !important;
                 }
             }
 
             .mh-field__textarea {
-                padding-top: 16px;
+                padding-top: 24px;
             }
 
             .mh-field__select {
-                color: #fff;
+                color: $color-font;
             }
         }
 
@@ -423,10 +423,10 @@ $field_width: 600px;
             .mh-field__textarea {
                 padding-left: 20px;
                 padding-top: 0;
-                transition: none;
+                @include transition(none);
 
                 @include placeholder {
-                    color: $color-font-light;
+                    color: $color-font-light !important;
                 }
             }
 
@@ -596,19 +596,20 @@ $field_width: 600px;
 
     &__label {
         cursor: text;
-        padding: 8px 10px 0;
+        padding: 0 20px;
         pointer-events: none;
         text-align: left;
-        transition:
+        @include transition(
             color 0.2s ease-in-out,
             font-size 0.2s ease-in-out,
             font-weight 0.2s ease-in-out,
             line-height 0.2s ease-in-out,
-            padding 0.2s ease-in-out;
+            padding 0.2s ease-in-out
+            );
         z-index: 2;
         @include ellipsis();
         @include position(absolute, 0px null null 0px);
-        @include type(13px 13px, $color: $color-font-light);
+        @include type(standard, $font-weight: 400, $line-height: $field-standard-height);
 
         &--optional {
             > .mh-field__label-text {
@@ -647,19 +648,29 @@ $field_width: 600px;
         display: block;
         height: $field-standard-height;
         margin: 0;
-        padding: 18px 10px 0;
+        padding: 0 10px;
         text-align: left;
-        transition:
-            line-height 0.2s ease-in-out,
-            padding 0.2s ease-in-out;
         width: 100%;
-        @include type(standard, $color: $color-font, $font-weight:400);
+        @include transition(
+            line-height 0.2s ease-in-out,
+            padding 0.2s ease-in-out
+            );
+        @include type(
+            standard,
+            $color: $color-font,
+            $font-weight: 400,
+            $line-height: $field-standard-height
+            );
 
         @include placeholder {
-            color: $color-font-light !important;
+            color: #fff !important;
             padding: 0 !important;
-            transition: color 0.2s ease-in-out;
+            @include transition(color 0.2s ease-in-out);
             @include type(standard, $font-weight: 300, $line-height: $field-standard-height);
+
+            .mh-body--no-transitions & {
+                @include transition(none);
+            }
         }
 
         &:hover {
@@ -703,7 +714,7 @@ $field_width: 600px;
             right 15px top 50%
             no-repeat;
         background-size: 9px 4px;
-        color: $color-font;
+        color: #fff;
         cursor: pointer;
         padding-right: 24px;
         @include appearance(none);
@@ -722,7 +733,7 @@ $field_width: 600px;
     &__textarea {
         height: 200px;
         min-height: 200px;
-        padding-top: 24px;
+        padding-top: 16px;
         padding-bottom: 10px;
         resize: vertical;
         @include type-size(map-get($types, standard));

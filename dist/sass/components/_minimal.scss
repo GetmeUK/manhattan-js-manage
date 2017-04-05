@@ -111,11 +111,16 @@
     }
 
     &__heading {
-        @include type(h1, $font-weight: 400);
+        @include type(h1, $font-weight: 400, $types: $minimal_types);
     }
 
     &__sub-heading {
-        @include type(large, $color: $color-font-light, $font-weight: 400);
+        @include type(
+            large,
+            $color: $color-font-light,
+            $font-weight: 400,
+            $types: $minimal_types
+        );
     }
 
     &__content {
