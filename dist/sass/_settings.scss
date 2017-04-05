@@ -26,10 +26,10 @@ $nav-width-max: 280px  !default;
  * As a background image is used for the logo, you can set a height and
  * max-width for the logo container in desktop.
  */
-$logo-mobile:  false                       !default;
-$logo-desktop: '../node_modules/manhattan-manage/dist/images/logo.svg'        !default;
-$logo-height:  70px                        !default; // Desktop height
-$logo-width:   220px                       !default; // Desktop max-width
+$logo-mobile:  false !default;
+$logo-desktop: '../node_modules/manhattan-manage/dist/images/logo.svg' !default;
+$logo-height:  70px  !default; // Desktop height
+$logo-width:   220px !default; // Desktop max-width
 
 
 /**
@@ -265,9 +265,9 @@ $color-alert-success: $color-alert !default;
  * Btns
  * --
  * A list of buttons with their associated colour and type. Any values added to
- * the list below can used as a class against an button element to apply the
+ * the list below can used as a class against a button element to apply the
  * style. For example `primary` can be applied by adding the class
- * `btn--primary` or `mh-action__link--primary`.
+ * `mh-btn--primary` or `mh-action__link--primary`.
  */
 $btns: (
     primary:          (nth($color-themes, 1), standard),

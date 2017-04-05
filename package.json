@@ -17,7 +17,7 @@
     "manhattan-date-picker": "^0.0.6",
     "manhattan-effects": "^0.0.2",
     "manhattan-essentials": "^0.0.12",
-    "manhattan-forms": "0.0.3",
+    "manhattan-forms": "^0.0.4",
     "manhattan-nav": "^0.0.1",
     "manhattan-sortable": "^0.0.2",
     "manhattan-typeahead": "^0.0.5",

@@ -12,14 +12,14 @@
     padding: 20px;
 
     &__upper {
-        display: flex;
-        justify-content: flex-end;
+        @include display(flex);
+        @include justify-content(flex-end);
     }
 
     &__primary {
-        align-items: center;
-        display: flex;
-        flex: 1;
+        @include align-items(center);
+        @include display(flex);
+        @include flex(1);
     }
 
     h1.mh-heading__primary { @include type(h1); }
@@ -30,9 +30,9 @@
     h3.mh-heading__secondary { @include type(large, $color: $color-font-light); }
 
     &__actions {
-        align-items: center;
-        flex: 0 0 auto;
-        justify-content: flex-end;
+        @include align-items(center);
+        @include flex(0 0 auto);
+        @include justify-content(flex-end);
     }
 
     &__tabs {

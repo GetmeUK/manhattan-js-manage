@@ -9,6 +9,7 @@
     background-color: $color-bkg-frame;
     display: flex;
     min-height: 100%;
+    min-width: 320px;
 
     @include media-span($from: 0, $to: $tablet-landscape-width) {
         padding-top: $mobile-header-height;

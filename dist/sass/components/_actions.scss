@@ -124,8 +124,8 @@
          * Actions inside of heading in boxes on mobile
          */
         .mh-main__box .mh-heading & {
-            display: flex;
             position: relative;
+            @include display(flex);
 
             @for $count from 1 through $max-actions {
                 &--#{$count} .mh-actions__handle {
@@ -156,7 +156,9 @@
                 }
             }
 
-            &__list { display: flex; }
+            &__list {
+                @include display(flex);
+            }
 
             &__link {
                 display: none;
@@ -257,8 +259,8 @@
      * to this, tablet/desktop styles are entirely separated from mobile.
      */
     @include media-tablet-landscape() {
-        display: flex;
         position: relative;
+        @include display(flex);
 
         @for $count from 1 through $max-actions {
             @if $count > $visible-actions {
@@ -301,7 +303,9 @@
             }
         }
 
-        &__list { display: flex; }
+        &__list {
+            @include display(flex);
+        }
 
         &__link {
             display: none;

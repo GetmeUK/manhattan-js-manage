@@ -80,7 +80,7 @@ $field_width: 600px;
      */
     &--reverse-optional {
         .mh-field__label {
-            > .mh-field__label-text {
+            &-text {
                 &:after {
                     color: $color-font-light;
                     content: ' (Required)';
@@ -89,7 +89,7 @@ $field_width: 600px;
             }
 
             &--optional {
-                > .mh-field__label-text {
+                .mh-field__label-text {
                     &:after {
                         display:none;
                     }
@@ -127,11 +127,11 @@ $field_width: 600px;
                 0 -5px 5px -1px rgba(0, 0, 0, 0.05),
                 0 -1px 0 0 rgba(0, 0, 0, 0.05);
             background-color: #fff;
-            display: flex;
             max-width: 1160px;
             padding: 20px;
             width: 100%;
             z-index: 5;
+            @include display(flex);
             @include position(fixed, null null 0px null);
             @include transition(box-shadow 0.2s ease-in-out);
 
@@ -191,6 +191,19 @@ $field_width: 600px;
         &:last-child { margin-top: 0; }
     }
 
+    &__field {
+        clear: left;
+        margin-top: 20px;
+        max-width: $field_width;
+
+        &:first-child { margin-top: 0; }
+    }
+
+    /**
+     * Asides are similar to form notes, but aappear to the right of a field
+     * when in desktop mode. Useful for adding information about one or more
+     * fields in a fieldset.
+     */
     &__aside {
         margin-top: 20px;
         max-width: $field-width;
@@ -219,14 +232,6 @@ $field_width: 600px;
         &:first-child { margin-top: 0; }
     }
 
-    &__field {
-        clear: left;
-        margin-top: 20px;
-        max-width: $field_width;
-
-        &:first-child { margin-top: 0; }
-    }
-
     /**
      * Form notes / paragraphs. NOTE: This should be added to any paragraph or
      * note container in order to correctly space it from the other fields.
@@ -250,11 +255,97 @@ $field_width: 600px;
  * dropdowns, booleans, etc.
  */
 .mh-field {
-    flex-grow: 0;
     @include clearfix;
+    @include flex-grow(0);
 
     @include media-mobile() {
-        display: flex;
+        @include display(flex);
+    }
+
+    /**
+     * Custom layouts
+     * --
+     * By default most layouts can be handled without needing to apply any
+     * custom classes to the container. In those cases, simply insert the fields
+     * the flex box will split the space evenly between them. However in cases
+     * where you need the layout to be none fixed, or you have a single control
+     * in a field that you want to be shorter than the rest, you need to use the
+     * custom layouts below.
+     */
+    &--2-4 {
+        @include media-mobile() {
+            > :nth-child(1) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+
+            > :nth-child(2) {
+                @include flex-basis(column_width(4, 6, $field_width));
+                @include flex-grow(0);
+            }
+        }
+    }
+
+    &--4-2 {
+        @include media-mobile() {
+            > :nth-child(1) {
+                @include flex-basis(column_width(4, 6, $field_width));
+                @include flex-grow(0);
+            }
+
+            > :nth-child(2) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+        }
+    }
+
+    &--3-3 {
+        @include media-mobile() {
+            > :nth-child(1),
+            > :nth-child(2) {
+                @include flex-basis(column_width(3, 6, $field_width));
+                @include flex-grow(0);
+            }
+        }
+    }
+
+    &--2-2-1 {
+        @include media-mobile() {
+            > :nth-child(1) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+
+            > :nth-child(2) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+
+            > :nth-child(2) {
+                @include flex-basis(column_width(1, 6, $field_width));
+                @include flex-grow(0);
+            }
+        }
+    }
+
+    &--1-2-2 {
+        @include media-mobile() {
+            > :nth-child(1) {
+                @include flex-basis(column_width(1, 6, $field_width));
+                @include flex-grow(0);
+            }
+
+            > :nth-child(2) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+
+            > :nth-child(2) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+        }
     }
 
     /**
@@ -268,8 +359,8 @@ $field_width: 600px;
         max-width: none;
 
         @include media-mobile() {
-            align-items: center;
-            display: flex;
+            @include align-items(center);
+            @include display(flex);
         }
 
         @include media-tablet-portrait() {
@@ -299,57 +390,9 @@ $field_width: 600px;
         }
 
         > * {
-            align-items: center;
-            display: flex;
             max-width: none;
-        }
-    }
-
-    /**
-     * Layouts
-     * --
-     * By default most layouts can be handled without needing to apply any
-     * custom classes to the container. In those cases, simply insert the fields
-     * the flex box will split the space evenly between them. However in cases
-     * where you need the layout to be none fixed, or you have a single control
-     * in a field that you want to be shorter than the rest, you need to use the
-     * custom layouts below.
-     */
-    &--2-4 {
-        @include media-mobile() {
-            > :nth-child(1) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
-            > :nth-child(2) { flex-basis: column_width(4, 6, $field_width); flex-grow: 0; }
-        }
-    }
-
-    &--4-2 {
-        @include media-mobile() {
-            > :nth-child(1) { flex-basis: column_width(4, 6, $field_width); flex-grow: 0; }
-            > :nth-child(2) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
-        }
-    }
-
-    &--3-3 {
-        @include media-mobile() {
-            > :nth-child(1), > :nth-child(2) {
-                flex-basis: column_width(3, 6, $field_width); flex-grow: 0;
-            }
-        }
-    }
-
-    &--2-2-1 {
-        @include media-mobile() {
-            > :nth-child(1) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
-            > :nth-child(2) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
-            > :nth-child(3) { flex-basis: column_width(1, 6, $field_width); flex-grow: 0; }
-        }
-    }
-
-    &--1-2-2 {
-        @include media-mobile() {
-            > :nth-child(1) { flex-basis: column_width(1, 6, $field_width); flex-grow: 0; }
-            > :nth-child(2) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
-            > :nth-child(3) { flex-basis: column_width(2, 6, $field_width); flex-grow: 0; }
+            @include align-items(center);
+            @include display(flex);
         }
     }
 
@@ -360,91 +403,96 @@ $field_width: 600px;
         z-index: 1;
 
         @include media-mobile() {
-            flex: 1;
             margin: 0 20px 0 0;
+            @include flex(1);
 
             &:last-child { margin-right: 0; }
         }
 
         &:first-child { margin-top: 0; }
 
-        &--focused { z-index: 2; }
-
         /**
          * This class is applied to every field by default. However, when the
          * field is focused-on or filled in, the styles change below.
          */
         &--focused, &--filled {
-            .mh-field__label {
-                padding: 8px 10px 0;
-                @include type(13px 13px, $color: $color-font-light);
-            }
+            .mh-field {
+                &__label {
+                    padding: 8px 10px 0;
+                    @include type(13px 13px, $color: $color-font-light);
+                }
 
-            .mh-field__text,
-            .mh-field__select,
-            .mh-field__textarea {
-                @include type-size(map-get($types, standard));
-                padding-top: 18px;
+                &__text,
+                &__select,
+                &__textarea,
+                &__asset {
+                    padding-top: 18px;
 
-                @include placeholder {
-                    color: $color-font-light !important;
+                    @include placeholder {
+                        color: $color-font-light;
+                    }
+                }
+
+                &__select {
+                    color: $color-font;
+                }
+
+                &__textarea {
+                    padding-top: 24px;
                 }
             }
-
-            .mh-field__textarea {
-                padding-top: 24px;
-            }
-
-            .mh-field__select {
-                color: $color-font;
-            }
         }
+
+        &--focused { z-index: 2; }
 
         /**
          * Position field label above the field rather than inside the field.
          * This style is added by default to tick fields and tick list fields.
          */
         &--label-above {
-            > .mh-field__label {
-                color: inherit !important;
-                cursor: default !important;
-                display: block !important;
-                font-weight: 400 !important;
-                padding: 0 0 3px !important;
-                pointer-events: auto !important;
-                position: static !important;
-                text-overflow: clip !important;
-                white-space: normal !important;
-                @include type(standard, $font-weight: 400);
-            }
+            .mh-field {
+                &__text,
+                &__select,
+                &__textarea,
+                &__asset {
+                    padding-left: 20px;
+                    padding-top: 0;
 
-            .mh-field__text,
-            .mh-field__select,
-            .mh-field__textarea {
-                padding-left: 20px;
-                padding-top: 0;
-                @include transition(none);
+                    @include placeholder {
+                        color: $color-font-light;
+                    }
+                }
 
-                @include placeholder {
-                    color: $color-font-light !important;
+                &__textarea {
+                    padding: 20px;
+                }
+
+                &__select {
+                    color: $color-font;
                 }
             }
 
-            .mh-field__textarea {
-                padding: 20px;
-            }
-
-            .mh-field__select {
-                color: $color-font;
+            > .mh-field__label {
+                color: inherit;
+                cursor: default;
+                display: block;
+                font-weight: 400;
+                padding: 0 0 3px;
+                pointer-events: auto;
+                position: static;
+                text-overflow: clip;
+                white-space: normal;
+                @include type(standard, $font-weight: 400);
             }
         }
 
         /**
          * Shrink the width of the field control element so that it is only as
-         * wide as it needs to be by setting .
+         * wide as it needs to be. This is usefuly if you do not want a field to
+         * stretch the entire width of the form.
          */
         &--shrink {
-            flex: 0 0 auto;
+            @include flex(0 0 auto);
         }
 
         /**
@@ -505,7 +553,8 @@ $field_width: 600px;
 
             .mh-field__text,
             .mh-field__select,
-            .mh-field__textarea {
+            .mh-field__textarea,
+            .mh-field__asset {
                 padding-right: 39px;
 
                 &:focus {
@@ -599,6 +648,9 @@ $field_width: 600px;
         padding: 0 20px;
         pointer-events: none;
         text-align: left;
+        z-index: 2;
+        @include ellipsis();
+        @include position(absolute, 0px null null 0px);
         @include transition(
             color 0.2s ease-in-out,
             font-size 0.2s ease-in-out,
@@ -606,9 +658,6 @@ $field_width: 600px;
             line-height 0.2s ease-in-out,
             padding 0.2s ease-in-out
             );
-        z-index: 2;
-        @include ellipsis();
-        @include position(absolute, 0px null null 0px);
         @include type(standard, $font-weight: 400, $line-height: $field-standard-height);
 
         &--optional {
@@ -640,7 +689,10 @@ $field_width: 600px;
      * Consistent formatting across text fields, select fields, and textarea
      * fields.
      */
-    &__text, &__asset, &__select, &__textarea {
+    &__text,
+    &__select,
+    &__textarea,
+    &__asset {
         background-color: #fff;
         border: none;
         border-radius: $corner-radius;
@@ -664,9 +716,12 @@ $field_width: 600px;
 
         @include placeholder {
             color: #fff !important;
-            padding: 0 !important;
             @include transition(color 0.2s ease-in-out);
-            @include type(standard, $font-weight: 300, $line-height: $field-standard-height);
+            @include type(
+                standard,
+                $font-weight: 300,
+                $line-height: $field-standard-height
+                );
 
             .mh-body--no-transitions & {
                 @include transition(none);
@@ -689,15 +744,12 @@ $field_width: 600px;
         }
     }
 
-    &__text--small, &__asset, &__select--small {
-        font-size: 14px;
+    &__text--small {
         height: $field-small-height;
         line-height: $field-small-height;
-        padding-top: 0;
-        padding-left: 10px;
 
         @include placeholder {
-            font-size: 14px;
+            color: $color-font-light !important;
             line-height: $field-small-height;
         }
     }
@@ -738,6 +790,10 @@ $field_width: 600px;
         resize: vertical;
         @include type-size(map-get($types, standard));
 
+        @include placeholder {
+            @include type-size(map-get($types, standard));
+        }
+
         &--shrink {
             height: 100px;
             min-height: 100px;
@@ -766,8 +822,8 @@ $field_width: 600px;
 
         &--split {
             @include media-mobile() {
-                display: flex;
-                flex-wrap: wrap;
+                @include display(flex);
+                @include flex-wrap(wrap);
 
                 .mh-field__tick {
                     width: 50%;

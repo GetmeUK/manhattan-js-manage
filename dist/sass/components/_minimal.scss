@@ -8,9 +8,10 @@
 
 .mh-minimal {
     background-color: $color-bkg-nav;
-    display: flex;
-    flex-direction: column;
     min-height: 100%;
+    min-width: 320px;
+    @include display(flex);
+    @include flex-direction(column);
     
     @if (not $logo-desktop) {
         @include media-span($from: 0, $to: $mobile-width) {
@@ -24,24 +25,24 @@
     }
 
     &__center {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         min-height: 100%;
         width: 100%;
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
 
         @include media-mobile() {
-            align-items: center;
-            flex: 1;
             padding: 30px;
+            @include align-items(center);
+            @include flex(1);
         }
     }
 
     &__logo {
         @if ($logo-desktop) {
-            flex: 0 0 auto;
             padding: 30px;
             width: 100%;
+            @include flex(0 0 auto);
 
             @include media-mobile() {
                 max-width: 360px;
@@ -83,11 +84,11 @@
     &__box {
         background-color: darken($color-bkg-main, 5%);
         box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex: 0 0 auto;
-        flex-direction: column;
         max-width: 100%;
         width: 100%;
+        @include display(flex);
+        @include flex(0 0 auto);
+        @include flex-direction(column);
         
         @if (not $logo-desktop) {
             @include media-span($from: 0, $to: $mobile-width) {
@@ -126,7 +127,7 @@
     &__content {
         background-color: $color-bkg-main;
         box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.075);
-        flex: 0 0 auto;
+        @include flex(0 0 auto);
 
         @include media-mobile() {
             border-radius: $corner-radius;
@@ -143,7 +144,12 @@
 
         .mh-form__fieldset {
             border: none;
+            margin-bottom: 20px;
             padding: 0;
+
+            &:last-child {
+                margin-top: 0;
+            }
         }
     }
 
@@ -152,7 +158,7 @@
         text-align: center;
 
         @include media-mobile() {
-            flex: 0 0 auto;
+            @include flex(0 0 auto);
         }
     }
 

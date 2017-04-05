@@ -47,16 +47,16 @@
  * the user has selected what file they want to upload.
  */
 .mh-assets-monitor {
-    display: flex;
+    @include display(flex);
 
     &__gauge {
         background-color: $color-bkg-main;
         border-radius: $corner-radius;
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
-        flex: 1;
         height: $btn-standard-height;
         overflow: hidden;
         position: relative;
+        @include flex(1);
 
         &:after {
             border-radius: $corner-radius;
@@ -91,9 +91,9 @@
             $width: $btn-standard-height,
             $height: $btn-standard-height
         );
-        flex: 0 0 auto;
         margin-left: 20px;
         position: relative;
+        @include flex(0 0 auto);
 
         &:before, &:after {
             background-color: #fff;
