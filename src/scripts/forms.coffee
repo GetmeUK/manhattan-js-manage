@@ -29,16 +29,16 @@ affixButtons = (form) ->
     # a visual effect to the buttons container).
     frame = $.closest('.mh-frame', form)
 
-    atBottom = () ->
+    anchored = () ->
         # If the user has scrolled to the bottom of the page then flag this
         # against the form buttons.
         if window.innerHeight + window.scrollY >= frame.clientHeight
-            btns.classList.remove('mh-field--at-bottom')
+            btns.classList.remove('mh-field--anchored')
         else
-            btns.classList.add('mh-field--at-bottom')
+            btns.classList.add('mh-field--anchored')
 
     # Check initially...
-    atBottom()
+    anchored()
 
     # ...and subsequently whenever the user scrolls.
     $.listen window, 'scroll': () ->
