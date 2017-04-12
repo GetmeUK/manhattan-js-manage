@@ -234,7 +234,7 @@
         @include position(absolute, null 0px 0px null);
 
         &:after {
-            background: url('../node_modules/manhattan-manage/dist/images/actions.svg') center / auto 28px no-repeat;
+            background: url($manhattan-manage-asset-root + '/actions.svg') center / auto 28px no-repeat;
             border-radius: $corner-radius 0 $corner-radius 0;
             content: '';
             display: block;

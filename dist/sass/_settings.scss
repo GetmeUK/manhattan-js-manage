@@ -7,6 +7,17 @@
  * changes.
  */
 
+ /**
+  * Assets
+  * --
+  * The `$manhattan-manage-asset-root` setting should point to the folder
+  * containing the libraries assets (images, fonts, etc). Often this is a
+  * folder within `node_modules`, e.g:
+  *
+  *    ... node_modules/manhattan-manage/dist/images
+  */
+$manhattan-manage-asset-root: '' !default;
+
 
 /**
  * Standard sizes
@@ -27,7 +38,7 @@ $nav-width-max: 280px  !default;
  * max-width for the logo container in desktop.
  */
 $logo-mobile:  false !default;
-$logo-desktop: '../node_modules/manhattan-manage/dist/images/logo.svg' !default;
+$logo-desktop: $manhattan-manage-asset-root + '/logo.svg' !default;
 $logo-height:  70px  !default; // Desktop height
 $logo-width:   220px !default; // Desktop max-width
 
@@ -155,8 +166,8 @@ $outer-width:            1480px !default;
  * simply specify a name, path, and orientation. For example:
 --------------------------------------------------------------------------------
 $nav-icons: (
-    sign-out: ('../node_modules/manhattan-manage/dist/images/icon-sign-out.svg', 'right'),
-    update:   ('../node_modules/manhattan-manage/dist/images/icon-update.svg', 'left')
+    sign-out: ($manhattan-manage-asset-root + '/icon-sign-out.svg', 'right'),
+    update:   ($manhattan-manage-asset-root + '/icon-update.svg', 'left')
 );
 --------------------------------------------------------------------------------
  * The icon name is used to build the icon class, the path is used for the
@@ -178,7 +189,7 @@ $nav-icons: (
  * icon name. I.e. 'mh-nav__link-text--icon-' + 'sign-out'.
  */
 $nav-icons: (
-    sign-out: ('../node_modules/manhattan-manage/dist/images/icon-sign-out.svg', 'right')
+    sign-out: ($manhattan-manage-asset-root + '/icon-sign-out.svg', 'right')
 ) !default;
 
 /**

@@ -762,7 +762,7 @@ $field_width: 600px;
     &__select {
         background:
             #fff
-            url('../node_modules/manhattan-manage/dist/images/icon-arrow-down.svg')
+            url($manhattan-manage-asset-root + '/icon-arrow-down.svg')
             right 15px top 50%
             no-repeat;
         background-size: 9px 4px;

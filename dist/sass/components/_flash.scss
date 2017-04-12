@@ -7,7 +7,7 @@
 
 
 .mh-flash {
-    background: $color-alert url('../node_modules/manhattan-manage/dist/images/form-error-striping.png') top center repeat-x;
+    background: $color-alert url($manhattan-manage-asset-root + '/form-error-striping.png') top center repeat-x;
     padding: 12.5px 20px;
     position: relative;
     text-align: left;
