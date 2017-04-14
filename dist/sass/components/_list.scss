@@ -53,7 +53,7 @@
     }
 
     tr {
-        &[data-url]:hover {
+        &[data-mh-url]:hover {
             td {
                 background-color: rgba(nth($color-themes, 1), 0.15);
                 cursor: pointer;
@@ -89,13 +89,13 @@
             .th__wrap { padding-right: 20px; }
         }
 
-        &[data-sort-with] {
-            &[data-sort-direction="ASC"] {
+        &[data-mh-sort-with] {
+            &[data-mh-sort-direction="ASC"] {
                 padding-bottom: 0;
                 border-bottom: 2px solid nth($color-themes, 1);
 
                 .th__wrap {
-                    
+
                     &:after {
                         content: '';
                         display: block;
@@ -103,7 +103,7 @@
                         @include position(absolute, null 16px null null);
                         @include triangle(8px, $color-font, down);
                     }
-                    
+
                     &:before {
                         background-color: $color-font;
                         border: none;
@@ -117,7 +117,7 @@
                 }
             }
 
-            &[data-sort-direction="DESC"] {
+            &[data-mh-sort-direction="DESC"] {
                 padding-bottom: 0;
                 border-bottom: 2px solid nth($color-themes, 1);
 
@@ -129,7 +129,7 @@
                         @include position(absolute, null 16px null null);
                         @include triangle(8px, $color-font, up);
                     }
-                    
+
                     &:after {
                         background-color: $color-font;
                         border: none;
@@ -213,7 +213,7 @@
         &:first-child {
             padding-left: 20px;
         }
-        
+
         &:last-child {
             padding-right: 20px;
         }
