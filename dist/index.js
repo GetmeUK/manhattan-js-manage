@@ -368,7 +368,7 @@ closeNavs = function(navNames, exclude) {
   results = [];
   for (i = 0, len = navNames.length; i < len; i++) {
     name = navNames[i];
-    if (exclude.indexOf(name) > 0) {
+    if (exclude.indexOf(name) > -1) {
       continue;
     }
     if (!_navs[name]) {
@@ -380,7 +380,7 @@ closeNavs = function(navNames, exclude) {
       results1 = [];
       for (j = 0, len1 = ref.length; j < len1; j++) {
         nav = ref[j];
-        if (exclude.indexOf(nav.element) > 0) {
+        if (exclude.indexOf(nav.element) > -1) {
           continue;
         }
         results1.push(nav.close());
@@ -404,7 +404,7 @@ registerNav = function(name, element) {
 updateNavHeight = function() {
   var nav, top;
   nav = $.one('.mh-nav');
-  top = $.one('.mh-frame__inner').getBoundingClient().top;
+  top = $.one('.mh-frame__inner').getBoundingClientRect().top;
   if (top > 0) {
     return nav.style.maxHeight = "calc(100% - " + top + "px)";
   } else {
@@ -413,17 +413,17 @@ updateNavHeight = function() {
 };
 
 init = function() {
-  var _updateNavHeight, actionsHandle, actionsNav, filterHandle, filterNav, i, len, navHeightTimeout, primaryNav, primeHandle, ref, subNav, userHandle, userNav;
-  primaryNav = $.one('.mh-nav--prime');
+  var _updateNavHeight, actionsHandle, actionsNav, filterHandle, filterNav, i, item, len, navHeightTimeout, primaryNav, primeHandle, ref, userHandle, userNav;
+  primaryNav = $.one('.mh-nav__section--prime');
   if (primaryNav) {
-    primeHandle = $.one('.mh-nav__handle', primaryNav);
+    primeHandle = $.one('.mh-handle', primaryNav);
     new mhNav.NavItem(primeHandle, {
       openClass: 'mh-frame--prime-nav-open',
       selectors: '.mh-frame',
       target: 'selectors'
     });
     $.listen(primeHandle, {
-      'click': function() {
+      'click': function(ev) {
         return ev.stopPropagation();
       }
     });
@@ -431,15 +431,12 @@ init = function() {
     $.listen(primeHandle, {
       'mh-nav-item--open': function() {
         return closeNavs(null, ['prime']);
-      },
-      'mh-nav-item--close': function() {
-        return closeNavs(null, ['prime']);
       }
     });
     updateNavHeight();
     navHeightTimeout = null;
     _updateNavHeight = function() {
-      clearTimout(navHeightTimeout);
+      clearTimeout(navHeightTimeout);
       return navHeightTimeout = setTimeout(updateNavHeight, 50);
     };
     $.listen(window, {
@@ -447,16 +444,16 @@ init = function() {
       'resize': _updateNavHeight
     });
   }
-  userNav = $.one('.mh-nav--user');
+  userNav = $.one('.mh-nav__section--user');
   if (userNav) {
-    userHandle = $.one('.mh-nav__handle', userNav);
+    userHandle = $.one('.mh-handle', userNav);
     new mhNav.NavItem(userHandle, {
       openClass: 'mh-frame--user-nav-open',
       selectors: '.mh-frame',
       target: 'selectors'
     });
     $.listen(userHandle, {
-      'click': function() {
+      'click': function(ev) {
         return ev.stopPropagation();
       }
     });
@@ -465,35 +462,25 @@ init = function() {
       'mh-nav-item--open': function() {
         var exclude;
         return closeNavs(null, exclude = ['user']);
-      },
-      'mh-nav-item--close': function() {
-        var exclude;
-        return closeNavs(null, exclude = ['user']);
       }
     });
   }
-  ref = $.many('.mh-nav__sub-list');
+  ref = $.many('.mh-nav-item--has-children');
   for (i = 0, len = ref.length; i < len; i++) {
-    subNav = ref[i];
-    new mhNav.NavItem(subNav.parentNode, {
-      openClass: 'mh-nav__item--open',
-      selectors: '.mh-nav__sub-list',
-      target: 'child'
+    item = ref[i];
+    new mhNav.NavItem(item, {
+      openClass: 'mh-nav-item--open'
     });
-    $.listen(subNav, {
-      'click': function() {
+    $.listen(item, {
+      'click': function(ev) {
         return ev.stopPropagation();
       }
     });
-    registerNav('subNav', subNav.parentNode);
-    $.listen(subNav.parentNode, {
+    registerNav('subNav', item);
+    $.listen(item, {
       'mh-nav-item--open': function() {
         var exclude;
         return closeNavs(['subNav', 'user'], exclude = [this]);
-      },
-      'mh-nav-item--close': function() {
-        var exclude;
-        return closeNavs(['subNav', 'user'], exclude = ['prime', this]);
       }
     });
   }
@@ -507,12 +494,12 @@ init = function() {
     });
     registerNav('actions', actionsHandle);
     $.listen(actionsHandle, {
-      'click': function() {
+      'click': function(ev) {
         return ev.stopPropagation();
       }
     });
     $.listen(actionsHandle.parentNode, {
-      'click': function() {
+      'click': function(ev) {
         return ev.stopPropagation();
       }
     });
@@ -539,6 +526,7 @@ init = function() {
   }
   return $.listen(document.body, {
     'click': function(ev) {
+      console.log(1);
       if (!ev.defaultPrevented) {
         return closeNavs(['actions', 'filters']);
       }
