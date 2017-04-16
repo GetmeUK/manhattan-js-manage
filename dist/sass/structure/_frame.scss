@@ -21,7 +21,6 @@
             }
 
             .mh-nav__section--prime {
-
                 .mh-grip {
                     &__bars {
                         transform:
@@ -65,29 +64,17 @@
         }
 
         &--user-nav-open {
-
             .mh-frame__main {
                 margin-left: (-$nav-width-min);
             }
 
             .mh-nav__section--user {
-
-                .mh-handle {
-                    background-color: nth($color-themes, 1);
-                }
-
                 .mh-user-badge {
                     background-color: nth($color-themes, 1);
 
-                    &--mobile {
-                        .mh-user-badge__name {
-                            right: 0;
-                        }
-                    }
-
                     &__icon {
                         &:before, &:after {
-                            background-color: nth($color-themes, 1);
+                            background-color: nth($color-themes, 1) !important;
                         }
                     }
                 }

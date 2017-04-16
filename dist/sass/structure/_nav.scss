@@ -66,10 +66,10 @@
                     cursor: pointer;
                     height: $mobile-header-height;
                     padding: 0;
-                    transition: background-color 0.2s ease-in-out;
                     width: $mobile-header-height;
                     z-index: 3;
                     @include position(fixed, 0px null null 0px);
+                    @include transition(background-color 0.2s ease-in-out);
 
                     &:hover {
                         background-color: nth($color-themes, 1);
@@ -83,20 +83,20 @@
 
             .mh-nav-section {
                 box-shadow: inset -6px 0 3px -3px rgba(0, 0, 0, 0.15);
-                transition: left 0.5s ease-in-out;
                 @include position(
                     fixed,
                     $mobile-header-height null null (-$nav-width-min)
                 );
+                @include transition(left 0.5s ease-in-out);
 
                 &__items {
                     @include media-span($from: 0, $to: $tablet-landscape-width) {
                         box-shadow: inset -6px 0 3px -3px rgba(0, 0, 0, 0.15);
-                        transition: left 0.5s ease-in-out;
                         @include position(
                             fixed,
                             $mobile-header-height null null (-$nav-width-min)
                         );
+                        @include transition(left 0.5s ease-in-out);
                     }
 
                     @include media-tablet-landscape() {
@@ -125,14 +125,20 @@
                 @include flex-direction(column);
             }
 
+            .mh-handle {
+                @include media-tablet-landscape() {
+                    @include order(2);
+                }
+            }
+
             .mh-nav-section__items {
                 @include media-span($from: 0, $to: $tablet-landscape-width) {
                     box-shadow: inset 6px 0 3px -3px rgba(0, 0, 0, 0.15);
-                    transition: right 0.5s ease-in-out;
                     @include position(
                         fixed,
-                        $mobile-header-height (-$nav-width-min) null null
+                        $mobile-header-height (-$nav-width-min) null null null
                     );
+                    @include transition(right 0.5s ease-in-out);
                 }
 
                 @include media-tablet-landscape() {
@@ -141,10 +147,25 @@
                         0 1px 0 0 rgba(255, 255, 255, 0.05),
                         inset 0 2px 2px -1px rgba(0, 0, 0, 0.1);
                     max-height: 0;
-                    padding: 0;
-                    order: 1;
                     overflow: hidden;
-                    transition: max-height 0.2s ease-in-out;
+                    padding: 0;
+                    @include order(1);
+                    @include transition(max-height 0.2s ease-in-out);
+                }
+
+                > .mh-nav-item {
+                    position: relative;
+                    top: 10px;
+
+                    &:last-child {
+                        @include media-span($from: 0, $to: $tablet-landscape-width) {
+                            padding-bottom:10px;
+                        }
+
+                        @include media-tablet-landscape() {
+                            padding-bottom: 20px;
+                        }
+                    }
                 }
             }
 
@@ -161,12 +182,22 @@
                     padding-bottom: 6px;
                     padding-top: 6px;
                     @include type(sub-nav);
+
+                    &__tally {
+                        line-height: 24px;
+                        opacity: 0;
+                        width: 26px;
+                    }
                 }
 
                 &--active {
-                    @include media-span($from: 0, $to: $tablet-portrait-width) {
-                        left: 0px;
-                        @include triangle(8px 20px, $color-bkg-main, right);
+                    @include media-span($from: 0, $to: $tablet-landscape-width) {
+                        &:after {
+                            border: none;
+                            left: 0px;
+                            right: auto;
+                            @include triangle(20px 8px, $color-bkg-main, right);
+                        }
                     }
                 }
             }
@@ -307,17 +338,17 @@
  * desktop the prime navigation section is always visible.
  */
 .mh-grip {
-    height: 18px;
+    height: 21px;
     margin: -11px 0 0 -11px;
     width: 22px;
     @include position(absolute, 50% null null 50%);
 
     &__bars {
         top: 0;
-        transition:
+        @include transition(
             transform
             0.4s
-            cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cubic-bezier(0.68, -0.55, 0.265, 1.55));
 
         &, &:before, &:after {
             background-color: $color-bkg-main;
@@ -334,15 +365,15 @@
 
         &:before {
             top: 9px;
-            transition: opacity 0.15s 0.4s ease;
+            @includetransition(opacity 0.15s 0.4s ease);
         }
 
         &:after {
             top: 18px;
-            transition:
+            @include transition(
                 transform
                 0.4s
-                cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                cubic-bezier(0.68, -0.55, 0.265, 1.55));
         }
     }
 }
@@ -361,7 +392,7 @@
             display: none;
         }
 
-        .nav-user-badge__name {
+        .mh-user-badge__name {
             @include media-span($from: 0, $to: $tablet-landscape-width) {
                 background-color: darken($color-bkg-nav, 2.5%);
                 box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05);
@@ -379,22 +410,21 @@
         @include media-span($from: 0, $to: $tablet-landscape-width) {
             box-shadow: -1px 0 0 0 rgba(0, 0, 0, 0.1);
             height: $mobile-header-height;
-            transition: background-color 0.2s ease-in-out;
             width: $mobile-header-height;
             z-index: 3;
             @include position(absolute, 0px 0px null null);
+            @include transition(background-color 0.2s ease-in-out);
         }
 
         @include media-tablet-landscape() {
             box-shadow:
                 inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
                 0 -1px 0 0 rgba(0, 0, 0, 0.2);
-            order: 2;
             padding: 15px 42px 15px ($user-profile-size + 35px);
             position: relative;
-            transition:
+            @include transition(
                 background-color 0.2s ease-in-out,
-                box-shadow 0.2s ease-in-out;
+                box-shadow 0.2s ease-in-out);
         }
 
         @include media-desktop() {
@@ -461,8 +491,8 @@
                     border-radius: 50%;
                     content: '';
                     display: block;
-                    transition: background-color 0.2s ease-in-out;
                     @include position(absolute, 50% null null 50%);
+                    @include transition(background-color 0.2s ease-in-out);
                 }
 
                 &:before {
@@ -548,7 +578,7 @@
         box-shadow:
             0 1px 0 0 rgba(0, 0, 0, 0.2),
             inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
-        margin-top: -10px;
+        margin-top: 0;
         padding-bottom: 0;
     }
 
@@ -556,7 +586,7 @@
         box-shadow:
             0 -1px 0 0 rgba(0, 0, 0, 0.2),
             inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-        margin-bottom: -10px;
+        margin-bottom: 0;
         padding-bottom: 0;
     }
 
@@ -564,13 +594,13 @@
         color: #000;
         padding: 10px 15px 10px 20px;
         position: relative;
-        transition:
-            font-size 0.5s ease-in-out,
-            line-height 0.5s ease-in-out,
-            padding 0.5s ease-in-out;
         text-transform: uppercase;
         @incldue align-items(center);
         @include display(flex);
+        @include transition(
+            font-size 0.5s ease-in-out,
+            line-height 0.5s ease-in-out,
+            padding 0.5s ease-in-out);
         @include type(sub-nav, $color: darken($color-font-reverse, 25%));
     }
 }
@@ -585,9 +615,9 @@
  */
 .mh-nav-item {
     &--has-children {
-        transition:
+        @include transition(
             background-color 0.2s ease-in-out,
-            margin 0.2s ease-in-out;
+            margin 0.2s ease-in-out);
 
         > .mh-nav-link {
             padding-right:42px;
@@ -623,7 +653,7 @@
             }
 
             .mh-nav-link__tally {
-                opacity: 1;
+                opacity: 1 !important;
             }
         }
 
@@ -641,7 +671,7 @@
                 }
 
                 > .mh-nav-link__tally {
-                    opacity: 0;
+                    opacity: 0 !important;
                 }
             }
         }
@@ -650,9 +680,9 @@
     &__children {
         max-height: 0;
         overflow: hidden;
-        transition:
+        @include transition(
             max-height 0.2s ease-in-out,
-            padding-bottom 0.2s ease-in-out;
+            padding-bottom 0.2s ease-in-out);
 
         .mh-nav-link {
             padding-bottom: 6px;
@@ -682,12 +712,12 @@
     cursor: pointer;
     padding: 10px 15px 10px 20px;
     position: relative;
-    transition:
-        font-size 0.5s ease-in-out,
-        line-height 0.5s ease-in-out,
-        padding 0.5s ease-in-out;
     @include align-items(center);
     @include display(flex);
+    @include transition(
+        font-size 0.5s ease-in-out,
+        line-height 0.5s ease-in-out,
+        padding 0.5s ease-in-out);
     @include type(nav);
 
     &:hover,
@@ -697,8 +727,8 @@
     }
 
     &--active {
-        color: #fff !important;
         background-color: nth($color-themes, 1) !important;
+        color: #fff !important;
         font-weight: 400;
 
         @include media-mobile() {
@@ -706,12 +736,8 @@
                 content: '';
                 display: block;
                 margin-top: -10px;
-                @include position(absolute, 50% null null null);
-
-                @include media-tablet-portrait() {
-                    right: 0px;
-                    @include triangle(20px 8px, $color-bkg-main, left);
-                }
+                @include position(absolute, 50% 0px null null);
+                @include triangle(20px 8px, $color-bkg-main, left);
             }
         }
     }
@@ -774,8 +800,8 @@
         line-height: 27px;
         margin-left: 10px;
         text-align: center;
-        transition: opacity 0.2s ease-in-out;
         width: 30px;
         @include flex(0 0 auto);
+        @include transition(opacity 0.2s ease-in-out);
     }
 }
