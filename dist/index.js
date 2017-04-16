@@ -513,6 +513,11 @@ init = function() {
       target: 'closest'
     });
     registerNav('filters', filterHandle);
+    $.listen(filterHandle, {
+      'click': function(ev) {
+        return ev.stopPropagation();
+      }
+    });
     $.listen($.one('.mh-filter-adv__fields', filterNav), {
       'click': function(ev) {
         return ev.stopPropagation();

@@ -154,6 +154,9 @@ init = () ->
         )
         registerNav('filters', filterHandle)
 
+        $.listen filterHandle, 'click': (ev) ->
+            ev.stopPropagation()
+
         $.listen $.one('.mh-filter-adv__fields', filterNav), 'click': (ev) ->
             ev.stopPropagation()
 
@@ -162,7 +165,6 @@ init = () ->
 
     # Close filters and actions when a user clicks the body
     $.listen document.body, 'click': (ev) ->
-        console.log 1
         if not ev.defaultPrevented
             closeNavs(['actions', 'filters'])
 
