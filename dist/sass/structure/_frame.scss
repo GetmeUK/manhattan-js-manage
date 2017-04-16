@@ -112,8 +112,9 @@
 
     @include media-span($from: $tablet-landscape-width, $to: 0) {
         &--user-nav-open {
-            .mh-nav-section--user {
-                .mh-handle {
+
+            .mh-nav__section--user {
+                .mh-user-badge {
                     box-shadow: none;
 
                     &:after {
@@ -122,7 +123,7 @@
                     }
                 }
 
-                .mh-section__items {
+                .mh-nav-section__items {
                     @include media-tablet-landscape() {
                         max-height: $user-nav-max-height-desktop;
                     }
