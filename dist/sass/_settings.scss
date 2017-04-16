@@ -32,15 +32,16 @@ $nav-width-max: 280px  !default;
  * --
  * You can choose whether or not to show a logo in the CMS UI on mobile and/or
  * desktop. Hiding it, will still show the name of the project just without any
- * image. By default the logo is hidden on mobile and visible on desktop as
- * logos are often to large to fit in the space provided in the mobile header.
- * As a background image is used for the logo, you can set a height and
- * max-width for the logo container in desktop.
+ * image. By default the logo is visible on both mobile and desktop. As a
+ * background image is used for the logo, you can set a height and max-width for
+ * the logo container.
  */
-$logo-mobile:  false !default;
-$logo-desktop: $manhattan-manage-asset-root + '/logo.svg' !default;
-$logo-height:  70px  !default; // Desktop height
-$logo-width:   220px !default; // Desktop max-width
+$logo-mobile:         $manhattan-manage-asset-root + '/logo.svg' !default;
+$logo-mobile-height:  100%  !default; // Mobile height
+$logo-mobile-width:   220px !default; // Mobile max-width
+$logo-desktop:        $manhattan-manage-asset-root + '/logo.svg' !default;
+$logo-desktop-height: 60px  !default; // Desktop height
+$logo-desktop-width:  220px !default; // Desktop max-width
 
 
 /**

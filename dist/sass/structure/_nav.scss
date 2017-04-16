@@ -300,8 +300,9 @@
             @if ($logo-mobile) {
                 background: url($logo-mobile) center center no-repeat;
                 background-size: contain;
-                height: 100%;
+                height: $logo-mobile-height;
                 margin: 0 auto;
+                max-width: $logo-mobile-width;
             }
         }
 
@@ -309,47 +310,47 @@
             @if ($logo-desktop) {
                 background: url($logo-desktop) center center no-repeat;
                 background-size: contain;
-                height: $logo-height;
+                height: $logo-desktop-height;
                 margin: 0 auto;
-                max-width: $logo-width;
+                max-width: $logo-desktop-width;
+            }
+        }
+    }
+
+    &__label {
+        display: block;
+        
+        @include media-span($from: 0, $to: $tablet-landscape-width) {
+            @if ($logo-mobile) {
+                @include homer();
+            } @else {
+                text-align: center;
+                @include ellipsis();
+                @include type(
+                    h3,
+                    $color: #fff,
+                    $line-height: ($mobile-header-height - 20px)
+                );
             }
         }
 
-        &-text {
-            display: block;
-            
-            @include media-span($from: 0, $to: $tablet-landscape-width) {
-                @if ($logo-mobile) {
-                    @include homer();
-                } @else {
-                    text-align: center;
-                    @include ellipsis();
-                    @include type(
-                        h3,
-                        $color: #fff,
-                        $line-height: ($mobile-header-height - 20px)
-                    );
-                }
-            }
-
-            @include media-tablet-landscape() {
-                @if ($logo-desktop) {
-                    @include homer();
-                } @else {
-                    background-color: rgba(0, 0, 0, 0.1);
-                    border-radius: $corner-radius;
-                    box-shadow:
-                        0 1px 0 0 rgba(255, 255, 255, 0.05),
-                        0 -1px 0 0 rgba(0, 0, 0, 0.2);
-                    text-align: center;
-                    padding: 10px 20px;
-                    @include ellipsis();
-                    @include type(
-                        large,
-                        $color: #fff,
-                        $font-weight: 400
-                    );
-                }
+        @include media-tablet-landscape() {
+            @if ($logo-desktop) {
+                @include homer();
+            } @else {
+                background-color: rgba(0, 0, 0, 0.1);
+                border-radius: $corner-radius;
+                box-shadow:
+                    0 1px 0 0 rgba(255, 255, 255, 0.05),
+                    0 -1px 0 0 rgba(0, 0, 0, 0.2);
+                text-align: center;
+                padding: 10px 20px;
+                @include ellipsis();
+                @include type(
+                    large,
+                    $color: #fff,
+                    $font-weight: 400
+                );
             }
         }
     }
