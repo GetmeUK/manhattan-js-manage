@@ -1,6 +1,9 @@
 $ = require 'manhattan-essentials'
+assets = require 'manhattan-assets'
+datePicker = require 'manhattan-date-picker'
 effects = require 'manhattan-effects'
 forms = require 'manhattan-forms'
+typeahead = require('manhattan-typeahead')
 
 
 affixButtons = (form) ->
@@ -106,6 +109,18 @@ init = () ->
     # Set up in-field labels
     inFieldLabels()
 
+    # Set up for asset fields
+    for input in $.many('[data-mh-assets-field]')
+        new assets.Field(input)
+
+    # Set up date pickers
+    for input in $.many('[data-mh-date-picker]')
+        new datePicker.DatePicker(input)
+
+    # Set up typeaheads
+    for input in $.many('[data-mh-typeahead]')
+        typeahead = new Typeahead(input)
+        
     # Clear field errors
     inputErrors = $.many('[data-mh-error]')
     for input in inputErrors

@@ -13,14 +13,14 @@ closeNavs = (navNames=null, exclude=[]) ->
         navNames = (key for key of _navs)
 
     for name in navNames
-        if exclude.indexOf(name) > 0
+        if exclude.indexOf(name) > -1
             continue
 
         unless _navs[name]
             continue
 
         for nav in _navs[name]
-            if exclude.indexOf(nav.element) > 0
+            if exclude.indexOf(nav.element) > -1
                 continue
             nav.close()
 
@@ -36,7 +36,7 @@ updateNavHeight = () ->
     # Update the height of the primary navigation so that it appears to travel
     # with the page as it scrolls and sticks to the top of the page.
     nav = $.one('.mh-nav')
-    top = $.one('.mh-frame__inner').getBoundingClient().top
+    top = $.one('.mh-frame__inner').getBoundingClientRect().top
     if top > 0
         nav.style.maxHeight = "calc(100% - #{top}px)"
     else
@@ -45,11 +45,11 @@ updateNavHeight = () ->
 init = () ->
 
     # Primary nav
-    primaryNav = $.one('.mh-nav--prime')
+    primaryNav = $.one('.mh-nav__section--prime')
     if primaryNav
 
         # Implement open/close behaviour
-        primeHandle = $.one('.mh-nav__handle', primaryNav)
+        primeHandle = $.one('.mh-handle', primaryNav)
         new mhNav.NavItem(
             primeHandle,
             {
@@ -58,15 +58,13 @@ init = () ->
                 target: 'selectors'
             }
         )
-        $.listen primeHandle, 'click': () ->
+        $.listen primeHandle, 'click': (ev) ->
             ev.stopPropagation()
 
         registerNav('prime', primeHandle)
 
         $.listen primeHandle,
             'mh-nav-item--open': () ->
-                closeNavs(null, ['prime'])
-            'mh-nav-item--close': () ->
                 closeNavs(null, ['prime'])
 
         # Update the nav height when the page loads and on subsequent scroll and
@@ -75,7 +73,7 @@ init = () ->
 
         navHeightTimeout = null
         _updateNavHeight = () ->
-            clearTimout(navHeightTimeout)
+            clearTimeout(navHeightTimeout)
             navHeightTimeout = setTimeout(updateNavHeight, 50)
 
         $.listen window,
@@ -83,11 +81,11 @@ init = () ->
             'resize': _updateNavHeight
 
     # User nav
-    userNav = $.one('.mh-nav--user')
+    userNav = $.one('.mh-nav__section--user')
     if userNav
 
         # Implement open/close behaviour
-        userHandle = $.one('.mh-nav__handle', userNav)
+        userHandle = $.one('.mh-handle', userNav)
         new mhNav.NavItem(
             userHandle,
             {
@@ -96,7 +94,7 @@ init = () ->
                 target: 'selectors'
             }
         )
-        $.listen userHandle, 'click': () ->
+        $.listen userHandle, 'click': (ev) ->
             ev.stopPropagation()
 
         registerNav('user', userHandle)
@@ -104,29 +102,23 @@ init = () ->
         $.listen userHandle,
             'mh-nav-item--open': () ->
                 closeNavs(null, exclude=['user'])
-            'mh-nav-item--close': () ->
-                closeNavs(null, exclude=['user'])
 
     # Sub navs
-    for subNav in $.many('.mh-nav__sub-list')
+    for item in $.many('.mh-nav-item--has-children')
         new mhNav.NavItem(
-            subNav.parentNode,
+            item,
             {
-                openClass: 'mh-nav__item--open'
-                selectors: '.mh-nav__sub-list',
-                target: 'child'
+                openClass: 'mh-nav-item--open'
             }
         )
-        $.listen subNav, 'click': () ->
+        $.listen item, 'click': (ev) ->
             ev.stopPropagation()
 
-        registerNav('subNav', subNav.parentNode)
+        registerNav('subNav', item)
 
-        $.listen subNav.parentNode,
+        $.listen item,
             'mh-nav-item--open': () ->
                 closeNavs(['subNav', 'user'], exclude=[this])
-            'mh-nav-item--close': () ->
-                closeNavs(['subNav', 'user'], exclude=['prime', this])
 
     # Actions
     actionsNav = $.one('.mh-actions')
@@ -142,10 +134,10 @@ init = () ->
         )
         registerNav('actions', actionsHandle)
 
-        $.listen actionsHandle, 'click': () ->
+        $.listen actionsHandle, 'click': (ev) ->
             ev.stopPropagation()
 
-        $.listen actionsHandle.parentNode, 'click': () ->
+        $.listen actionsHandle.parentNode, 'click': (ev) ->
             ev.stopPropagation()
 
     # Advanced filters
@@ -161,6 +153,9 @@ init = () ->
             }
         )
         registerNav('filters', filterHandle)
+
+        $.listen filterHandle, 'click': (ev) ->
+            ev.stopPropagation()
 
         $.listen $.one('.mh-filter-adv__fields', filterNav), 'click': (ev) ->
             ev.stopPropagation()

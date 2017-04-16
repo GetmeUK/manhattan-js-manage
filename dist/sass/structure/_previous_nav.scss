@@ -1,0 +1,686 @@
+/**
+ * NAV
+ * --
+ * Stylesheet used to format the side navigation or the left hand side of the
+ * page (in desktop view).
+ */
+
+
+.mh-nav {
+    background-color: $color-bkg-nav;
+    min-height: $mobile-header-height;
+    position: fixed;
+    width: 100%;
+    z-index: 12;
+
+    @include media-span($from: 0, $to: $tablet-landscape-width) {
+        max-height: 100% !important;
+        top: 0;
+        left: 0;
+    }
+
+    @include media-tablet-landscape() {
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        max-height: 100%;
+        max-width: $nav-width-min;
+        position: fixed;
+    }
+
+    @include media-desktop() {
+        max-width: $nav-width-max;
+    }
+
+    @include media-outer() {
+        border-top-left-radius: $corner-radius;
+        max-height: calc(100% - 20px);
+    }
+
+    @include media-span($from: $outer-width + 200px, $to: 0) {
+        max-height: calc(100% - 40px);
+    }
+
+    @include media-span($from: $outer-width + 400px, $to: 0) {
+        max-height: calc(100% - 60px);
+    }
+
+    &__list {
+        color: $color-font-reverse;
+        overflow-y: auto;
+        padding: 10px 0;
+        z-index: 1;
+
+        @include media-span($from: 0, $to: $tablet-landscape-width) {
+            background-color: $color-bkg-nav;
+            height: 100%;
+            max-height: calc(100% - #{$mobile-header-height});
+            width: $nav-width-min;
+        }
+    }
+
+    &__group {
+        box-shadow:
+            inset 0 -1px 0 0 rgba(0, 0, 0, 0.2),
+            0 1px 0 0 rgba(255, 255, 255, 0.05);
+        padding: 10px 0;
+
+        &:first-child {
+            margin-top: -10px;
+        }
+
+        &:last-child {
+            box-shadow: none;
+            margin-bottom: -10px;
+        }
+    }
+
+    &__item {
+        &--open {
+            &:not(:first-child) {
+                margin-top: 8px;
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 8px;
+            }
+
+            .mh-nav__sub-list {
+                box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05);
+                padding-bottom: 8px;
+
+                @for $i from 1 through $sub-nav-items-max {
+                    &--#{$i} {
+                        max-height: (($i * $sub-nav-item-height) + 8px);
+                    }
+                }
+
+                .mh-nav__link-count {
+                    opacity: 1;
+                }
+            }
+
+            &.mh-nav__item--has-sub-list {
+                background-color: darken($color-bkg-nav, 2.5%);
+
+                > .mh-nav__link {
+                    background-color: darken($color-bkg-nav, 2.5%);
+                    box-shadow: inset 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+                    font-weight: 400;
+
+                    &:after {
+                        border: none;
+                        @include triangle(8px, $color-bkg-main, up);
+                    }
+
+                    > .mh-nav__link-count {
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+
+        &--has-sub-list {
+            transition:
+                background-color 0.2s ease-in-out,
+                margin 0.2s ease-in-out;
+
+            > .mh-nav__link {
+                padding-right:42px;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    pointer-events: none;
+                    margin-top:-2px;
+                    @include triangle(8px, $color-bkg-main, down);
+                    @include position(absolute, 50% 17px null null);
+                }
+            }
+        }
+    }
+
+    &__link {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        padding: 10px 15px 10px 20px;
+        position: relative;
+        transition:
+            font-size 0.5s ease-in-out,
+            line-height 0.5s ease-in-out,
+            padding 0.5s ease-in-out;
+        @include type(nav);
+
+        &:hover, &:focus {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #fff !important;
+
+            .mh-nav__link-badge {
+                background-color: #fff;
+            }
+        }
+
+        &--active {
+            background-color: nth($color-themes, 1) !important;
+            font-weight: 400;
+            color: #fff !important;
+
+            @include media-mobile() {
+                &:after {
+                    content: '';
+                    display: block;
+                    margin-top: -10px;
+                    @include position(absolute, 50% null null null);
+
+                    @include media-tablet-portrait() {
+                        right: 0px;
+                        @include triangle(20px 8px, $color-bkg-main, left);
+                    }
+                }
+            }
+        }
+
+        &-text {
+            flex: 1;
+            position: relative;
+            @include ellipsis();
+
+            &:after {
+                background: center center no-repeat;
+                background-size: contain;
+                content: '';
+                display: none;
+                height: 18px;
+                margin-top: -9px;
+                width: 18px;
+                @include position(absolute, 50% null null null);
+            }
+
+            @each $name, $nav-icon in $nav-icons {
+                &--#{$name} {
+                    @if nth($nav-icon, 2) == 'left' {
+                        padding-left: 30px;
+                    } @else {
+                        padding-right: 30px;
+                    }
+
+                    &:after {
+                        background-image: url(nth($nav-icon, 1));
+                        display: block;
+
+                        @if nth($nav-icon, 2) == 'left' {
+                            left: 0;
+                        } @else {
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        &-badge {
+            background-color: nth($color-themes, 1);
+            border-radius: 6px;
+            flex: 0 0 auto;
+            height: 12px;
+            margin-left:10px;
+            width: 12px;
+        }
+
+        &-count {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: $corner-radius;
+            box-shadow:
+                0 1px 0 0 rgba(255, 255, 255, 0.05),
+                inset 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            flex: 0 0 auto;
+            font-weight: 400;
+            line-height: 27px;
+            margin-left: 10px;
+            text-align: center;
+            transition: opacity 0.2s ease-in-out;
+            width: 30px;
+        }
+    }
+
+    &__sub-list {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+            max-height 0.2s ease-in-out,
+            padding-bottom 0.2s ease-in-out;
+
+        .mh-nav__link {
+            padding-bottom: 6px;
+            padding-top: 6px;
+            @include type(sub-nav);
+
+            &-count {
+                line-height: 24px;
+                opacity: 0;
+                width: 26px;
+            }
+        }
+    }
+}
+
+
+/**
+ * Logo
+ * --
+ * The nav logo can be customised for every CMS. In desktop view, the image is
+ * positioned top left of the UI in the nav block. In mobile view, the image is
+ * hidden and the project name is shown in it's place in the top center of the
+ * nav bar. However, this behaviour can be modified from the settings file.
+ */
+.mh-logo {
+    @include media-span($from: 0, $to: $tablet-landscape-width) {
+        box-shadow:
+            0 2px 2px 2px rgba(0, 0, 0, 0.1),
+            0 1px 0 0 rgba(0, 0, 0, 0.1);
+        height: $mobile-header-height;
+        padding: 10px ($mobile-header-height + 10px);
+        position: relative;
+        z-index: 2;
+    }
+
+    @include media-tablet-landscape() {
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    &__image {
+        display: block;
+
+        @include media-span($from: 0, $to: $tablet-landscape-width) {
+            @if ($logo-mobile) {
+                background: url($logo-mobile) center center no-repeat;
+                background-size: contain;
+                height: 100%;
+                margin: 0 auto;
+            }
+        }
+
+        @include media-tablet-landscape() {
+            @if ($logo-desktop) {
+                background: url($logo-desktop) center center no-repeat;
+                background-size: contain;
+                height: $logo-height;
+                margin: 0 auto;
+                max-width: $logo-width;
+            }
+        }
+
+        &-text {
+            display: block;
+
+            @include media-span($from: 0, $to: $tablet-landscape-width) {
+                @if ($logo-mobile) {
+                    @include homer();
+                } @else {
+                    text-align: center;
+                    @include ellipsis();
+                    @include type(
+                        h3,
+                        $color: #fff,
+                        $line-height: ($mobile-header-height - 20px)
+                    );
+                }
+            }
+
+            @include media-tablet-landscape() {
+                @if ($logo-desktop) {
+                    @include homer();
+                } @else {
+                    background-color: rgba(0, 0, 0, 0.1);
+                    border-radius: $corner-radius;
+                    box-shadow:
+                        0 1px 0 0 rgba(255, 255, 255, 0.05),
+                        0 -1px 0 0 rgba(0, 0, 0, 0.2);
+                    text-align: center;
+                    padding: 10px 20px;
+                    @include ellipsis();
+                    @include type(
+                        large,
+                        $color: #fff,
+                        $font-weight: 400
+                    );
+                }
+            }
+        }
+    }
+}
+
+
+/**
+ * Prime nav
+ * --
+ * The primary navigation for the CMS UI. It contains all of the top level links
+ * which allows the user to navigate to the different parts of the CMS.
+ */
+.mh-prime-nav {
+    @include media-span($from: 0, $to: $tablet-landscape-width) {
+        &__handle {
+            box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            height: $mobile-header-height;
+            padding: 0;
+            transition: background-color 0.2s ease-in-out;
+            width: $mobile-header-height;
+            z-index: 3;
+            @include position(fixed, 0px null null 0px);
+
+            &:hover {
+                background-color: nth($color-themes, 1);
+            }
+
+            &-box {
+                height: $burger-box-height;
+                margin: (-$burger-box-height / 2) 0 0 (-$burger-dash-width / 2);
+                width: $burger-dash-width;
+                @include position(absolute, 50% null null 50%);
+            }
+
+            &-dash {
+                top: 0;
+                transition:
+                    transform
+                    0.4s
+                    cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+                &, &:before, &:after {
+                    background-color: $color-bkg-main;
+                    border-radius: $burger-dash-radius;
+                    height: $burger-dash-height;
+                    position: absolute;
+                    width: $burger-dash-width;
+                }
+
+                &:before, &:after {
+                    content: "";
+                    display: block;
+                }
+
+                &:before {
+                    top: $burger-dash-height + $burger-dash-spacing;
+                    transition: opacity 0.15s 0.4s ease;
+                }
+
+                &:after {
+                    top: ($burger-dash-height * 2) + ($burger-dash-spacing * 2);
+                    transition:
+                        transform
+                        0.4s
+                        cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                }
+            }
+        }
+
+        &__list {
+            box-shadow: inset -6px 0 3px -3px rgba(0, 0, 0, 0.15);
+            transition: left 0.5s ease-in-out;
+            @include position(
+                fixed,
+                $mobile-header-height null null (-$nav-width-min)
+            );
+        }
+
+        .mh-nav__link--active {
+            &:after {
+                right: 0px;
+                @include triangle(20px 8px, $color-bkg-main, left);
+            }
+        }
+    }
+
+    @include media-tablet-landscape() {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+
+        &__list {
+            border-bottom: 10px solid transparent;
+            flex: 1;
+            padding: 0;
+
+            @if ($logo-desktop) {
+                border-top: 10px solid transparent;
+            }
+        }
+    }
+}
+
+
+/**
+ * User nav
+ * --
+ * Small amount of information (name/image) about the current user shown at the
+ * bottom of nav area on every page (in desktop view) to help quickly identify
+ * who is currently logged in, which when clicked shows a drop down of options
+ * relating to user management.
+ */
+.mh-user-nav {
+    @include media-tablet-landscape() {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__handle {
+        cursor: pointer;
+
+        @include media-span($from: 0, $to: $tablet-landscape-width) {
+            box-shadow: -1px 0 0 0 rgba(0, 0, 0, 0.1);
+            height: $mobile-header-height;
+            transition: background-color 0.2s ease-in-out;
+            width: $mobile-header-height;
+            z-index: 3;
+            @include position(absolute, 0px 0px null null);
+        }
+
+        @include media-tablet-landscape() {
+            box-shadow:
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+                0 -1px 0 0 rgba(0, 0, 0, 0.2);
+            order: 2;
+            padding: 15px 42px 15px ($user-profile-size + 35px);
+            position: relative;
+            transition:
+                background-color 0.2s ease-in-out,
+                box-shadow 0.2s ease-in-out;
+        }
+
+        @include media-desktop() {
+            padding-left: ($user-profile-size-desktop + 35px);
+        }
+
+        &:hover {
+            background-color: nth($color-themes, 1);
+
+            @include media-tablet-landscape() {
+                box-shadow: none !important;
+            }
+
+            .mh-user-nav__handle-icon {
+                &:before, &:after {
+                    background-color: nth($color-themes, 1);
+                }
+            }
+
+            .mh-user-nav__handle-name {
+                color: #fff;
+            }
+        }
+
+        &:after {
+            @include media-tablet-landscape() {
+                content: '';
+                display: block;
+                pointer-events: none;
+                margin-top:-2px;
+                @include triangle(8px, $color-bkg-main, down);
+                @include position(absolute, 50% 17px null null);
+            }
+        }
+
+        @if not $user-profile-icon {
+            &-icon {
+                background-color: $color-bkg-main;
+                border: 4px solid $color-bkg-main;
+                border-radius: 50%;
+                height: $user-profile-size;
+                margin-top: (-$user-profile-size / 2);
+                overflow: hidden;
+                width: $user-profile-size;
+                z-index: 1;
+                @include position(absolute, 50% null null 50%);
+
+                @include media-span($from: 0, $to: $tablet-landscape-width) {
+                    margin-left: (-$user-profile-size / 2);
+                }
+
+                @include media-tablet-landscape() {
+                    left:20px;
+                }
+
+                @include media-desktop() {
+                    height: $user-profile-size-desktop;
+                    margin-top: (-$user-profile-size-desktop / 2);
+                    width: $user-profile-size-desktop;
+                }
+
+                &:before, &:after {
+                    background-color: $color-bkg-nav;
+                    border-radius: 50%;
+                    content: '';
+                    display: block;
+                    transition: background-color 0.2s ease-in-out;
+                    @include position(absolute, 50% null null 50%);
+                }
+
+                &:before {
+                    margin: -45% 0 0 -22.5%;
+                    height: 45%;
+                    width: 45%;
+                }
+
+                &:after {
+                    margin: 8% 0 0 -50%;
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+
+        &-image {
+            background: center center no-repeat;
+            background-size: cover;
+            border-radius: 50%;
+            height: ($user-profile-size + 2px);
+            margin-top: (-($user-profile-size + 2px) / 2);
+            width: ($user-profile-size + 2px);
+            z-index: 2;
+            @include position(absolute, 50% null null 50%);
+
+            @include media-span($from: 0, $to: $tablet-landscape-width) {
+                margin-left: (-($user-profile-size + 2px) / 2);
+            }
+
+            @include media-tablet-landscape() {
+                left: 19px;
+            }
+
+            @include media-desktop() {
+                height: ($user-profile-size-desktop + 2px);
+                margin-top: (-($user-profile-size-desktop + 2px) / 2);
+                width: ($user-profile-size-desktop + 2px);
+            }
+
+            @if $user-profile-icon {
+                background-image: url($user-profile-icon);
+            }
+        }
+
+        &-name {
+            @include ellipsis();
+            @include type(
+                sub-nav,
+                $color: $color-font-reverse,
+                $line-height: (($user-profile-size / 2) + 4)
+            );
+
+            @include media-span($from: 0, $to: $tablet-landscape-width) {
+                display:none;
+            }
+
+            @include media-desktop() {
+                line-height: (($user-profile-size-desktop / 2) + 4);
+            }
+        }
+    }
+
+    &__list {
+        @include media-span($from: 0, $to: $tablet-landscape-width) {
+            box-shadow: inset 6px 0 3px -3px rgba(0, 0, 0, 0.15);
+            transition: right 0.5s ease-in-out;
+            @include position(
+                fixed,
+                $mobile-header-height (-$nav-width-min) null null
+            );
+        }
+
+        @include media-tablet-landscape() {
+            background-color: rgba(0, 0, 0, 0.1);
+            box-shadow:
+                0 1px 0 0 rgba(255, 255, 255, 0.05),
+                inset 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+            max-height: 0;
+            padding: 0;
+            order: 1;
+            overflow: hidden;
+            transition: max-height 0.2s ease-in-out;
+        }
+
+        &-name {
+            @include media-span($from: 0, $to: $tablet-landscape-width) {
+                background-color: darken($color-bkg-nav, 2.5%);
+                box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05);
+                margin-top: -10px;
+                padding: 18px 20px;
+                @include ellipsis();
+                @include type(nav, $font-weight: 400);
+            }
+
+            @include media-span($from: $tablet-landscape-width, $to: 0) {
+                height: 0;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .mh-nav__group {
+        &:last-child {
+            @include media-tablet-landscape() {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .mh-nav__link {
+        @include media-tablet-landscape() {
+            padding-bottom: 6px;
+            padding-top: 6px;
+            @include type(sub-nav);
+        }
+
+        &--active {
+            @include media-span($from: 0, $to: $tablet-portrait-width) {
+                left: 0px;
+                @include triangle(8px 20px, $color-bkg-main, right);
+            }
+        }
+    }
+}
