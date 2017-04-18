@@ -8,11 +8,11 @@ results = require './results.coffee'
 
 init = () ->
 
-    core.init()
     flashes.init()
     forms.init()
     nav.init()
     results.init()
+    core.init()
 
 
 module.exports = {

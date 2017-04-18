@@ -76,9 +76,6 @@ inFieldLabels = () ->
     # Implement in-field labels
     inputSelector = '.mh-field__text, .mh-field__textarea, .mh-field__select'
 
-    # Add fill events
-    forms.fields.listenForFill(inputSelector)
-
     # Listen for fill, focus and blur events and modify the field state to
     # accommodate in-field lables.
     for input in $.many(inputSelector)
@@ -102,6 +99,9 @@ inFieldLabels = () ->
                     field.classList.add('mh-field__control--filled')
                 else
                     field.classList.remove('mh-field__control--filled')
+
+    # Add fill events
+    forms.fields.listenForFill(inputSelector)
 
 # ToggleFields
 
