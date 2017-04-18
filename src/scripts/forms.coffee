@@ -119,8 +119,8 @@ init = () ->
 
     # Set up typeaheads
     for input in $.many('[data-mh-typeahead]')
-        typeahead = new Typeahead(input)
-        
+        new typeahead.Typeahead(input)
+
     # Clear field errors
     inputErrors = $.many('[data-mh-error]')
     for input in inputErrors
