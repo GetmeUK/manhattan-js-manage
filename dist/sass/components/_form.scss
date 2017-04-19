@@ -413,7 +413,7 @@ $field_width: 600px;
 
         /**
          * This class is applied to every field by default. However, when the
-         * field is focused-on or filled in, the styles change below.
+         * field is focused-on or filled-in, the styles change below.
          */
         &--focused, &--filled {
             .mh-field {
@@ -429,12 +429,13 @@ $field_width: 600px;
                     padding-top: 18px;
 
                     @include placeholder {
-                        color: $color-font-light;
+                        color: $color-font-light !important;
                     }
                 }
 
                 &__select {
                     color: $color-font;
+                    padding-top: 9px;
                 }
 
                 &__textarea {
