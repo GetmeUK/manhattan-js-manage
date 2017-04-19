@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "main": "dist/index.js",
   "scripts": {
     "dist": "NODE_ENV=dist webpack --progress",
