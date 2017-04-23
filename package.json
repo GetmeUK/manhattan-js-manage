@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "dist/index.js",
   "scripts": {
     "dist": "NODE_ENV=dist webpack --progress",
@@ -13,7 +13,7 @@
     "coffee-script": "^1.12.4",
     "coffeelint": "^1.16.0",
     "coffeelint-loader": "^0.1.1",
-    "manhattan-assets": "^0.0.3",
+    "manhattan-assets": "^0.0.4",
     "manhattan-date-picker": "^0.0.6",
     "manhattan-effects": "^0.0.2",
     "manhattan-essentials": "^0.0.12",

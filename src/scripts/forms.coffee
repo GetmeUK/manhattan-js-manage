@@ -111,7 +111,9 @@ init = () ->
 
     # Set up for asset fields
     for input in $.many('[data-mh-assets-field]')
-        new assets.Field(input)
+        new assets.Field(input, {
+            endpoint: '/manage/upload-asset'
+            })
 
     # Set up date pickers
     for input in $.many('[data-mh-date-picker]')
