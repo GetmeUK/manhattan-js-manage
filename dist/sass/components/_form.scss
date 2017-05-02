@@ -411,6 +411,10 @@ $field_width: 600px;
 
         &:first-child { margin-top: 0; }
 
+        &:hover {
+            z-index: 2;
+        }
+
         /**
          * This class is applied to every field by default. However, when the
          * field is focused-on or filled-in, the styles change below.
@@ -444,7 +448,7 @@ $field_width: 600px;
             }
         }
 
-        &--focused { z-index: 2; }
+        &--focused { z-index: 3; }
 
         /**
          * Position field label above the field rather than inside the field.
