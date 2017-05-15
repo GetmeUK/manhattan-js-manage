@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "main": "dist/index.js",
   "scripts": {
     "dist": "NODE_ENV=dist webpack --progress",
@@ -17,7 +17,7 @@
     "manhattan-date-picker": "^0.0.6",
     "manhattan-effects": "^0.0.2",
     "manhattan-essentials": "^0.0.12",
-    "manhattan-forms": "^0.0.5",
+    "manhattan-forms": "^0.0.6",
     "manhattan-nav": "^0.0.1",
     "manhattan-sortable": "^0.0.2",
     "manhattan-typeahead": "^0.0.5",
