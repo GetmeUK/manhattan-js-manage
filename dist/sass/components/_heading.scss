@@ -19,7 +19,7 @@
     &__primary {
         @include align-items(center);
         @include display(flex);
-        @include flex(1);
+        @include flex(1 0 auto);
     }
 
     h1.mh-heading__primary { @include type(h1); }

@@ -59,7 +59,7 @@
 
         &-results {
             margin-right: 20px;
-            @include flex(1);
+            @include flex(1 0 auto);
             @include ellipsis();
             @include type(small, $line-height: $field-small-height);
 

@@ -21,7 +21,7 @@
         @include media-tablet-portrait() {
             margin-right: 20px;
             margin-top: 0 !important;
-            @include flex(0);
+            @include flex(0 0 auto);
             @include flex-basis(200px);
         }
 
@@ -34,7 +34,7 @@
         }
 
         > * {
-            @include flex(1);
+            @include flex(1 0 auto);
         }
 
         .mh-field__text,

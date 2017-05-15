@@ -7,30 +7,30 @@
 
 
 .mh-main {
-    display: flex;
-    flex: 1;
     width: 100%;
+    @include display(flex);
+    @include flex(1 0 auto);
 
     @include media-span($from: 0, $to: $tablet-landscape-width) {
         transition: margin-left 0.5s ease-in-out, padding 0.5s ease-in-out;
     }
 
     @include media-tablet-landscape() {
-        justify-content: flex-end;
+        @include justify-content(flex-end);
     }
 
     &__inner {
         background-color: $color-bkg-main;
-        display: flex;
-        flex: 1;
-        flex-direction: column;
         max-width: 100%;
         width: 100%;
+        @include display(flex);
+        @include flex(1 0 auto);
+        @include flex-direction(column);
 
         @include media-tablet-landscape() {
-            justify-content: flex-end;
             max-width: calc(100% - #{$nav-width-min});
             width: 100%;
+            @include justify-content(flex-end);
         }
 
         @include media-desktop() {
@@ -44,7 +44,7 @@
         > .mh-heading {
             background-color: #fff;
             box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05);
-            flex: 0 0 auto;
+            @include flex(0 0 auto);
 
             @include media-outer() {
                 border-top-right-radius: $corner-radius;
@@ -53,8 +53,8 @@
     }
 
     &__content {
-        flex: 1;
         padding-top: 15px;
+        @include flex(1 0 auto);
 
         @include media-mobile() {
             padding: 20px;
@@ -72,13 +72,13 @@
         }
 
         @include media-desktop() {
-            display: flex;
+            @include display(flex);
         }
 
         > .mh-main__box {
             @include media-desktop() {
                 margin: 0 0 0 20px;
-                flex: 1;
+                @include flex(1 0 auto);
                 
                 &:first-child { margin-left: 0; }
             }
@@ -91,9 +91,9 @@
     &__box {
         background-color: #fff;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
         margin: 15px 0;
+        @include display(flex);
+        @include flex-direction(column);
 
         @include media-mobile() {
             border-radius: $corner-radius;
@@ -102,9 +102,9 @@
 
         > * {
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            flex: 1;
             margin: 0;
             padding: 20px;
+            @include flex(1 0 auto);
 
             &:last-child {
                 border-bottom: none;

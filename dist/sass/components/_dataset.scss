@@ -47,7 +47,7 @@
         }
 
         &:last-child {
-            @include flex(1);
+            @include flex(1 0 auto);
 
             > .mh-dataset__column {
                 @include media-span($from: 0, $to: $tablet-portrait-width) {
@@ -102,7 +102,7 @@
 
         .mh-dataset {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
-            @include flex(1);
+            @include flex(1 0 auto);
 
             @include media-tablet-portrait() {
                 border-top: none;
@@ -248,7 +248,7 @@
     &__value,
     &__image,
     &__map {
-        @include flex(1);
+        @include flex(1 0 auto);
     }
 
     &__value {
@@ -286,7 +286,7 @@
         > a {
             @include align-items(stretch);
             @include display(flex);
-            @include flex(1);
+            @include flex(1 0 auto);
             @include justify-content(center);
         }
         
@@ -295,7 +295,7 @@
             background-size: contain;
             border-radius: $corner-radius;
             box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-            @include flex(1);
+            @include flex(1 0 auto);
         }
 
         &-elm {

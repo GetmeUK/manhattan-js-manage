@@ -78,7 +78,7 @@
         padding: 0 0 1px;
         text-align: left;
         white-space: nowrap;
-        @include flex(1);
+        @include flex(1 0 auto);
         @include type(large, $font-weight: 500);
 
         &:first-child {

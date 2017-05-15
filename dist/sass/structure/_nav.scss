@@ -56,7 +56,7 @@
         &--prime {
             @include media-tablet-landscape() {
                 @include display(flex);
-                @include flex(1);
+                @include flex(1 0 0%);
                 @include flex-direction(column);
             }
 
@@ -102,7 +102,7 @@
                     @include media-tablet-landscape() {
                         border-bottom: 10px solid transparent;
                         padding: 0;
-                        @include flex(1);
+                        @include flex(1 0 auto);
 
                         @if ($logo-desktop) {
                             border-top: 10px solid transparent;
@@ -305,6 +305,7 @@
 .mh-nav-section {
     &__items {
         color: $color-font-reverse;
+        max-height: 100%;
         overflow-y: auto;
         padding: 10px 0;
         z-index: 1;
@@ -366,7 +367,7 @@
 
         &:before {
             top: 9px;
-            @includetransition(opacity 0.15s 0.4s ease);
+            @include transition(opacity 0.15s 0.4s ease);
         }
 
         &:after {
@@ -746,7 +747,7 @@
     &__label {
         position: relative;
         @include ellipsis();
-        @include flex(1);
+        @include flex(1 0 auto);
 
         &:after {
             background: center center no-repeat;

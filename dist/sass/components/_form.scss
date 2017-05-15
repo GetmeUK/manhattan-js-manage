@@ -404,7 +404,7 @@ $field_width: 600px;
 
         @include media-mobile() {
             margin: 0 20px 0 0;
-            @include flex(1);
+            @include flex(1 0 auto);
 
             &:last-child { margin-right: 0; }
         }
@@ -430,6 +430,7 @@ $field_width: 600px;
                 &__select,
                 &__textarea,
                 &__asset {
+                    line-height: 200%; /* IE11 ignores padding */
                     padding-top: 18px;
 
                     @include placeholder {
@@ -439,7 +440,7 @@ $field_width: 600px;
 
                 &__select {
                     color: $color-font;
-                    padding-top: 9px;
+                    padding-top: 18px;
                 }
 
                 &__textarea {
@@ -779,6 +780,10 @@ $field_width: 600px;
         &:-moz-focusring {
             color: transparent;
             text-shadow: 0 0 0 $color-font;
+        }
+
+        &::-ms-expand {
+            display: none;
         }
     }
 

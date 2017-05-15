@@ -41,21 +41,21 @@
     $display: flex,
     $width: 100%
     ) {
-    align-items: center;
     border-radius: $border-radius;
     border: none;
     cursor: pointer;
-    display: $display;
     font-family: inherit;
     font-weight: 400;
-    justify-content: center;
     margin-left: auto;
     margin-right: auto;
     padding: 0 10px;
     text-align: center;
     text-decoration: none;
     width: $width;
+    @include align-items(center);
+    @include display($display);
     @include ellipsis();
+    @include justify-content(center);
 
     &:hover, &:focus {
         outline: none;
@@ -68,6 +68,10 @@
     }
 
     &::-moz-focus-inner { border: 0; } // Remove Firefox button outline
+
+    > * {
+        margin: 0 auto;
+    }
 }
 
 

@@ -20,8 +20,8 @@
     }
 
     @include media-mobile() {
-        align-items: center;
-        justify-content: center;
+        @include align-items(center);
+        @include justify-content(center);
     }
 
     &__center {
@@ -34,7 +34,7 @@
         @include media-mobile() {
             padding: 30px;
             @include align-items(center);
-            @include flex(1);
+            @include flex(1 0 auto);
         }
     }
 
