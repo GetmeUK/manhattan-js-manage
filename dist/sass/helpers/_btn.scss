@@ -55,7 +55,7 @@
     @include align-items(center);
     @include display($display);
     @include ellipsis();
-    @include justify-content(center);
+    @include justify-content(space-around);
 
     &:hover, &:focus {
         outline: none;
@@ -68,10 +68,6 @@
     }
 
     &::-moz-focus-inner { border: 0; } // Remove Firefox button outline
-
-    > * {
-        margin: 0 auto;
-    }
 }
 
 
