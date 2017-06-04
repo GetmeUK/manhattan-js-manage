@@ -13,7 +13,7 @@
  * An outer container used to set the width of the main content area.
  */
 .inner {
-	float: none;
+    float: none;
     margin: 0 auto;
     text-align: left;
     max-width: $email-width !important;
@@ -98,9 +98,9 @@
 /**
  * Custom font sizes
  */
-.large-text { @include type(large); }
-.normal-text { @include type(standard); }
-.small-text { @include type(small); }
+.large-text { @include type-email(large); }
+.normal-text { @include type-email(standard); }
+.small-text { @include type-email(small); }
 
 /**
  * Font weights
@@ -146,9 +146,6 @@
  * relating to the subject of the email.
  */
 .btns {
-    font-size: 0;
-    line-height: 0;
-
     .btn {
         margin-left: 10px;
 
@@ -180,18 +177,19 @@
  */
 .btn {
     background-color: nth($color-themes, 1);
+    border-bottom: 5px solid nth($color-themes, 1);
+    border-left: 20px solid nth($color-themes, 1);
+    border-right: 20px solid nth($color-themes, 1);
+    border-top: 5px solid nth($color-themes, 1);
     border-radius: $corner-radius;
     display: inline-block;
-    height: $btn-small-height;
-    padding: 0 20px;
     text-align: center;
     text-decoration: none;
     white-space: no-wrap;
-    @include type(
+    @include type-email(
         standard,
         $color: #fff,
-        $font-weight: 400,
-        $line-height: $btn-small-height
+        $font-weight: 400
     );
     
     @include media-email-mobile() {
@@ -231,9 +229,9 @@
         }
     }
 }
-.formatted > h1, .h1 { @include type(h1, $font-weight: 400); }
-.formatted > h2, .h2 { @include type(h2, $font-weight: 400); }
-.formatted > h3, .h3 { @include type(h3, $font-weight: 400); }
+.formatted > h1, .h1 { @include type-email(h1, $font-weight: 400); }
+.formatted > h2, .h2 { @include type-email(h2, $font-weight: 400); }
+.formatted > h3, .h3 { @include type-email(h3, $font-weight: 400); }
 
 
 /**
@@ -245,7 +243,7 @@
 .content {
     &__heading {
         padding-bottom: 10px;
-        @include type(h2, $font-weight: 400);
+        @include type-email(h2, $font-weight: 400);
     }
 
 
