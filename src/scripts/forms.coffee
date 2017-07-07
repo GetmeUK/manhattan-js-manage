@@ -19,7 +19,7 @@ affixButtons = (form) ->
     # If the buttons are held within a fieldset then move them to the end of the
     # form.
     btns = $.one('.mh-field--btns', form)
-    fieldset = $.closest('.mh-form__fieldset', btns)
+    fieldset = $.closest(btns, '.mh-form__fieldset')
     if fieldset
         # Move the buttons
         forms.appendChild(btns)
@@ -30,26 +30,26 @@ affixButtons = (form) ->
 
     # Flag when the buttons are at the bottom of the page (this is used to apply
     # a visual effect to the buttons container).
-    frame = $.closest('.mh-frame', form)
+    frame = $.closest(form, '.mh-frame')
 
     anchored = () ->
         # If the user has scrolled to the bottom of the page then flag this
         # against the form buttons.
         if window.innerHeight + window.scrollY >= frame.clientHeight
-            btns.classList.remove('mh-field--anchored')
-        else
             btns.classList.add('mh-field--anchored')
+        else
+            btns.classList.remove('mh-field--anchored')
 
     # Check initially...
     anchored()
 
     # ...and subsequently whenever the user scrolls.
     $.listen window, 'scroll': () ->
-        atBottom()
+        anchored()
 
 clearError = (input) ->
     # Clear an error against the field
-    field = $.closest('.mh-field__control')
+    field = $.closest(input, '.mh-field__control')
 
     # Remove the error attribute from the input and any siblings
     for child in $.many('[data-mh-error]', field)
@@ -142,8 +142,8 @@ init = () ->
     # than the form's container frame.
     primaryForm = $.one('.mh-form--primary')
     if primaryForm
-        primaryFrame = $.closest('.mh-frame', primaryForm)
-        if primaryFrame and primaryFrame.clientHeight > window.innerWidth
+        primaryFrame = $.closest(primaryForm, '.mh-frame')
+        if primaryFrame and primaryFrame.clientHeight > window.innerHeight
             affixButtons(primaryForm)
 
             # Enable the next error button to aid users navigating long forms

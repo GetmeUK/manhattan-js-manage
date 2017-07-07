@@ -158,10 +158,6 @@ $field_width: 600px;
                 &:last-child { margin-right: 0; }
             }
 
-            &-no-shadow {
-                box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-            }
-
             /**
              * If the page has any actions against it, push the form buttons
              * further from the bottom to accommodate for actions on mobile.
@@ -171,6 +167,10 @@ $field_width: 600px;
                     bottom: $action-height;
                 }
             }
+        }
+
+        .mh-field--anchored {
+            box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1);
         }
     }
 
