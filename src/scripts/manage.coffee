@@ -4,6 +4,7 @@ core = require './core.coffee'
 flashes = require './flashes.coffee'
 forms = require './forms.coffee'
 nav = require './nav.coffee'
+order = require './order.coffee'
 results = require './results.coffee'
 
 init = () ->
@@ -12,6 +13,7 @@ init = () ->
     forms.init()
     nav.init()
     results.init()
+    order.init()
     core.init()
 
 
