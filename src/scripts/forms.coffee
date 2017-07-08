@@ -115,6 +115,12 @@ init = () ->
             endpoint: '/manage/upload-asset'
             })
 
+    # Set up for asset galleries
+    for input in $.many('[data-mh-assets-gallery]')
+        new assets.Gallery(input, {
+            endpoint: '/manage/upload-asset'
+            })
+
     # Set up date pickers
     for input in $.many('[data-mh-date-picker]')
         new datePicker.DatePicker(input)
