@@ -650,7 +650,7 @@
 
             @for $i from 1 through $sub-nav-items-max {
                 &--#{$i} {
-                    max-height: (($i * $sub-nav-item-height) + 8px);
+                    max-height: (($i * $sub-nav-item-height) + 96px);
                 }
             }
 
