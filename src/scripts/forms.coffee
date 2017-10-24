@@ -93,6 +93,10 @@ inFieldLabels = () ->
                 field = $.closest(this, '.mh-field__control')
                 field.classList.add('mh-field__control--focused')
 
+            'mh-date-picker--picked': (ev) ->
+                field = $.closest(this, '.mh-field__control')
+                field.classList.add('mh-field__control--filled')
+
             'mh-forms-fields--fill': (ev) ->
                 field = $.closest(this, '.mh-field__control')
                 if ev.filled
