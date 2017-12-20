@@ -79,7 +79,7 @@
             @include media-desktop() {
                 margin: 0 0 0 20px;
                 @include flex(1 0 auto);
-                
+
                 &:first-child { margin-left: 0; }
             }
 
@@ -93,6 +93,7 @@
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
         margin: 15px 0;
         @include display(flex);
+        @include flex(1 1 !important);
         @include flex-direction(column);
 
         @include media-mobile() {
