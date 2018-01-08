@@ -16,6 +16,18 @@
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     @include type(standard, $color: #fff, $font-weight: 400, $line-height: 100%);
 
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    & + .mh-tag {
+        margin-left: 0;
+    }
+
     &--error {
         background-color: $color-alert-error;
     }

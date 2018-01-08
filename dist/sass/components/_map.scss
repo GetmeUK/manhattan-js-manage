@@ -1,0 +1,28 @@
+/**
+ * Map field support
+ */
+.mh-map {
+    height: 400px;
+}
+
+.mh-map-field {
+    height: 400px;
+    margin-top: 20px;
+    max-width: 600px;
+
+    &__find-location {
+        background: #fff;
+        border-radius: 2px;
+        bottom: 2px;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        font-weight: bold;
+        left: 2px;
+        padding: 5px 10px;
+        z-index: 800;
+
+        &:hover {
+            background-color: #f8f8f8;
+        }
+    }
+}

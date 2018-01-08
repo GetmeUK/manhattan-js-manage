@@ -272,11 +272,25 @@
 
     &__image {
         @include align-items(stretch);
+        background: $color-bkg-main center center no-repeat;
+        background-size: contain;
+        border-radius: $corner-radius;
         @include display(flex);
         @include justify-content(center);
+        max-height: 100vw;
+        position: relative;
 
         &:not(:first-child) {
             margin-top: 5px;
+        }
+
+        &::after {
+            border-radius: $corner-radius;
+            box-shadow: inset 0 0 0 1px rgba(#000, 0.1);
+            content: '';
+            display: block;
+            pointer-events: none;
+            @include position(absolute, 0px 0px 0px 0px);
         }
 
         &--flexible {
@@ -289,7 +303,7 @@
             @include flex(1 0 auto);
             @include justify-content(center);
         }
-        
+
         &-frame {
             background: lighten($color-bkg-main, 2%) center center no-repeat;
             background-size: contain;

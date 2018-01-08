@@ -1,0 +1,11 @@
+
+.mh-orderable {
+    &__item {
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        cursor: grab;
+        margin-bottom: 10px;
+        padding: 10px 20px;
+    }
+}
