@@ -18,14 +18,14 @@
     text-align: left;
     max-width: $email-width !important;
     width: $email-width !important;
-    
+
     @include media-email-tablet() {
         table[class="body"] & {
             min-width: 320px !important;
             width: 100% !important;
         }
     }
-    
+
     table {
         width: 100%;
     }
@@ -41,7 +41,7 @@
 .vert-spacer {
     height: 20px;
     padding: 0;
-    
+
     &--mobile-compact {
         @include media-email-mobile() {
             table[class="body"] & {
@@ -49,14 +49,14 @@
             }
         }
     }
-    
+
     &--small {
         height: 10px;
     }
-    
+
     &--large {
         height: 30px;
-        
+
         @include media-email-mobile() {
             table[class="body"] & {
                 height: 20px !important;
@@ -69,12 +69,12 @@
 /**
  * Divider
  * --
- * A horizontal rule with 
+ * A horizontal rule with
  */
 .divider {
     &__top {
         height:10px;
-        
+
         @include media-email-mobile() {
             table[class="body"] & {
                 height: 0 !important;
@@ -85,7 +85,7 @@
     &__bottom {
         border-top: 1px solid darken($color-bkg-main, 5%);
         height:10px;
-        
+
         @include media-email-mobile() {
             table[class="body"] & {
                 height: 0 !important;
@@ -98,9 +98,17 @@
 /**
  * Custom font sizes
  */
-.large-text { @include type(large); }
-.normal-text { @include type(standard); }
-.small-text { @include type(small); }
+.large-text {
+    @include type-email(large);
+}
+
+.normal-text {
+    @include type-email(standard);
+}
+
+.small-text {
+    @include type-email(small);
+}
 
 /**
  * Font weights
@@ -149,6 +157,12 @@
     font-size: 0;
     line-height: 0;
 
+    @include type-email(
+        standard,
+        $color: #fff,
+        $font-weight: 400
+    );
+
     .btn {
         margin-left: 10px;
 
@@ -180,20 +194,24 @@
  */
 .btn {
     background-color: nth($color-themes, 1);
+    border-bottom: 6px solid nth($color-themes, 1);
+    border-left: 15px solid nth($color-themes, 1);
     border-radius: $corner-radius;
+    border-right: 15px solid nth($color-themes, 1);
+    border-top: 6px solid nth($color-themes, 1);
     display: inline-block;
-    height: $btn-small-height;
-    padding: 0 20px;
+    height: auto;
+    padding: 0;
     text-align: center;
     text-decoration: none;
     white-space: no-wrap;
-    @include type(
+
+    @include type-email(
         standard,
         $color: #fff,
-        $font-weight: 400,
-        $line-height: $btn-small-height
+        $font-weight: 400
     );
-    
+
     @include media-email-mobile() {
         table[class="body"] & {
             display: block !important;
@@ -231,9 +249,21 @@
         }
     }
 }
-.formatted > h1, .h1 { @include type(h1, $font-weight: 400); }
-.formatted > h2, .h2 { @include type(h2, $font-weight: 400); }
-.formatted > h3, .h3 { @include type(h3, $font-weight: 400); }
+
+.formatted > h1,
+.h1 {
+    @include type-email(h1, $font-weight: 400);
+}
+
+.formatted > h2,
+.h2 {
+    @include type-email(h2, $font-weight: 400);
+}
+
+.formatted > h3,
+.h3 {
+    @include type-email(h3, $font-weight: 400);
+}
 
 
 /**
@@ -245,7 +275,7 @@
 .content {
     &__heading {
         padding-bottom: 10px;
-        @include type(h2, $font-weight: 400);
+        @include type-email(h2, $font-weight: 400);
     }
 
 
@@ -294,14 +324,14 @@
             .content-list__spacer,
             .content-list__value {
                 border-top: 10px solid #fff;
-                
+
                 @include media-email-mobile() {
                     table[class="body"] & {
                         border-top: none !important;
                     }
                 }
             }
-            
+
             @include media-email-mobile() {
                 table[class="body"] & {
                     border-top: 10px solid #fff !important;
@@ -321,7 +351,7 @@
             font-weight: 400;
             width: 30%;
             vertical-align: middle;
-            
+
             @include media-email-mobile() {
                 table[class="body"] & {
                     width: 100% !important;
@@ -339,7 +369,7 @@
             .content-list-value {
                 background-color: lighten($color-bkg-main, 2%);
                 border-radius: $corner-radius;
-                
+
                 @include media-email-mobile() {
                     table[class="body"] & {
                         width: 100% !important;
