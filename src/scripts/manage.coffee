@@ -1,6 +1,7 @@
 $ = require 'manhattan-essentials'
 
 core = require './core.coffee'
+changelog = require './change_log.coffee'
 flashes = require './flashes.coffee'
 forms = require './forms.coffee'
 nav = require './nav.coffee'
@@ -14,6 +15,7 @@ init = () ->
     nav.init()
     results.init()
     order.init()
+    changelog.init()
     core.init()
 
 

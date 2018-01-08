@@ -1,0 +1,76 @@
+/**
+ * Changes (displayed in a changelog)
+ * --
+ * @@
+ */
+
+.change {
+    margin-top: 6px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &--add {
+        .change__field {
+            color: #27ae60;
+        }
+    }
+
+    &--update {
+        .change__field {
+            color: #f39c12;
+        }
+    }
+
+    &--delete {
+        .change__field {
+            color: #e74c3c;
+        }
+    }
+
+    &--expanded {
+        .change__values {
+            display: block;
+        }
+    }
+
+    &__field {
+        border-radius: 3px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        padding: 6px 0;
+    }
+
+    &__values {
+        display: none;
+    }
+
+    &__value {
+        margin-top: 6px;
+        min-height: 18px;
+        padding-left: 20px;
+        position: relative;
+        width: calc(100% - 20px);
+
+        &--original,
+        &--new {
+            &::before {
+                content: '-';
+                display: inline-block;
+                left: 0;
+                position: absolute;
+                text-align: center;
+                top: 0;
+                width: 20px;
+            }
+        }
+
+        &--new {
+            &::before {
+                content: '+';
+            }
+        }
+    }
+}
