@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "main": "dist/index.js",
   "scripts": {
     "dist": "NODE_ENV=dist webpack --progress",
@@ -20,7 +20,7 @@
     "manhattan-forms": "^0.0.6",
     "manhattan-nav": "^0.0.1",
     "manhattan-sortable": "^0.0.3",
-    "manhattan-typeahead": "^0.0.5",
+    "manhattan-typeahead": "^0.0.6",
     "webpack": "^2.2.1",
     "webpack-cleanup-plugin": "^0.4.2",
     "webpack-dev-server": "^2.4.1"
