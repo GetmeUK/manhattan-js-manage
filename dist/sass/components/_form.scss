@@ -322,7 +322,7 @@ $field_width: 600px;
                 @include flex-grow(0);
             }
 
-            > :nth-child(2) {
+            > :nth-child(3) {
                 @include flex-basis(column_width(1, 6, $field_width));
                 @include flex-grow(0);
             }
@@ -341,7 +341,26 @@ $field_width: 600px;
                 @include flex-grow(0);
             }
 
+            > :nth-child(3) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+        }
+    }
+
+    &--2-2-2 {
+        @include media-mobile() {
+            > :nth-child(1) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+
             > :nth-child(2) {
+                @include flex-basis(column_width(2, 6, $field_width));
+                @include flex-grow(0);
+            }
+
+            > :nth-child(3) {
                 @include flex-basis(column_width(2, 6, $field_width));
                 @include flex-grow(0);
             }
