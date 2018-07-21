@@ -4,6 +4,18 @@ import * as $ from 'manhattan-essentials'
 // -- Handlers --
 
 /**
+ * Prevent the 'jump to' page form from being submitted if no page value has
+ * been set.
+ */
+function noEmptyJumps(event) {
+    const pageNoElm = $.one('[name="page"]', event.currentTarget)
+    if (!pageNoElm.value.trim()) {
+        event.preventDefault()
+        pageNoElm.focus()
+    }
+}
+
+/**
  * Link to the URL associated with row within the results table.
  */
 function rowLink(event) {
@@ -28,8 +40,12 @@ function rowLink(event) {
 export function init() {
 
     // Make rows within the results table behave as links
-    for (let row of $.many('tr[data-mh-url]')) {
-        $.listen(row, {'click': rowLink})
+    for (let rowElm of $.many('tr[data-mh-url]')) {
+        $.listen(rowElm, {'click': rowLink})
     }
 
+    // Prevent submission of 'jump to' page form if page value is empty
+    for (let formElm of $.many('.mh-paging__jump')) {
+        $.listen(formElm, {'submit': noEmptyJumps})
+    }
 }
