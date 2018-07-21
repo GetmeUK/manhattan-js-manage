@@ -34,10 +34,36 @@ function rowLink(event) {
     }
 }
 
+/**
+ * Add sorting behaviour to a column header element.
+ */
+function sortWith(thElm, sortByElm, formElm) {
+    $.listen(
+        thElm,
+        {
+            'click': (event) => {
+                if (event.buttons === 0) {
+
+                    // Set the sort with field and direction
+                    if (sortByElm.value === thElm.dataset.mhSortWith) {
+                        sortByElm.value = `-${thElm.dataset.mhSortWith}`
+                    } else {
+                        sortByElm.value = thElm.dataset.mhSortWith
+                    }
+
+                    // Submit the results form
+                    formElm.submit()
+                }
+            }
+        }
+    )
+}
+
 
 // -- Initializer --
 
 export function init() {
+    let formElm = null
 
     // Make rows within the results table behave as links
     for (let rowElm of $.many('tr[data-mh-url]')) {
@@ -45,7 +71,27 @@ export function init() {
     }
 
     // Prevent submission of 'jump to' page form if page value is empty
-    for (let formElm of $.many('.mh-paging__jump')) {
+    for (formElm of $.many('.mh-paging__jump')) {
         $.listen(formElm, {'submit': noEmptyJumps})
+    }
+
+    // Add support for sorting rows by applicable column headers
+    for (let thElm of $.many('th[data-mh-sort-with]')) {
+
+        // Find the form that contains the th element
+        formElm = $.one('.mh-form', $.closest(thElm, '.mh-main__box'))
+
+        // If the results are currently being sorted by this column indicate
+        // this through the elements data attributes.
+        let sortByElm = $.one('[name="sort_by"]', formElm)
+
+        if (sortByElm.value === thElm.dataset.mhSortWith) {
+            thElm.dataset.mhSortDirection = 'DESC'
+        } else if (sortByElm.value === `-${thElm.dataset.mhSortWith}`) {
+            thElm.dataset.mhSortDirection = 'ASC'
+        }
+
+        // Add the sorting behaviour to the column header
+        sortWith(thElm, sortByElm, formElm)
     }
 }
