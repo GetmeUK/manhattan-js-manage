@@ -12,4 +12,6 @@ export function init() {
     ordering.init()
     results.init()
 
+    // Enable transition
+    document.body.classList.remove('mh-body--no-transitions')
 }
