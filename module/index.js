@@ -1,4 +1,5 @@
 import * as changeLog from './ui/change-log'
+import * as ordering from './ui/ordering'
 import * as results from './ui/results'
 
 
@@ -8,6 +9,7 @@ export function init() {
 
     // UI
     changeLog.init()
+    ordering.init()
     results.init()
 
 }
