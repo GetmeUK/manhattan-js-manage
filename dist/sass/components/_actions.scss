@@ -125,7 +125,7 @@
          */
         .mh-main__box .mh-heading & {
             position: relative;
-            @include display(flex);
+            display: flex;
 
             @for $count from 1 through $max-actions {
                 &--#{$count} .mh-actions__handle {
@@ -157,7 +157,7 @@
             }
 
             &__list {
-                @include display(flex);
+                display: flex;
             }
 
             &__link {
@@ -177,14 +177,14 @@
                 @for $i from 1 through $max-actions {
                     &:nth-child(#{$i}) {
                         top: calc(#{$action-height} + 20px + ((#{$i} - 1) * #{$action-height}));
-                        
+
                         &:not(.mh-actions__link--disabled) {
                             &:hover, &:focus {
                                 background-color: rgba(0, 0, 0, 0.1);
                                 color: #fff;
                             }
                         }
-                        
+
                         &.mh-actions__link--disabled {
                             cursor: not-allowed;
                             opacity: 0.6;
@@ -260,7 +260,7 @@
      */
     @include media-tablet-landscape() {
         position: relative;
-        @include display(flex);
+        display: flex;
 
         @for $count from 1 through $max-actions {
             @if $count > $visible-actions {
@@ -304,7 +304,7 @@
         }
 
         &__list {
-            @include display(flex);
+            display: flex;
         }
 
         &__link {
@@ -326,14 +326,14 @@
                     &:nth-child(#{$i}) {
                         top: calc(50% - ($action-height / 2));
                         margin-top: calc(#{$action-height} + 20px + ((#{$i} - 1) * #{$action-height}) - (#{$action-height} * #{$visible-actions});
-                        
+
                         &:not(.mh-actions__link--disabled) {
                             &:hover, &:focus {
                                 background-color: rgba(0, 0, 0, 0.1);
                                 color: #fff;
                             }
                         }
-                        
+
                         &.mh-actions__link--disabled {
                             cursor: not-allowed;
                             opacity: 0.6;

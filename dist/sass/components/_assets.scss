@@ -55,8 +55,8 @@
 
     &__assets-view {
         @include media-tablet-portrait() {
-            @include display(flex);
-            @include flex-wrap(wrap);
+            display: flex;
+            flex-wrap: wrap;
         }
     }
 
@@ -64,8 +64,8 @@
         margin-bottom: 20px;
 
         @include media-tablet-portrait() {
-            @include display(flex);
-            @include flex-direction(column);
+            display: flex;
+            flex-direction: column;
         }
 
         @include media-span($from: $tablet-portrait-width, $to: $desktop-width) {
@@ -86,14 +86,14 @@
 
         &__content {
             @include media-tablet-portrait() {
-                @include flex(1 0 auto);
-                @include display(flex);
+                flex: 1 0 auto;
+                display: flex;
             }
         }
 
         &__info {
             @include media-tablet-portrait() {
-                @include flex(auto);
+                flex: auto;
             }
         }
     }
@@ -106,7 +106,7 @@
  * the user has selected what file they want to upload.
  */
 .mh-assets-monitor {
-    @include display(flex);
+    display: flex;
 
     &__gauge {
         background-color: $color-bkg-main;
@@ -115,7 +115,7 @@
         height: $btn-standard-height;
         overflow: hidden;
         position: relative;
-        @include flex(1 0 auto);
+        flex: 1 0 auto;
 
         &:after {
             border-radius: $corner-radius;
@@ -152,7 +152,7 @@
         );
         margin-left: 20px;
         position: relative;
-        @include flex(0 0 auto);
+        flex: 0 0 auto;
 
         &:before, &:after {
             background-color: #fff;
@@ -285,9 +285,9 @@
 
     &__actions {
         cursor: pointer;
-        @include display(flex);
-        @include flex-direction(column);
-        @include justify-content(flex-end);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         height: $action-height;
         overflow: hidden;
         padding-top: 0;
@@ -300,8 +300,8 @@
             border-radius: $corner-radius 0 $corner-radius 0;
             content: '';
             display: block;
-            @include flex(1 0 auto);
-            @include flex-basis($action-height);
+            flex: 1 0 auto;
+            flex-basis: $action-height;
             height: $action-height;
             @include order(3);
             position: static;

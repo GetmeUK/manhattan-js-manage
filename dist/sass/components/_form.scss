@@ -131,7 +131,7 @@ $field_width: 600px;
             padding: 20px;
             width: 100%;
             z-index: 5;
-            @include display(flex);
+            display: flex;
             @include position(fixed, null null 0px null);
             @include transition(box-shadow 0.2s ease-in-out);
 
@@ -256,10 +256,10 @@ $field_width: 600px;
  */
 .mh-field {
     @include clearfix;
-    @include flex-grow(0);
+    flex-grow: 0;
 
     @include media-mobile() {
-        @include display(flex);
+        display: flex;
     }
 
     /**
@@ -275,13 +275,13 @@ $field_width: 600px;
     &--2-4 {
         @include media-mobile() {
             > :nth-child(1) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(2) {
-                @include flex-basis(column_width(4, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(4, 6, $field_width);
+                flex-grow: 0;
             }
         }
     }
@@ -289,13 +289,13 @@ $field_width: 600px;
     &--4-2 {
         @include media-mobile() {
             > :nth-child(1) {
-                @include flex-basis(column_width(4, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(4, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(2) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
         }
     }
@@ -304,8 +304,8 @@ $field_width: 600px;
         @include media-mobile() {
             > :nth-child(1),
             > :nth-child(2) {
-                @include flex-basis(column_width(3, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(3, 6, $field_width);
+                flex-grow: 0;
             }
         }
     }
@@ -313,18 +313,18 @@ $field_width: 600px;
     &--2-2-1 {
         @include media-mobile() {
             > :nth-child(1) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(2) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(3) {
-                @include flex-basis(column_width(1, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(1, 6, $field_width);
+                flex-grow: 0;
             }
         }
     }
@@ -332,18 +332,18 @@ $field_width: 600px;
     &--1-2-2 {
         @include media-mobile() {
             > :nth-child(1) {
-                @include flex-basis(column_width(1, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(1, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(2) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(3) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
         }
     }
@@ -351,18 +351,18 @@ $field_width: 600px;
     &--2-2-2 {
         @include media-mobile() {
             > :nth-child(1) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(2) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
 
             > :nth-child(3) {
-                @include flex-basis(column_width(2, 6, $field_width));
-                @include flex-grow(0);
+                flex-basis: column_width(2, 6, $field_width);
+                flex-grow: 0;
             }
         }
     }
@@ -378,8 +378,8 @@ $field_width: 600px;
         max-width: none;
 
         @include media-mobile() {
-            @include align-items(center);
-            @include display(flex);
+            align-items: center;
+            display: flex;
         }
 
         @include media-tablet-portrait() {
@@ -410,13 +410,13 @@ $field_width: 600px;
 
         > * {
             max-width: none;
-            @include align-items(center);
-            @include display(flex);
+            align-items: center;
+            display: flex;
         }
     }
 
     &__control {
-        @include flex(1 0);
+        flex: 1 0;
         margin-top: 20px;
         max-width: 100%;
         position: relative;
@@ -424,7 +424,7 @@ $field_width: 600px;
 
         @include media-mobile() {
             margin: 0 20px 0 0;
-            @include flex(1 0 auto);
+            flex: 1 0 auto;
 
             &:last-child { margin-right: 0; }
         }
@@ -518,7 +518,7 @@ $field_width: 600px;
          * stretch the entire width of the form.
          */
         &--shrink {
-            @include flex(0 0 auto);
+            flex: 0 0 auto;
         }
 
         /**
@@ -852,8 +852,8 @@ $field_width: 600px;
 
         &--split {
             @include media-mobile() {
-                @include display(flex);
-                @include flex-wrap(wrap);
+                display: flex;
+                flex-wrap: wrap;
 
                 .mh-field__tick {
                     width: 50%;

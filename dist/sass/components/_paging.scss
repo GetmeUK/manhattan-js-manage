@@ -11,7 +11,7 @@
     line-height: 0;
 
     @include media-tablet-portrait() {
-        @include display(flex);
+        display: flex;
     }
 
     &__steps {
@@ -21,7 +21,7 @@
         @include media-tablet-portrait() {
             margin: 0;
             text-align: left;
-            @include flex(auto);
+            flex: auto;
         }
 
         &-number {
@@ -47,26 +47,26 @@
         margin: 20px -20px 0;
         padding: 20px 20px 0;
         position: relative;
-        @include display(flex);
+        display: flex;
 
         @include media-tablet-portrait() {
             border: none;
             margin: 0;
             padding: 0;
             text-align: right;
-            @include flex(auto);
+            flex: auto;
         }
 
         &-results {
             margin-right: 20px;
-            @include flex(1 0 auto);
+            flex: 1 0 auto;
             @include ellipsis();
             @include type(small, $line-height: $field-small-height);
 
             @include media-tablet-portrait() {
                 display: inline-block;
                 vertical-align: middle;
-                @include flex(auto);
+                flex: auto;
             }
         }
 
@@ -98,7 +98,7 @@
             margin: 0 0 0 -1px;
             min-width: 50px;
             @include border-left-radius(0px);
-            @include flex(0);
+            flex: 0;
         }
     }
 }

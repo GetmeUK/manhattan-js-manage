@@ -40,9 +40,9 @@
  * A standard container for laying out multiple btn elements.
  */
 .mh-btns {
-    @include align-items(center);
-    @include display(flex);
-    @include justify-content(center);
+    align-items: center;
+    display: flex;
+    justify-content: center;
 
     &--collapse {
         @include media-span($from: 0, $to: $mobile-width) {
@@ -61,10 +61,10 @@
     > .mh-btn {
         margin-left: 20px;
         width: auto;
-        @include align-items(center);
-        @include flex(auto);
-        @include display(flex);
-        @include justify-content(center);
+        align-items: center;
+        flex: auto;
+        display: flex;
+        justify-content: center;
 
         &:first-child {
             margin-left: 0;

@@ -10,19 +10,19 @@
     padding: 20px !important;
 
     @include media-tablet-portrait() {
-        @include display(flex);
-        @include justify-content(flex-end);
+        display: flex;
+        justify-content: flex-end;
     }
 
     &__field, &__common {
         max-width: none !important;
-        @include display(flex);
+        display: flex;
 
         @include media-tablet-portrait() {
             margin-right: 20px;
             margin-top: 0 !important;
-            @include flex(0 0 auto);
-            @include flex-basis(200px);
+            flex: 0 0 auto;
+            flex-basis: 200px;
         }
 
         &:first-of-type {
@@ -34,7 +34,7 @@
         }
 
         > * {
-            @include flex(1 0 auto);
+            flex: 1 0 auto;
         }
 
         .mh-field__text,
@@ -49,14 +49,14 @@
     }
 
     &__common {
-        @include flex-basis(auto);
+        flex-basis: auto;
 
         &--has-q {
-            @include flex-basis(249px);
+            flex-basis: 249px;
 
             .mh-field__control {
                 margin-right: -1px;
-                @include flex-basis(200px);
+                flex-basis: 200px;
 
                 .mh-field__text {
                     @include border-right-radius(0);
@@ -64,12 +64,12 @@
             }
 
             &.mh-filter__common--has-adv-filter {
-                @include flex-basis(349px);
+                flex-basis: 349px;
             }
         }
 
         &--has-adv-filter {
-            @include flex-basis(auto);
+            flex-basis: auto;
         }
     }
 

@@ -9,7 +9,7 @@
     background-color: $color-bkg-frame;
     min-height: 100%;
     min-width: 320px;
-    @include display(flex);
+    display: flex;
 
     @include media-span($from: 0, $to: $tablet-landscape-width) {
         padding-top: $mobile-header-height;
@@ -136,11 +136,11 @@
         margin: 0 auto;
         max-width: 100%;
         width: 100%;
-        @include display(flex);
-        @include flex(1 0 auto);
+        display: flex;
+        flex: 1 0 auto;
 
         @include media-span($from: 0, $to: $tablet-landscape-width) {
-            @include flex-direction(column);
+            flex-direction: column;
         }
 
         @include media-span($from: $frame-width, $to: 0) {

@@ -52,10 +52,10 @@
     text-align: center;
     text-decoration: none;
     width: $width;
-    @include align-items(center);
-    @include display($display);
+    align-items: center;
+    display: $display;
     @include ellipsis();
-    @include justify-content(space-around);
+    justify-content: space-around;
 
     &:hover, &:focus {
         outline: none;
