@@ -77,6 +77,6 @@
     "manhattan-essentials": "^1.0.0",
     "manhattan-field-filled": "1.0.2",
     "manhattan-sortable": "^1.0.3",
-    "manhattan-typeahead": "^1.0.9"
+    "manhattan-typeahead": "^1.0.10"
   }
 }

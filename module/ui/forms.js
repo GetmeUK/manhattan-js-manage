@@ -2,6 +2,7 @@ import * as $ from 'manhattan-essentials'
 import {CharacterCount} from 'manhattan-character-count'
 import {datePicker} from 'manhattan-date-picker'
 import {addFilled} from 'manhattan-field-filled'
+import {tokenizer, typeahead} from 'manhattan-typeahead'
 
 
 // -- Initializer --
@@ -53,16 +54,34 @@ export function init() {
     for (inputElm of $.many('[data-mh-date-picker]')) {
         let picker = new datePicker.DatePicker(inputElm)
         picker.init()
+
+        // Disable auto-complete as we're showing the picker
+        inputElm.setAttribute('autocomplete', 'off')
     }
 
-    // @@ Map fields???
+    // Typeaheads
+    for (inputElm of $.many('[data-mh-typeahead]')) {
+        let typeaheadInst = new typeahead.Typeahead(inputElm)
+        typeaheadInst.init()
+    }
 
-    // @@ Typeaheads
-
-    // @@ Tokenizers
+    // Tokenizers
+    for (inputElm of $.many('[data-mh-tokenizer]')) {
+        let tokenizerInst = new tokenizer.Tokenizer(
+            inputElm,
+            {'store': 'json'}
+        )
+        let hiddenSelector = inputElm
+            .getAttribute('data-mh-tokenizer--hidden-selector')
+        let hiddenElm = $.one(hiddenSelector)
+        let tokens = JSON.parse(hiddenElm.value || '[]')
+        tokenizerInst.init(tokens)
+    }
 
     // @@ Assets fields
 
     // @@ Galleries
+
+    // @@ Handle errors
 
 }
