@@ -1,0 +1,8 @@
+.mh-counter {
+
+    text-align: right;
+
+    &--max-exceeded {
+        color: $color-alert-error;
+    }
+}
