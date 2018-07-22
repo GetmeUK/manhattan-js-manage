@@ -1,66 +1,62 @@
-$date-size: 280 / 7;
-$half-date-size: $date-size / 2;
+.mh-date-picker {
+    background: #fff;
+    border: 1px solid #d4dce0;
+    border-radius: 3px;
+    display: none;
+    margin-top: 10px;
+    position: absolute;
+    width: 300px;
+    z-index: 4;
+
+    &--open {
+        display: block;
+    }
+}
 
 .mh-calendar {
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-
-    background: #fff;
-    border-radius: 3px;
-    box-shadow: 0 0 0 1px #cfcfcf;
     box-sizing: border-box;
+    float: left;
     font-family: sans-serif;
-    margin-top: 20px;
     padding: 10px;
     user-select: none;
-
     width: 300px;
-
 
     * {
         box-sizing: border-box;
     }
 
-    // Nav
     &__nav {
         position: relative;
     }
 
-    &__month {
-        color: #7f7f7f;
+    &__month-year {
+        color: #666;
         font-size: 18px;
         text-align: center;
     }
 
-    &__next {
-        border-bottom: 8px solid transparent;
-        border-left: 12px solid #9f9f9f;
-        border-radius: 3px;
-        border-top: 8px solid transparent;
-        cursor: pointer;
-        height: 0;
-        position: absolute;
-        right: 10px;
-        top: 2px;
-        width: 0;
-    }
-
+    &__next,
     &__previous {
         border-bottom: 8px solid transparent;
         border-radius: 3px;
-        border-right: 12px solid #9f9f9f;
         border-top: 8px solid transparent;
         cursor: pointer;
         height: 0;
-        left: 10px;
         position: absolute;
         top: 2px;
         width: 0;
     }
 
-    // Weekdays
+    &__next {
+        border-left: 12px solid #334144;
+        right: 10px;
+    }
+
+    &__previous {
+        border-right: 12px solid #334144;
+        left: 10px;
+    }
+
     &__weekdays {
         margin-top: 10px;
 
@@ -72,15 +68,14 @@ $half-date-size: $date-size / 2;
     }
 
     &__weekday {
-        color: #cfcfcf;
+        color: #999;
         float: left;
         font-size: 11px;
         font-weight: bold;
         text-align: center;
-        width: #{$date-size}px;
+        width: 40px;
     }
 
-    // Dates
     &__dates {
         margin-top: 10px;
 
@@ -92,55 +87,35 @@ $half-date-size: $date-size / 2;
     }
 
     &__date {
-        color: #333;
+        color: #666;
         float: left;
         font-size: 14px;
-        height: #{$date-size}px;
-        line-height: #{$date-size}px;
+        height: 40px;
+        line-height: 40px;
         position: relative;
         text-align: center;
-        width: #{$date-size}px;
+        width: 40px;
 
         &:hover {
             cursor: pointer;
 
             &::after {
-                background: rgba(0, 0, 0, 0.05);
-                border-radius: #{$half-date-size}px;
+                background: rgba(226, 106, 106, 0.1);
+                border-radius: 20px;
                 content: '';
                 display: block;
-                height: #{$date-size}px;
+                height: 40px;
                 left: 0;
                 position: absolute;
                 top: 0;
-                width: #{$date-size}px;
+                width: 40px;
+                z-index: -1;
             }
         }
 
-        &--in-range {
-            background: #c4f4f9;
-        }
-
-        &--range-start {
-            background: #91e9f1;
-            border-bottom-left-radius: #{$half-date-size}px;
-            border-top-left-radius: #{$half-date-size}px;
-            color: #fff;
-            font-weight: bold;
-
-            &:hover {
-                cursor: default;
-
-                &::after {
-                    display: none;
-                }
-            }
-        }
-
-        &--range-end {
-            background: #91e9f1;
-            border-bottom-right-radius: #{$half-date-size}px;
-            border-top-right-radius: #{$half-date-size}px;
+        &--selected {
+            background: #e26a6a;
+            border-radius: 20px;
             color: #fff;
             font-weight: bold;
 
@@ -158,7 +133,7 @@ $half-date-size: $date-size / 2;
         }
 
         &--blocked {
-            color: #9f9f9f;
+            color: #999;
             font-style: italic;
             font-weight: normal;
 
@@ -171,16 +146,8 @@ $half-date-size: $date-size / 2;
             }
         }
 
-    }
-}
-
-.mh-date-picker,
-.mh-date-range-picker {
-    position: absolute;
-    width: 300px;
-    z-index: 11;
-
-    &--closed {
-        display: none;
+        &--selected.mh-calendar__date--blocked {
+            color: #fff;
+        }
     }
 }

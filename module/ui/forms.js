@@ -1,4 +1,5 @@
 import * as $ from 'manhattan-essentials'
+import {datePicker} from 'manhattan-date-picker'
 import {addFilled} from 'manhattan-field-filled'
 
 
@@ -6,11 +7,13 @@ import {addFilled} from 'manhattan-field-filled'
 
 export function init() {
 
+    let inputElm = null
+
     // Squeeze labels
     const inputsSelector
         = '.mh-field__text, .mh-field__textarea, .mh-field__select'
 
-    for (let inputElm of $.many(inputsSelector)) {
+    for (inputElm of $.many(inputsSelector)) {
         $.listen(
             inputElm,
             {
@@ -39,6 +42,10 @@ export function init() {
     // @@ Character counters
 
     // Date pickers
+    for (inputElm of $.many('[data-mh-date-picker]')) {
+        let picker = new datePicker.DatePicker(inputElm)
+        picker.init()
+    }
 
     // @@ Map fields???
 
