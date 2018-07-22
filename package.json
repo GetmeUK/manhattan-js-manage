@@ -71,7 +71,12 @@
     "webpack-cli": "^2.0.9"
   },
   "dependencies": {
+    "manhattan-character-count": "^1.0.4",
+    "manhattan-date-picker": "^1.0.0",
+    "manhattan-effects": "^1.0.1",
     "manhattan-essentials": "^1.0.0",
-    "manhattan-sortable": "^1.0.3"
+    "manhattan-field-filled": "1.0.2",
+    "manhattan-sortable": "^1.0.3",
+    "manhattan-typeahead": "^1.0.9"
   }
 }
