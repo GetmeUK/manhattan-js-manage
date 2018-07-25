@@ -6,6 +6,42 @@ import {addFilled} from 'manhattan-field-filled'
 import {tokenizer, typeahead} from 'manhattan-typeahead'
 
 
+// The number of assets currently being uploaded
+let uploading = 0
+
+
+// -- Handlers --
+
+/**
+ * If there are active uploads when the user tries to leave the page then ask
+ * them to confirm the action.
+ */
+function confirmLeave(event) {
+    const confirmMsg = 'Not all files/images have been uploaded'
+
+    if (uploading > 0) {
+        (event || window.event).returnValue = confirmMsg
+        return confirmMsg
+    }
+
+    return null
+}
+
+/**
+ * Decrease the uploading counter by 1, if the count reaches 0 enable .
+ */
+function decUploads(event) {
+    uploading = Math.max(uploading - 1, 0)
+}
+
+/**
+ * Increase the uploading counter by 1.
+ */
+function incUploads(event) {
+    uploading += 1
+}
+
+
 // -- Initializer --
 
 export function init() {
@@ -85,6 +121,11 @@ export function init() {
         const data = new FormData()
         data.append('csrf_token', $.one('[name="csrf_token"]').value)
         data.append('file', file)
+        if (inst.parentOptions) {
+            data.append('file_type', inst.parentOptions.fileType)
+        } else {
+            data.append('file_type', inst._options.fileType)
+        }
         return data
     }
 
@@ -104,6 +145,14 @@ export function init() {
             }
         )
         fileField.init()
+
+        $.listen(
+            inputElm,
+            {
+                'uploading': incUploads,
+                'uploaded uploadfailed': decUploads
+            }
+        )
     }
 
     // Galleries
@@ -119,7 +168,19 @@ export function init() {
             }
         )
         galleryInst.init()
+
+        $.listen(
+            inputElm,
+            {
+                'uploading': incUploads,
+                'uploaded uploadfailed': decUploads
+            }
+        )
     }
+
+    // Ask the user to confirm they want to leave the page if there are assets
+    // still uploading.
+    $.listen(window, {'beforeunload': confirmLeave})
 
     // @@ Handle errors
 
