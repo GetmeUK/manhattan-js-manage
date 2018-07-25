@@ -1,0 +1,98 @@
+
+.mh-uploader {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &__progress-meter {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+    }
+
+    &__progress-bar {
+        background: #0984e3;
+        height: 100%;
+        width: 0;
+    }
+
+    &__status {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        &::before {
+            background-image: url('#{$manhattan-manage-asset-root}/assets/upload.svg');
+        }
+    }
+
+    &__cancel {
+        @extend %icon-btn;
+
+        background-image: url('#{$manhattan-manage-asset-root}/assets/cancel.svg');
+        position: absolute;
+        right: 8px;
+        top: 8px;
+
+        .mh-uploader--finished & {
+            display: none;
+        }
+
+    }
+
+    .mh-file-field--file & {
+        &__progress-meter {
+            top: 0;
+        }
+
+        &__status {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+
+            &::before {
+                background-color: transparent;
+                background-position: center center;
+                background-repeat: no-repeat;
+                content: '';
+                display: block;
+                height: 16px;
+                margin-right: 8px;
+                width: 16px;
+            }
+        }
+    }
+
+    .mh-gallery--file &,
+    .mh-gallery--image &,
+    .mh-file-field--image & {
+        &__progress-meter {
+            background: #353b48;
+            height: 16px;
+        }
+
+        &__status {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            &::before {
+                background-color: transparent;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 32px;
+                content: '';
+                display: block;
+                height: 48px;
+                width: 32px;
+            }
+        }
+    }
+}

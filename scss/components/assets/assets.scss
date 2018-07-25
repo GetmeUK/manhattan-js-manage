@@ -1,0 +1,36 @@
+%icon-btn {
+    background-color: rgba(0, 0, 0, 0.25);
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+    z-index: 2;
+
+    &:active {
+        background-size: 14px;
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+@import "ui/acceptor";
+@import "ui/crop_tool";
+@import "ui/error";
+@import "ui/image_editor";
+@import "ui/metadata";
+@import "ui/overlay";
+@import "ui/uploader";
+@import "ui/viewer";
+
+@import "field";
+@import "gallery";

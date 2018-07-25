@@ -1,0 +1,50 @@
+.mh-image-editor {
+
+    &__table {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        &--no-transitions {
+            * {
+                transition: none !important;
+            }
+        }
+    }
+
+    &__image {
+        border-radius: 4px;
+        overflow: hidden;
+        position: absolute;
+
+        transition: all 0.5s cubic-bezier(0.87, -0.41, 0.19, 1.44);
+    }
+
+    &__image-mask {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        bottom: -3px;
+        content: '';
+        display: block;
+        filter: blur(2px) contrast(75%) saturate(75%);
+        left: -3px;
+        position: absolute;
+        right: -3px;
+        top: -3px;
+
+        &::after {
+            background: rgba(244, 250, 255, 0.5);
+            bottom: 0;
+            content: '';
+            display: block;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+}

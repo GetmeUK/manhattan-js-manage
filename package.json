@@ -71,6 +71,7 @@
     "webpack-cli": "^2.0.9"
   },
   "dependencies": {
+    "manhattan-assets": "^1.0.0-alpha.3",
     "manhattan-character-count": "^1.0.4",
     "manhattan-date-picker": "^1.0.0",
     "manhattan-effects": "^1.0.1",

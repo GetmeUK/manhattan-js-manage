@@ -1,6 +1,7 @@
-import * as $ from 'manhattan-essentials'
+import {field, gallery} from 'manhattan-assets'
 import {CharacterCount} from 'manhattan-character-count'
 import {datePicker} from 'manhattan-date-picker'
+import * as $ from 'manhattan-essentials'
 import {addFilled} from 'manhattan-field-filled'
 import {tokenizer, typeahead} from 'manhattan-typeahead'
 
@@ -78,9 +79,47 @@ export function init() {
         tokenizerInst.init(tokens)
     }
 
-    // @@ Assets fields
+    // Assets
 
-    // @@ Galleries
+    function csrfFormData(inst, file) {
+        const data = new FormData()
+        data.append('csrf_token', $.one('[name="csrf_token"]').value)
+        data.append('file', file)
+        return data
+    }
+
+    field.FileField.behaviours.formData['csrfFormData'] = csrfFormData
+    gallery.Gallery.behaviours.formData['csrfFormData'] = csrfFormData
+
+    // Fields
+    for (inputElm of $.many('[data-mh-file-field]')) {
+        let fileField = new field.FileField(
+            inputElm,
+            {
+                'allowDrop': true,
+                'uploadUrl': '/manage/upload-asset',
+                'editing': '--draft--',
+                'preview': '--thumb--',
+                'formData': 'csrfFormData'
+            }
+        )
+        fileField.init()
+    }
+
+    // Galleries
+    for (inputElm of $.many('[data-mh-gallery]')) {
+        let galleryInst = new gallery.Gallery(
+            inputElm,
+            {
+                'allowDrop': true,
+                'uploadUrl': '/manage/upload-asset',
+                'editing': '--draft--',
+                'preview': '--thumb--',
+                'formData': 'csrfFormData'
+            }
+        )
+        galleryInst.init()
+    }
 
     // @@ Handle errors
 
