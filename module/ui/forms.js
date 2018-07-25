@@ -12,6 +12,23 @@ let uploading = 0
 
 // -- Handlers --
 
+function anchored(frameElm, btnsElm) {
+
+    /**
+     * Add/remove the anchored flag to a form when the btns bottom of the form
+     * is visible to the user.
+     */
+    function _anchored() {
+        if (window.innerHeight + window.scrollY >= frameElm.clientHeight) {
+            btnsElm.classList.add('mh-field--anchored')
+        } else {
+            btnsElm.classList.remove('mh-field--anchored')
+        }
+    }
+
+    return _anchored
+}
+
 /**
  * If there are active uploads when the user tries to leave the page then ask
  * them to confirm the action.
@@ -30,14 +47,14 @@ function confirmLeave(event) {
 /**
  * Decrease the uploading counter by 1, if the count reaches 0 enable .
  */
-function decUploads(event) {
+function decUploads() {
     uploading = Math.max(uploading - 1, 0)
 }
 
 /**
  * Increase the uploading counter by 1.
  */
-function incUploads(event) {
+function incUploads() {
     uploading += 1
 }
 
@@ -182,6 +199,26 @@ export function init() {
     // still uploading.
     $.listen(window, {'beforeunload': confirmLeave})
 
-    // @@ Handle errors
+    // Addix form butons to the bottom of the page if the form is longer than
+    // the frame containing it.
+    const formElm = $.one('.mh-form--primary')
+    if (formElm) {
+        const frameElm = $.closest(formElm, '.mh-frame')
+        const btnsElm = $.one('.mh-field--btns', formElm)
+
+        // Determing if the form buttons should be affixed to the page
+        let affix = frameElm !== null
+        affix = affix && frameElm.clientHeight > window.innerHeight
+        affix = affix && !formElm.classList
+            .contains('mh-form--fixed-btns-disallowed')
+
+        // Flag the form as having fixed buttons
+        formElm.classList.add('mh-form--fixed-btns')
+
+        // Flag whenever the buttons are anchored to the bottom of the form
+        const anchoredHandler = anchored(formElm, btnsElm)
+        $.listen(window, {'scroll': anchoredHandler})
+        anchoredHandler()
+    }
 
 }
