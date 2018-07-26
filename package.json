@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Support for the manhattan web framework's manage UI",
   "engines": {
     "node": ">=8.9.4"
@@ -9,6 +9,8 @@
   "module": "module/index.js",
   "files": [
     "module",
+    "scss",
+    "images",
     "umd"
   ],
   "scripts": {
