@@ -9,7 +9,6 @@ module.exports = {
     externals: {
         'manhattan-character-count': 'manhattan-character-count',
         'manhattan-date-picker': 'manhattan-date-picker',
-        'manhattan-effects': 'manhattan-effects',
         'manhattan-essentials': 'manhattan-essentials',
         'manhattan-field-filled': 'manhattan-field-filled',
         'manhattan-sortable': 'manhattan-sortable',
