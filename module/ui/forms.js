@@ -77,6 +77,22 @@ function incUploads() {
     uploading += 1
 }
 
+/**
+ * Return a handler that will prevent the advanced filter being closed when
+ * the element clicked on is related to an input element within the fitler
+ * (such as a date picker).
+ */
+function preventAdvFilterClosing(inputElm) {
+
+    function _preventAdvFilterClosing(event) {
+        if ($.closest(inputElm, '.mh-filter-adv')) {
+            event.stopImmediatePropagation()
+        }
+    }
+
+    return _preventAdvFilterClosing
+}
+
 
 // -- Initializer --
 
@@ -130,12 +146,24 @@ export function init() {
 
         // Disable auto-complete as we're showing the picker
         inputElm.setAttribute('autocomplete', 'off')
+
+        // Prevent selecting a date closing the advanced filter
+        $.listen(
+            picker.picker,
+            {'click': preventAdvFilterClosing(inputElm)}
+        )
     }
 
     // Typeaheads
     for (inputElm of $.many('[data-mh-typeahead]')) {
         let typeaheadInst = new typeahead.Typeahead(inputElm)
         typeaheadInst.init()
+
+        // Prevent selecting a suggestion closing the advanced filter
+        $.listen(
+            typeaheadInst.typeahead,
+            {'click': preventAdvFilterClosing(inputElm)}
+        )
     }
 
     // Tokenizers
