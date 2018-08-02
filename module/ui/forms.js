@@ -178,7 +178,10 @@ export function init() {
         let tokens = JSON.parse(hiddenElm.value || '[]')
         tokens = tokens.map((token) => {
             if (typeof token === 'string') {
-                return {'label': token, 'value': 'token'}
+                return {
+                    'label': token,
+                    'value': token
+                }
             }
             return token
         })
