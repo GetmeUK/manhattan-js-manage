@@ -9,7 +9,7 @@
     padding: 10px 1px;
     position: absolute;
     width: 300px;
-    z-index: 4;
+    z-index: 999;
 
     &--open {
         display: block;

@@ -167,6 +167,14 @@ export function init() {
     }
 
     // Tokenizers
+
+    // Add additional tokenizer behaviour
+    tokenizer.Tokenizer.behaviours.store['jsonObjects'] = (inst) => {
+        const hiddenSelector = $.one(inst._options.hiddenSelector)
+        hiddenSelector.value = JSON.stringify(inst.tokens)
+        console.log(hiddenSelector.value)
+    }
+
     for (inputElm of $.many('[data-mh-tokenizer]')) {
         let tokenizerInst = new tokenizer.Tokenizer(
             inputElm,
