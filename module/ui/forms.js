@@ -176,6 +176,12 @@ export function init() {
             .getAttribute('data-mh-tokenizer--hidden-selector')
         let hiddenElm = $.one(hiddenSelector)
         let tokens = JSON.parse(hiddenElm.value || '[]')
+        tokens = tokens.map((token) => {
+            if (typeof token === 'string') {
+                return {'label': token, 'value': 'token'}
+            }
+            return token
+        })
         tokenizerInst.init(tokens)
     }
 
