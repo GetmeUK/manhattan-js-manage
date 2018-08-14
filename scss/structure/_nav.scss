@@ -101,8 +101,9 @@
 
                     @include media-tablet-landscape() {
                         border-bottom: 10px solid transparent;
-                        padding: 0;
                         flex: 1 0 auto;
+                        height: 0px;
+                        padding: 0;
                     }
                 }
             }
