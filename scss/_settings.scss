@@ -249,22 +249,20 @@ $font-family-1: Ubuntu, Helvetica, Arial, sans-serif !default;
  * you to add as many colour themes as you want here and simply set a modifier
  * class in the HTML to access them, without needing to modify the CSS.
  */
-$color-themes: (
-    #E26A6A  // 1 - Sunset Red
-) !default;
+$color-themes: (#EF4F6F) !default;
 
 
 /**
  * Standard colours
  */
-$color-bkg-frame:     #d4dce0 !default; // Light grey
+$color-bkg-frame:     #D4DCE0 !default; // Light grey
 $color-bkg-nav:       #334144 !default; // Very dark blue/grey
-$color-bkg-main:      #eff2f4 !default; // Very light grey
+$color-bkg-main:      #EFF2F4 !default; // Very light grey
 
 $color-font:          #666666 !default; // Dark grey
 $color-font-light:    #999999 !default; // Grey
-$color-font-lighter:  #c5c5c5 !default; // Light Grey
-$color-font-reverse:  #dddddd !default; // Lighter grey
+$color-font-lighter:  #C5C5C5 !default; // Light Grey
+$color-font-reverse:  #DDDDDD !default; // Lighter grey
 $color-font-link:     nth($color-themes, 1) !default;
 
 $color-alert:         #26C281 !default; // Light green

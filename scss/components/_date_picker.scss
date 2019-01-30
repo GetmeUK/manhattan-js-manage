@@ -1,7 +1,7 @@
 .mh-date-picker {
     background: #fff;
-    border: 1px solid #d4dce0;
-    border-radius: 3px;
+    border: 1px solid $color-bkg-frame;
+    border-radius: $corner-radius;
     display: none;
     margin-top: 10px;
     position: absolute;
@@ -48,12 +48,12 @@
     }
 
     &__next {
-        border-left: 12px solid #334144;
+        border-left: 12px solid $color-themes;
         right: 10px;
     }
 
     &__previous {
-        border-right: 12px solid #334144;
+        border-right: 12px solid $color-themes;
         left: 10px;
     }
 
@@ -87,7 +87,7 @@
     }
 
     &__date {
-        color: #666;
+        color: $color-font;
         float: left;
         font-size: 14px;
         height: 40px;
@@ -100,7 +100,7 @@
             cursor: pointer;
 
             &::after {
-                background: rgba(226, 106, 106, 0.1);
+                background: rgba($color-themes, 0.1);
                 border-radius: 20px;
                 content: '';
                 display: block;
@@ -114,7 +114,7 @@
         }
 
         &--selected {
-            background: #e26a6a;
+            background: $color-themes;
             border-radius: 20px;
             color: #fff;
             font-weight: bold;
@@ -133,7 +133,7 @@
         }
 
         &--blocked {
-            color: #999;
+            color: $color-font-light;
             font-style: italic;
             font-weight: normal;
 

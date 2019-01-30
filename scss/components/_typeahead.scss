@@ -19,11 +19,11 @@
         padding: 5px 10px;
 
         &:nth-child(even) {
-            background-color: #eff2f4;
+            background-color: $color-bkg-main;
         }
 
         &:hover {
-            background-color: rgba(nth(#e26a6a, 1), 0.15);
+            background-color: rgba(nth($color-themes, 1), 0.15);
             cursor: pointer;
         }
 
@@ -36,7 +36,7 @@
         &--focused,
         &--focused:hover,
         &--focused:nth-child(even) {
-            background-color: nth(#e26a6a, 1);
+            background-color: nth($color-themes, 1);
             color: #fff;
 
             > mark {
@@ -54,7 +54,7 @@
 }
 
 .mh-token {
-    background: #eff2f4;
+    background: $color-bkg-main;
     display: inline-block;
     margin: 5px 10px 5px 0;
     position: relative;
