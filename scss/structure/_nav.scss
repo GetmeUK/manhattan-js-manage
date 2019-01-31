@@ -789,18 +789,25 @@
     }
 
     &__tally {
-        background-color: rgba(0, 0, 0, 0.1);
+        background: nth($color-themes, 1);
         border-radius: $corner-radius;
-        box-shadow:
-            0 1px 0 0 rgba(255, 255, 255, 0.05),
-            inset 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+        box-shadow: none;
         color: #fff;
         font-weight: 400;
         line-height: 27px;
         margin-left: 10px;
         text-align: center;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
         width: 30px;
         flex: 0 0 auto;
         @include transition(opacity 0.2s ease-in-out);
+
+        .mh-nav-link--active & {
+            background-color: rgba(0, 0, 0, 0.1);
+            box-shadow:
+                0 1px 0 0 rgba(255, 255, 255, 0.05),
+                inset 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+            text-shadow: none;
+        }
     }
 }
