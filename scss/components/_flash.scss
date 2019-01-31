@@ -68,4 +68,8 @@
             @include transform(rotate(-45deg));
         }
     }
+
+    a {
+        text-decoration: underline;
+    }
 }
