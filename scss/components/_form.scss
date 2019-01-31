@@ -262,6 +262,12 @@ $field_width: 600px;
         display: flex;
     }
 
+    @include media-desktop() {
+        .mh-form__aside:first-child + & {
+            margin-top: 0;
+        }
+    }
+
     /**
      * Custom layouts
      * --
