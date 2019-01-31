@@ -1,0 +1,76 @@
+// Component for displaying user sessions
+
+.sessions {
+    border-top: 1px solid $color-bkg-main;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    &:first-child {
+        border-top: none;
+    }
+}
+
+.session {
+    min-width: 100%;
+    padding: 10px 20px;
+    position: relative;
+
+    @include media-tablet-portrait() {
+        min-width: 50%;
+    }
+
+    @include media-outer() {
+        min-width: 33%;
+    }
+
+    &__current {
+        border: 1px solid $color-font-light;
+        border-radius: 3px;
+        color: $color-font-light;
+        float: left;
+        font-size: 15px;
+        font-weight: 400;
+        height: 25px;
+        line-height: 22px;
+        margin-right: 10px;
+        text-align: center;
+        width: 90px;
+    }
+
+    &__form {
+        margin-top: 10px;
+    }
+
+    &__revoke {
+        @include btn();
+        background-color: $color-font-lighter;
+
+        &:active,
+        &:hover,
+        &:focus {
+            background-color: $color-font-light;
+        }
+
+        &, > * {
+            font-size: 15px;
+            height: 25px;
+            line-height: 25px;
+            margin: 0;
+            width: 90px;
+        }
+    }
+}
+
+.session-info {
+    display: flex;
+
+    &__label {
+        color: $color-font-light;
+        width: 120px;
+    }
+
+    &__value {
+        font-weight: 400;
+    }
+}
