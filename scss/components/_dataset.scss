@@ -13,6 +13,10 @@
     @include type(standard);
 
     &__head {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
         padding: 20px;
     }
 
@@ -152,6 +156,8 @@
 
             &__row {
                 &:first-child > .mh-dataset__column {
+                    padding-top: 10px;
+
                     @include media-span($from: 0, $to: $tablet-portrait-width) {
                         &:first-child {
                             padding-top: 20px;
@@ -185,6 +191,23 @@
                 }
             }
         }
+
+        > .mh-dataset {
+            flex: 1;
+
+            &:first-child {
+                .mh-dataset__column {
+                    &:not(:first-child) > * {
+                        margin-left: 10px;
+                    }
+
+                    &:not(:last-child) > * {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+
     }
 
     &__column {

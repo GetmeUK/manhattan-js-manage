@@ -430,7 +430,7 @@ $field_width: 600px;
 
         @include media-mobile() {
             margin: 0 20px 0 0;
-            flex: 1 0 auto;
+            flex: 1 1;
 
             &:last-child { margin-right: 0; }
         }
@@ -445,11 +445,16 @@ $field_width: 600px;
          * This class is applied to every field by default. However, when the
          * field is focused-on or filled-in, the styles change below.
          */
-        &--focused, &--filled {
+        &--focused,
+        &--filled {
             .mh-field {
                 &__label {
                     padding: 8px 10px 0;
                     @include type(13px 13px, $color: $color-font-light);
+                }
+                &__label-text {
+                    background-color: #fff;
+                    box-shadow: 10px 0 0 0 #fff;
                 }
 
                 &__text,
@@ -713,6 +718,24 @@ $field_width: 600px;
         .mh-field__error {
             display: inline;
             margin-top: 0;
+            padding-left: 0;
+
+            .mh-field__error-text {
+                vertical-align: middle;
+
+                &::before {
+                    content: ' - ';
+                    display: inline;
+                }
+            }
+
+            .mh-field__error-icon {
+                display: inline-block;
+                left: auto;
+                margin: 0 0 -3px 5px;
+                position: relative;
+                top: auto;
+            }
         }
     }
 
@@ -821,6 +844,7 @@ $field_width: 600px;
     &__textarea {
         height: 200px;
         min-height: 200px;
+        line-height: 165% !important;
         padding-top: 16px;
         padding-bottom: 10px;
         resize: vertical;
