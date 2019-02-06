@@ -134,8 +134,26 @@ export function init() {
     addFilled(inputsSelector)
 
     // Character counters
+
+    // Add additional tokenizer behaviour
+    CharacterCount.behaviours.counter['manhattan'] = (inst) => {
+
+        // Create a counter element
+        const cls = inst.constructor
+        const counter = $.create('div', {'class': cls.css['counter']})
+
+        // Insert the counter after the last element next to the
+        // input/textarea.
+        inst.input.parentNode.appendChild(counter)
+
+        return counter
+    }
+
     for(inputElm of $.many('[data-mh-character-count]')) {
-        let characterCount = new CharacterCount(inputElm)
+        let characterCount = new CharacterCount(
+            inputElm,
+            {'counter': 'manhattan'}
+        )
         characterCount.init()
     }
 
