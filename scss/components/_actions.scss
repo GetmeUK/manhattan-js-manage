@@ -45,7 +45,7 @@
                 @for $i from 1 through $max-actions {
                     &.mh-actions--#{$i} {
                         .mh-actions__list {
-                            height: (($action-height * $i) + 16px);
+                            height: ((#{$action-height} * #{$i}) + 16px);
                         }
                     }
                 }
@@ -132,7 +132,7 @@
                     display: block;
 
                     &:after {
-                        height: (($action-height * $count) + 20px);
+                        height: ((#{$action-height} * $count) + 20px);
                     }
                 }
             }
@@ -324,7 +324,7 @@
             @for $i from 1 through $max-actions {
                 @if $i > $visible-actions {
                     &:nth-child(#{$i}) {
-                        top: calc(50% - ($action-height / 2));
+                        top: calc(50% - (#{$action-height} / 2));
                         margin-top: calc(#{$action-height} + 20px + ((#{$i} - 1) * #{$action-height}) - (#{$action-height} * #{$visible-actions});
 
                         &:not(.mh-actions__link--disabled) {
