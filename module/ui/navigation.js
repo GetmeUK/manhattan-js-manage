@@ -287,6 +287,15 @@ export function init() {
                 }
             }
         )
+
+        $.listen(
+            $.one('.mh-filter-adv__close', filterElm),
+            {
+                'click': (ev) => {
+                    navMgr.close(['filter'])
+                }
+            }
+        )
     }
 
     // Close actions and filter if the user clicks the body
@@ -294,6 +303,11 @@ export function init() {
         document.body,
         {
             'click': (event) => {
+                if ('navSupressClick' in document.body.dataset) {
+                    delete document.body.dataset.navSupressClick
+                    return
+                }
+
                 if (!event.defaultPrevented) {
                     navMgr.close(['actions', 'filter'])
                 }

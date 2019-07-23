@@ -79,14 +79,14 @@ function incUploads() {
 
 /**
  * Return a handler that will prevent the advanced filter being closed when
- * the element clicked on is related to an input element within the fitler
+ * the element clicked on is related to an input element within the filter
  * (such as a date picker).
  */
 function preventAdvFilterClosing(inputElm) {
 
     function _preventAdvFilterClosing(event) {
         if ($.closest(inputElm, '.mh-filter-adv')) {
-            event.stopImmediatePropagation()
+            document.body.dataset.navSupressClick = ''
         }
     }
 
@@ -180,7 +180,7 @@ export function init() {
         // Prevent selecting a suggestion closing the advanced filter
         $.listen(
             typeaheadInst.typeahead,
-            {'click': preventAdvFilterClosing(inputElm)}
+            {'mousedown': preventAdvFilterClosing(inputElm)}
         )
     }
 
