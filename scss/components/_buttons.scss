@@ -31,6 +31,24 @@
     &--error {
         @include btn-type(bordered, $color: $color-alert-error);
     }
+
+    &.mh-copied {
+        box-shadow: none;
+        position: relative;
+
+        &:after {
+            background: $color-bkg-nav;
+            border-radius: 3px;
+            color: #fff;
+            content: 'Copied!';
+            display: block;
+            font-style: italic;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
 }
 
 

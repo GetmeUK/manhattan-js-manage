@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "description": "Support for the manhattan web framework's manage UI",
   "engines": {
     "node": ">=8.9.4"
@@ -77,7 +77,8 @@
     "manhattan-character-count": "^1.0.4",
     "manhattan-date-picker": "^1.0.0",
     "manhattan-essentials": "^1.0.0",
-    "manhattan-field-filled": "1.0.2",
+    "manhattan-field-filled": "^1.0.2",
+    "manhattan-interactions": "^1.0.0",
     "manhattan-sortable": "^1.0.3",
     "manhattan-typeahead": "^1.0.10"
   }

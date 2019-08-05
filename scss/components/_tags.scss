@@ -51,4 +51,22 @@
     &--in-results {
         margin: 5px 0;
     }
+
+    // -- User invites --
+
+    &--invite-accepted {
+        background-color: $color-alert-success;
+    }
+
+    &--invited {
+        background-color: $color-alert-warning;
+    }
+
+    &--not-invited {
+        background-color: #99acb5;
+    }
+
+    &--locked-out {
+        background-color: $color-alert-error;
+    }
 }
