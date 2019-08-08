@@ -1,0 +1,57 @@
+/**
+ * Multi-factor authentication (MFA)
+ * --
+ * Styles used by multi-factor authentication UI components.
+ */
+
+.mh-qr-code {
+    border: rgba(0, 0, 0, 0.15) solid 1px;
+    border-radius: 3px;
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.075);
+    display: inline-block;
+    margin-top: 20px;
+
+    svg {
+        display: block;
+        width: 100%;
+    }
+}
+
+.mh-recovery-codes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mh-recovery-code {
+    font-family: 'courier', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    margin: 15px;
+}
+
+.mh-actions__link {
+    &.mh-copied {
+        box-shadow: none;
+        position: relative;
+
+        &:after {
+            background: $color-bkg-nav;
+            border-radius: 3px;
+            color: #fff;
+            content: 'Copied!';
+            display: block;
+            font-style: italic;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+}
+
+.mh-tag {
+    &--mfa-enabled {
+        background-color: $color-alert-success;
+    }
+}
