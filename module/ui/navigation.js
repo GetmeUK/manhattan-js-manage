@@ -314,4 +314,11 @@ export function init() {
             }
         }
     )
+
+    if (window.innerWidth < 1080) {
+
+        // On narrow devices we don't want the user nav to be open when the
+        // page loads so we ensure it's closed it initially.
+        navMgr.close(['user'])
+    }
 }

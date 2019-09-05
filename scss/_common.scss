@@ -43,6 +43,16 @@ body {
     &.mh-body--no-transitions * {
         transition: none !important;
     }
+
+    &.mh-body--no-transitions {
+        .mh-frame__main {
+            margin-left: 0;
+        }
+
+        .mh-nav__section--user .mh-nav-section__items {
+            right: -260px;
+        }
+    }
 }
 
 a {
