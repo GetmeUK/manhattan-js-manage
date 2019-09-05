@@ -45,7 +45,7 @@
                 @for $i from 1 through $max-actions {
                     &.mh-actions--#{$i} {
                         .mh-actions__list {
-                            height: ((#{$action-height} * #{$i}) + 16px);
+                            height: calc((#{$action-height} * #{$i}) + 16px);
                         }
                     }
                 }
