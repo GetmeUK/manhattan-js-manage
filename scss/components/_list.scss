@@ -53,10 +53,26 @@
     }
 
     tr {
+        td {
+            position: relative;
+        }
+
         &[data-mh-url]:hover {
             td {
-                background-color: rgba(nth($color-themes, 1), 0.15);
+                background-color: transparent;
                 cursor: pointer;
+
+                &::after {
+                    background: nth($color-themes, 1);
+                    bottom: 0;
+                    content: '';
+                    display: block;
+                    left: 0;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    opacity: 0.15;
+                }
             }
         }
 

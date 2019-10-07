@@ -17,13 +17,13 @@
 
     &__suggestion {
         padding: 5px 10px;
+        position: relative;
 
         &:nth-child(even) {
             background-color: $color-bkg-main;
         }
 
         &:hover {
-            background-color: rgba(nth($color-themes, 1), 0.15);
             cursor: pointer;
         }
 
