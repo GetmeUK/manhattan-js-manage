@@ -8,6 +8,8 @@
     max-width: calc(100% - 40px);
     padding: 10px 1px;
     position: absolute;
+    max-height: 340px;
+    overflow-y: auto;
     width: 300px;
     z-index: 999;
 
@@ -16,7 +18,9 @@
     }
 
     &__suggestion {
-        padding: 5px 10px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
         position: relative;
 
         &:nth-child(even) {
@@ -24,7 +28,22 @@
         }
 
         &:hover {
+            background-color: transparent;
             cursor: pointer;
+            transform-style: preserve-3d;
+
+            &::before {
+                background: nth($color-themes, 1);
+                bottom: 0;
+                content: '';
+                display: block;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                opacity: 0.15;
+                transform: translateZ(-1px);
+            }
         }
 
         > mark {
@@ -38,6 +57,10 @@
         &--focused:nth-child(even) {
             background-color: nth($color-themes, 1);
             color: #fff;
+
+            &::before {
+                display: none;
+            }
 
             > mark {
                 color: #fff;
