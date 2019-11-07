@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Support for the manhattan web framework's manage UI",
   "engines": {
     "node": ">=8.9.4"

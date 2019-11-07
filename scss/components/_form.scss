@@ -400,7 +400,8 @@ $field_width: 600px;
             padding: 20px;
         }
 
-        .mh-field__btn, > * {
+        .mh-field__btn,
+        > * {
             margin: 20px 0;
 
             @include media-mobile() {
@@ -415,9 +416,13 @@ $field_width: 600px;
         }
 
         > * {
-            max-width: none;
             align-items: center;
             display: flex;
+            max-width: none;
+        }
+
+        > .mh-form__note {
+            display: block;
         }
     }
 
