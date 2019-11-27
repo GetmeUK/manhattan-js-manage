@@ -290,7 +290,8 @@ export function init() {
                 'uploadUrl': '/manage/upload-asset',
                 'editing': '--draft--',
                 'preview': '--thumb--',
-                'formData': 'csrfFormData'
+                'formData': 'csrfFormData',
+                'maxUploads': 1
             }
         )
         galleryInst.init()
