@@ -216,14 +216,41 @@ export function init() {
     // Assets
 
     function csrfFormData(inst, file) {
+
         const data = new FormData()
+
         data.append('csrf_token', $.one('[name="csrf_token"]').value)
         data.append('file', file)
+
+        let dataPrefix = null
+        let inputElm = null
+        if (inst.gallery) {
+            dataPrefix = 'data-mh-gallery'
+            inputElm = inst.gallery.input
+        } else {
+            dataPrefix = 'data-mh-file-field'
+            inputElm = inst.input
+        }
+
+        data.append('field_name', inputElm.name)
+
         if (inst.parentOptions) {
             data.append('file_type', inst.parentOptions.fileType)
         } else {
             data.append('file_type', inst._options.fileType)
         }
+
+        if (inputElm.getAttribute(`${dataPrefix}--blueprint`)) {
+            data.append(
+                'blueprint',
+                inputElm.getAttribute(`${dataPrefix}--blueprint`)
+            )
+        }
+
+        if (inputElm.getAttribute(`${dataPrefix}--secure`)) {
+            data.append('secure', 'secure')
+        }
+
         return data
     }
 
@@ -232,6 +259,7 @@ export function init() {
 
     // Fields
     for (inputElm of $.many('[data-mh-file-field]')) {
+
         let fileField = new field.FileField(
             inputElm,
             {
