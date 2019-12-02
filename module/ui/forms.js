@@ -247,7 +247,7 @@ export function init() {
             )
         }
 
-        if (inputElm.getAttribute(`${dataPrefix}--secure`)) {
+        if (inputElm.hasAttribute(`${dataPrefix}--secure`)) {
             data.append('secure', 'secure')
         }
 
