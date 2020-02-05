@@ -219,7 +219,9 @@ export function init() {
 
         const data = new FormData()
 
-        data.append('csrf_token', $.one('[name="csrf_token"]').value)
+        if ($.one('[name="csrf_token"]')) {
+            data.append('csrf_token', $.one('[name="csrf_token"]').value)
+        }
         data.append('file', file)
 
         let dataPrefix = null
