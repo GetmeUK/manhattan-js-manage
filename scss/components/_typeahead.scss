@@ -20,8 +20,11 @@
     &__suggestion {
         height: 40px;
         line-height: 40px;
+        overflow: hidden;
         padding: 0 10px;
         position: relative;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &:nth-child(even) {
             background-color: $color-bkg-main;
