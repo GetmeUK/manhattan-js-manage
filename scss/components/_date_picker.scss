@@ -116,7 +116,7 @@
         &--selected {
             background: $color-themes;
             border-radius: 20px;
-            color: #fff;
+            color: #fff !important;
             font-weight: bold;
 
             &:hover {
@@ -144,6 +144,11 @@
                     display: none;
                 }
             }
+        }
+
+        &--outside-month {
+            color: $color-font-light;
+            font-weight: normal;
         }
 
         &--selected.mh-calendar__date--blocked {
