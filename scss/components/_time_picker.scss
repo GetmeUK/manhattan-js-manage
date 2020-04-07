@@ -1,0 +1,273 @@
+
+.mh-time-picker {
+    background: #fff;
+    border: 1px solid $color-bkg-frame;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: none;
+    margin-top: 10px;
+    position: absolute;
+    user-select: none;
+    width: 240px;
+    z-index: 4;
+
+    &--open {
+        display: block;
+    }
+}
+
+// cos/sin look up tables
+$mh-clock-cos: 0.0, 0.5, 0.866025, 1.0, 0.866025, 0.5, 0.0, -0.5, -0.866025, -1.0, -0.866025, -0.5;
+$mh-clock-sin: -1.0, -0.866025, -0.5, 0.0, 0.5, 0.866025, 1.0, 0.866025, 0.5, 0.0, -0.5, -0.866025;
+
+.mh-clock {
+    user-select: none;
+
+    &--hour-mode {
+
+        .mh-clock {
+            &__hour {
+                color: nth($color-themes, 1);
+            }
+
+            &__dial {
+                &--hour {
+                    display: block;
+                    pointer-events: auto;
+                }
+            }
+        }
+    }
+
+    &--minute-mode {
+
+        .mh-clock {
+            &__minute {
+                color: nth($color-themes, 1);
+            }
+
+            &__dial {
+                &--minute {
+                    display: block;
+                    pointer-events: auto;
+                }
+            }
+        }
+    }
+
+    &--picking {
+        .mh-clock {
+            &__hand {
+                transition: none;
+
+                &::after {
+                    transition: none;
+                }
+            }
+        }
+    }
+
+    &__time {
+        border-bottom: 1px solid $color-bkg-frame;
+        color: $color-font-light;
+        font-size: 32px;
+        font-weight: 500;
+        height: 50px;
+        position: relative;
+
+        &::before {
+            bottom: 0;
+            content: ':';
+            display: block;
+            left: 0;
+            line-height: 50px;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            top: 0;
+        }
+    }
+
+    &__hour {
+        cursor: pointer;
+        left: 0;
+        line-height: 50px;
+        position: absolute;
+        text-align: right;
+        top: 0;
+        width: calc(50% - 10px);
+    }
+
+    &__minute {
+        cursor: pointer;
+        line-height: 50px;
+        position: absolute;
+        right: 0;
+        text-align: left;
+        top: 0;
+        width: calc(50% - 10px);
+    }
+
+    &__dials {
+        background: rgba($color-bkg-frame, 0.2);
+        height: 239px;
+        position: relative;
+
+        &::before {
+            background: #fff;
+            border-radius: 110px;
+            content: '';
+            height: 220px;
+            left: 9px;
+            position: absolute;
+            top: 9px;
+            width: 220px;
+        }
+    }
+
+    &__dial {
+        border-radius: 110px;
+        cursor: pointer;
+        display: none;
+        left: 9px;
+        height: 220px;
+        pointer-events: none;
+        position: absolute;
+        top: 9px;
+        width: 220px;
+    }
+
+    &__mark {
+        color: $color-font-light;
+        font-size: 16px;
+        height: 32px;
+        left: 95px;
+        line-height: 32px;
+        pointer-events: none;
+        position: absolute;
+        text-align: center;
+        top: 95px;
+        width: 32px;
+
+        // Hour marks
+        &--h0 {
+            $x: nth($mh-clock-cos, 1) * 90;
+            $y: nth($mh-clock-sin, 1) * 90;
+
+            transform: translate(#{$x}px, #{$y}px);
+        }
+
+        @for $i from 14 through 24 {
+            &--h#{$i - 1} {
+                $x: nth($mh-clock-cos, $i - 12) * 90;
+                $y: nth($mh-clock-sin, $i - 12) * 90;
+
+                transform: translate(#{$x}px, #{$y}px);
+            }
+        }
+
+        &--h12 {
+            $x: nth($mh-clock-cos, 1) * 60;
+            $y: nth($mh-clock-sin, 1) * 60;
+
+            color: $color-font;
+            font-size: 14px;
+            transform: translate(#{$x}px, #{$y}px);
+        }
+
+        @for $i from 2 through 12 {
+            &--h#{$i - 1} {
+                $x: nth($mh-clock-cos, $i) * 60;
+                $y: nth($mh-clock-sin, $i) * 60;
+
+                color: $color-font;
+                font-size: 14px;
+                transform: translate(#{$x}px, #{$y}px);
+            }
+        }
+
+        // Minute marks
+        &--m0 {
+            $x: nth($mh-clock-cos, 1) * 90;
+            $y: nth($mh-clock-sin, 1) * 90;
+
+            transform: translate(#{$x}px, #{$y}px);
+        }
+
+        @for $i from 2 through 12 {
+            &--m#{($i - 1) * 5} {
+                $x: nth($mh-clock-cos, $i) * 90;
+                $y: nth($mh-clock-sin, $i) * 90;
+
+                transform: translate(#{$x}px, #{$y}px);
+            }
+        }
+    }
+
+    &__hand {
+        --angle: 0deg;
+
+        background: nth($color-themes, 1);
+        border-radius: 3px;
+        height: 6px;
+        left: 117px;
+        pointer-events: none;
+        position: absolute;
+        top: 117px;
+        width: 6px;
+        transform: rotate(var(--angle));
+        transition: transform 0.5s linear;
+
+        &::before {
+            background: nth($color-themes, 1);
+            content: '';
+            display: block;
+            height: 90px;
+            left: 2px;
+            position: absolute;
+            top: -87px;
+            width: 2px;
+        }
+
+        &::after {
+            background: nth($color-themes, 1);
+            border-radius: 32px;
+            box-sizing: border-box;
+            color: #fff;
+            content: attr(data-mh-mark);
+            display: block;
+            height: 32px;
+            left: -13px;
+            line-height: 32px;
+            position: absolute;
+            text-align: center;
+            top: -103px;
+            transform: rotate(calc(0deg - var(--angle)));
+            transition: transform 0.5s linear;
+            width: 32px;
+        }
+
+        &--small {
+            &::before {
+                height: 42px;
+                top: -39px;
+            }
+
+            &::after {
+                top: -71px;
+            }
+        }
+
+        &[data-mh-mark=''] {
+            &::after {
+                content: '';
+                height: 8px;
+                left: -1px;
+                top: -91px;
+                width: 8px;
+            }
+        }
+    }
+}
+

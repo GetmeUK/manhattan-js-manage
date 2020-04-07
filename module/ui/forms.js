@@ -3,6 +3,7 @@ import {CharacterCount} from 'manhattan-character-count'
 import {datePicker} from 'manhattan-date-picker'
 import * as $ from 'manhattan-essentials'
 import {addFilled} from 'manhattan-field-filled'
+import {timePicker} from 'manhattan-time-picker'
 import {tokenizer, typeahead} from 'manhattan-typeahead'
 
 
@@ -166,6 +167,21 @@ export function init() {
         inputElm.setAttribute('autocomplete', 'off')
 
         // Prevent selecting a date closing the advanced filter
+        $.listen(
+            picker.picker,
+            {'click': preventAdvFilterClosing(inputElm)}
+        )
+    }
+
+    // Time pickers
+    for (inputElm of $.many('[data-mh-time-picker]')) {
+        let picker = new timePicker.TimePicker(inputElm)
+        picker.init()
+
+        // Disable auto-complete as we're showing the picker
+        inputElm.setAttribute('autocomplete', 'off')
+
+        // Prevent selecting a time closing the advanced filter
         $.listen(
             picker.picker,
             {'click': preventAdvFilterClosing(inputElm)}
