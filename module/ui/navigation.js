@@ -262,22 +262,76 @@ export function init() {
         )
         navMgr.add(actionsNav)
 
-    }
+        $.listen(
+            actionsElm,
+            {
+                'closed': (event) => {
+                    const actionElms = $
+                        .many('.mh-actions__link--has-sub-actions')
+                    for (const actionElm of actionElms) {
+                        actionElm
+                            .classList
+                            .remove('mh-actions__link--sub-actions-open')
+                    }
+                },
+                'opened': (event) => {
+                    if (actionsElm === event.target) {
+                        navMgr.closeAll(['actions'])
+                    }
+                }
+            }
+        )
 
+        for (const actionElm of $.many('.mh-actions__link--has-sub-actions')) {
+
+            // Set up sub-action menus
+            $.listen(
+                actionElm,
+                {
+                    'click': (event) => {
+                        event.stopPropagation()
+                        event
+                            .currentTarget
+                            .classList
+                            .toggle('mh-actions__link--sub-actions-open')
+
+                        if (event
+                            .currentTarget
+                            .classList
+                            .contains('mh-actions__link--sub-actions-open')) {
+
+                            navMgr.close(['filter'])
+                        }
+                    }
+                }
+            )
+        }
+    }
 
     // Filter
     const filterElm = $.one('.mh-filter-adv')
     if (filterElm) {
 
         // Set up the filter navigation item
-        const actionsNav = new NavItem(
+        const filterNav = new NavItem(
             'filter',
             filterElm,
             $.one('.mh-filter-adv__handle', filterElm),
             filterElm,
             'mh-filter-adv--open'
         )
-        navMgr.add(actionsNav)
+        navMgr.add(filterNav)
+
+        $.listen(
+            filterElm,
+            {
+                'opened': (event) => {
+                    if (filterElm === event.target) {
+                        navMgr.close(['actions'])
+                    }
+                }
+            }
+        )
 
         $.listen(
             $.one('.mh-filter-adv__fields', filterElm),
