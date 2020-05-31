@@ -1,6 +1,7 @@
 import * as content from './content'
 
 import * as changeLog from './ui/change-log'
+import * as conditionals from './ui/conditionals'
 import * as forms from './ui/forms'
 import * as interactions from './ui/interactions'
 import * as navigation from './ui/navigation'
@@ -19,6 +20,7 @@ export function init(updateContentSignalKey=null) {
 
     // UI
     changeLog.init()
+    conditionals.init()
     forms.init()
     interactions.init()
     navigation.init()

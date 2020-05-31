@@ -609,6 +609,16 @@
                     color: #fff;
                 }
             }
+
+            &--disabled {
+                cursor: not-allowed;
+                color: $color-font-lighter;
+
+                &:hover {
+                    background: none;
+                    color: $color-font-lighter;
+                }
+            }
         }
     }
 }

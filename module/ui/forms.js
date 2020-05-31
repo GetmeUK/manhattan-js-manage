@@ -231,7 +231,7 @@ export function init() {
 
     // Assets
 
-    function csrfFormData(inst, file) {
+    function mhFormData(inst, file) {
 
         const data = new FormData()
 
@@ -272,8 +272,8 @@ export function init() {
         return data
     }
 
-    field.FileField.behaviours.formData['csrfFormData'] = csrfFormData
-    gallery.Gallery.behaviours.formData['csrfFormData'] = csrfFormData
+    field.FileField.behaviours.formData['mhFormData'] = mhFormData
+    gallery.Gallery.behaviours.formData['mhFormData'] = mhFormData
 
     // Fields
     for (inputElm of $.many('[data-mh-file-field]')) {
@@ -285,7 +285,7 @@ export function init() {
                 'uploadUrl': '/manage/upload-asset',
                 'editing': '--draft--',
                 'preview': '--thumb--',
-                'formData': 'csrfFormData'
+                'formData': 'mhFormData'
             }
         )
         fileField.init()
@@ -308,7 +308,7 @@ export function init() {
                 'uploadUrl': '/manage/upload-asset',
                 'editing': '--draft--',
                 'preview': '--thumb--',
-                'formData': 'csrfFormData',
+                'formData': 'mhFormData',
                 'maxUploads': 1
             }
         )

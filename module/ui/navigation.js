@@ -300,6 +300,19 @@ export function init() {
                             .classList
                             .contains('mh-actions__link--sub-actions-open')) {
 
+                            // Close any other sub nav that is open
+                            const actionElms = $
+                                .many('.mh-actions__link--has-sub-actions')
+                            for (const actionElm of actionElms) {
+                                if (actionElm !== event.currentTarget) {
+                                    actionElm
+                                        .classList
+                                        .remove(
+                                            'mh-actions__link'
+                                            + '--sub-actions-open')
+                                }
+                            }
+
                             navMgr.close(['filter'])
                         }
                     }
