@@ -99,6 +99,7 @@ function preventAdvFilterClosing(inputElm) {
 
 export function init() {
 
+    let dataPrefix = null
     let inputElm = null
 
     // Squeeze labels
@@ -240,8 +241,6 @@ export function init() {
         }
         data.append('file', file)
 
-        let dataPrefix = null
-        let inputElm = null
         if (inst.gallery) {
             dataPrefix = 'data-mh-gallery'
             inputElm = inst.gallery.input

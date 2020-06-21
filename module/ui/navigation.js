@@ -303,12 +303,11 @@ export function init() {
                             // Close any other sub nav that is open
                             const actionElms = $
                                 .many('.mh-actions__link--has-sub-actions')
-                            for (const actionElm of actionElms) {
-                                if (actionElm !== event.currentTarget) {
-                                    actionElm
+                            for (const element of actionElms) {
+                                if (element !== event.currentTarget) {
+                                    element
                                         .classList
-                                        .remove(
-                                            'mh-actions__link'
+                                        .remove('mh-actions__link'
                                             + '--sub-actions-open')
                                 }
                             }

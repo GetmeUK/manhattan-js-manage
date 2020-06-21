@@ -211,18 +211,19 @@ export class ConditionalElement extends BaseConditional {
         this.element._conditionalElement = this
 
         // Get the name of the related element
-        this._related
-            = this.element.getAttribute(
-                'data-mh-conditional-element--related')
+        this._related = this
+            .element
+            .getAttribute('data-mh-conditional-element--related')
 
         // Get the conditional value for the element
-        this._value
-            = this.element.getAttribute('data-mh-conditional-element--value')
+        this._value = this
+            .element
+            .getAttribute('data-mh-conditional-element--value')
 
         // Get the match type to perform for the element
-        this._matchType
-            = this.element.getAttribute(
-                'data-mh-conditional-element--match-type')
+        this._matchType= this
+            .element
+            .getAttribute('data-mh-conditional-element--match-type')
 
         // Look up the relevant DOM elements
         this._dom.relatedInputs = $.many(`[name=${this._related}]`)
