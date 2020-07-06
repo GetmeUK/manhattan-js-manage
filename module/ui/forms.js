@@ -1,4 +1,4 @@
-import {field, gallery} from 'manhattan-assets'
+import {field, gallery, imageSet} from 'manhattan-assets'
 import {CharacterCount} from 'manhattan-character-count'
 import {datePicker} from 'manhattan-date-picker'
 import * as $ from 'manhattan-essentials'
@@ -312,6 +312,29 @@ export function init() {
             }
         )
         galleryInst.init()
+
+        $.listen(
+            inputElm,
+            {
+                'uploading': incUploads,
+                'uploaded uploadfailed': decUploads
+            }
+        )
+    }
+
+    // Image sets
+    for (inputElm of $.many('[data-mh-image-set]')) {
+        let imageSetInst = new imageSet.ImageSet(
+            inputElm,
+            {
+                'allowDrop': true,
+                'uploadUrl': '/manage/upload-asset',
+                'editing': '--draft--',
+                'preview': '--thumb--',
+                'formData': 'mhFormData'
+            }
+        )
+        imageSetInst.init()
 
         $.listen(
             inputElm,

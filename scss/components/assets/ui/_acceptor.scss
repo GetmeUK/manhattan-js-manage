@@ -107,7 +107,8 @@
         }
     }
 
-    .mh-file-field--image & {
+    .mh-file-field--image &,
+    .mh-image-set & {
 
         &__drop-zone,
         &__faceplate {
