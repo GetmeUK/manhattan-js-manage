@@ -273,6 +273,7 @@ export function init() {
 
     field.FileField.behaviours.formData['mhFormData'] = mhFormData
     gallery.Gallery.behaviours.formData['mhFormData'] = mhFormData
+    imageSet.ImageSet.behaviours.formData['mhFormData'] = mhFormData
 
     // Fields
     for (inputElm of $.many('[data-mh-file-field]')) {
