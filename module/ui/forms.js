@@ -244,6 +244,9 @@ export function init() {
         if (inst.gallery) {
             dataPrefix = 'data-mh-gallery'
             inputElm = inst.gallery.input
+        } else if (inst instanceof imageSet.ImageSet) {
+            dataPrefix = 'data-mh-image-set'
+            inputElm = inst.input
         } else {
             dataPrefix = 'data-mh-file-field'
             inputElm = inst.input

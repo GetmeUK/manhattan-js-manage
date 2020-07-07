@@ -189,3 +189,30 @@
         background-image: url('#{$manhattan-manage-asset-root}/assets/remove.svg');
     }
 }
+
+
+.mh-image-set-viewer {
+    background:
+        transparent
+        url('#{$manhattan-manage-asset-root}/assets/checkers.svg')
+        top left
+        repeat;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &__image {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
