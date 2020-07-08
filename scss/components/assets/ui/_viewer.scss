@@ -272,4 +272,17 @@
             top: 0;
         }
     }
+
+    // Buttons
+
+    &__remove {
+        @extend %icon-btn;
+        position: absolute;
+    }
+
+    &__remove {
+        background-image: url('#{$manhattan-manage-asset-root}/assets/remove.svg');
+        right: 8px;
+        top: 8px;
+    }
 }
