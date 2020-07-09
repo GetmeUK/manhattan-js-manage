@@ -275,6 +275,24 @@
 
     // Buttons
 
+    &__version-buttons {
+        bottom: 8px;
+        display: flex;
+        justify-content: center;
+        height: 32px;
+        left: 0;
+        position: absolute;
+        right: 0;
+    }
+
+
+    &__clear,
+    &__edit,
+    &__upload {
+        @extend %icon-btn;
+        margin: 0 8px;
+    }
+
     &__alt,
     &__remove {
         @extend %icon-btn;
@@ -287,9 +305,54 @@
         top: 8px;
     }
 
+    &__clear {
+        background-image:
+            url('#{$manhattan-manage-asset-root}/assets/clear.svg');
+        display: none;
+    }
+
+    &__edit {
+        background-image:
+            url('#{$manhattan-manage-asset-root}/assets/edit.svg');
+    }
+
     &__remove {
-        background-image: url('#{$manhattan-manage-asset-root}/assets/remove.svg');
+        background-image:
+            url('#{$manhattan-manage-asset-root}/assets/remove.svg');
         right: 8px;
         top: 8px;
+    }
+
+    &__upload {
+        background-image:
+            url('#{$manhattan-manage-asset-root}/assets/upload.svg');
+    }
+
+    // -- Viewer states --
+
+    &--base {
+        .mh-image-set-viewer {
+
+            // Hide the clear and upload buttons when viewing the base version
+            &__clear,
+            &__upload {
+                display: none;
+            }
+        }
+    }
+
+    &--own-image {
+        .mh-image-set-viewer {
+
+            // Show the clear button and hide the upload button when viewing a
+            // version with it's own image.
+            &__clear {
+                display: block;
+            }
+
+            &__upload {
+                display: none;
+            }
+        }
     }
 }
