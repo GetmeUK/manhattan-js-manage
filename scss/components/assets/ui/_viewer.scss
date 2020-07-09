@@ -275,9 +275,16 @@
 
     // Buttons
 
+    &__alt,
     &__remove {
         @extend %icon-btn;
         position: absolute;
+    }
+
+    &__alt {
+        background-image: url('#{$manhattan-manage-asset-root}/assets/tag.svg');
+        right: 48px;
+        top: 8px;
     }
 
     &__remove {
