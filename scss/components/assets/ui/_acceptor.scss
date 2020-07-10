@@ -190,3 +190,43 @@
         }
     }
 }
+
+
+.mh-mini-acceptor {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &__faceplate {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    &__input {
+        cursor: pointer;
+        font-size: 999px;
+        opacity: 0;
+        outline: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    &--disabled {
+        opacity: 0.5;
+
+        .mh-acceptor {
+            &__input {
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+        }
+    }
+}

@@ -332,6 +332,7 @@
     &__upload {
         background-image:
             url('#{$manhattan-manage-asset-root}/assets/upload.svg');
+        position: relative;
     }
 
     // -- Viewer states --
