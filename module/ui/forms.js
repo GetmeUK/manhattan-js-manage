@@ -232,7 +232,7 @@ export function init() {
 
     // Assets
 
-    function mhFormData(inst, file) {
+    function mhFormData(inst, file, version) {
 
         const data = new FormData()
 
@@ -269,6 +269,10 @@ export function init() {
 
         if (inputElm.hasAttribute(`${dataPrefix}--secure`)) {
             data.append('secure', 'secure')
+        }
+
+        if (version && version !== inst.baseVersion) {
+            data.append('version', version)
         }
 
         return data
