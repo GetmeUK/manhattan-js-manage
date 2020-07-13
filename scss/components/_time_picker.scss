@@ -5,11 +5,10 @@
     border-radius: 3px;
     box-sizing: border-box;
     display: none;
-    margin-top: 10px;
     position: absolute;
     user-select: none;
     width: 240px;
-    z-index: 4;
+    z-index: 999;
 
     &--open {
         display: block;

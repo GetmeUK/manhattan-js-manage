@@ -524,7 +524,7 @@ $field_width: 600px;
                 position: static;
                 text-overflow: clip;
                 white-space: normal;
-                @include type(standard, $font-weight: 400);
+                @include type(standard, $font-weight: 500);
             }
         }
 

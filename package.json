@@ -1,6 +1,6 @@
 {
   "name": "manhattan-manage",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Support for the manhattan web framework's manage UI",
   "engines": {
     "node": ">=8.9.4"
@@ -75,12 +75,12 @@
   "dependencies": {
     "manhattan-assets": "^1.0.1",
     "manhattan-character-count": "^1.0.4",
-    "manhattan-date-picker": "^1.0.4",
+    "manhattan-date-picker": "^1.0.5",
     "manhattan-essentials": "^1.0.0",
     "manhattan-field-filled": "^1.0.2",
     "manhattan-interactions": "^1.0.0",
     "manhattan-sortable": "^1.0.3",
-    "manhattan-time-picker": "^1.0.2",
+    "manhattan-time-picker": "^1.0.3",
     "manhattan-typeahead": "^1.0.10"
   }
 }
