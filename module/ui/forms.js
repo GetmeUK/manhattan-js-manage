@@ -79,6 +79,83 @@ function incUploads() {
 }
 
 /**
+ * Pin a form error to the page.
+ */
+function pinFieldError(inputElm, errorElm) {
+    if (errorElm._pinnedErrorElm) {
+        return
+    }
+
+    const textElm = $.one('.mh-field__error-text', errorElm)
+
+    // Create a pinned error element
+    const pinnedErrorElm = $.create(
+        'div',
+        {'class': 'mh-pinned-field-error'}
+    )
+    pinnedErrorElm.innerHTML = textElm.innerHTML
+
+    // Set the position of the pinned error
+    let textRect = textElm.getBoundingClientRect()
+    pinnedErrorElm.style.left = `${textRect.left + window.pageXOffset}px`
+    pinnedErrorElm.style.top = `${textRect.top + window.pageYOffset}px`
+
+    // Prevent the text element from being displayed
+    textElm.style.visibility = 'hidden'
+
+    // Add the pinned error element to the body
+    document.body.appendChild(pinnedErrorElm)
+
+    // Store a reference to the pinned error element against the error element
+    // so we can unpin it when the field is blurred.
+    errorElm._pinnedErrorElm = pinnedErrorElm
+
+    // Handle events that require the pinned error's position to be updated
+    errorElm._onUpdatePinnedError = () => {
+        console.log(1)
+        textRect = textElm.getBoundingClientRect()
+        pinnedErrorElm.style.left = `${textRect.left + window.pageXOffset}px`
+        pinnedErrorElm.style.top = `${textRect.top + window.pageYOffset}px`
+    }
+    $.listen(window, {'resize': errorElm._onUpdatePinnedError})
+
+    errorElm._pinnedErrorObserver
+        = new MutationObserver(errorElm._onUpdatePinnedError)
+    errorElm._pinnedErrorObserver.observe(
+        inputElm,
+        {
+            'attributes': true,
+            'attributeFilter': ['style']
+        }
+    )
+}
+
+/**
+ * Unpin a form error from the page.
+ */
+function unpinFieldError(inputElm, errorElm) {
+    if (!errorElm._pinnedErrorElm) {
+        return
+    }
+
+    const pinnedElm = errorElm._pinnedErrorElm
+    delete errorElm._pinnedErrorElm
+
+    const textElm = $.one('.mh-field__error-text', errorElm)
+
+    // Allow the text element to be displayed
+    textElm.style.removeProperty('visibility')
+
+    // Remove the pinned error element
+    pinnedElm.remove()
+
+    // Remove the resize behaviour
+    $.ignore(window, {'resize': errorElm._onUpdatePinnedError})
+    errorElm._pinnedErrorObserver.disconnect()
+    delete errorElm._pinnedErrorObserver
+}
+
+/**
  * Return a handler that will prevent the advanced filter being closed when
  * the element clicked on is related to an input element within the filter
  * (such as a date picker).
@@ -113,8 +190,26 @@ export function init() {
                 inputElm,
                 {
                     'blur': (event) => {
-                        $.closest(event.target, '.mh-field__control')
-                            .classList.remove('mh-field__control--focused')
+                        const controlElm = $.closest(
+                            event.target,
+                            '.mh-field__control'
+                        )
+
+                        controlElm
+                            .classList
+                            .remove('mh-field__control--focused')
+
+                        if (controlElm
+                            .classList
+                            .contains('mh-field__control--error')) {
+
+                            const errorElm = $.one(
+                                '.mh-field__error',
+                                controlElm
+                            )
+
+                            unpinFieldError(event.currentTarget, errorElm)
+                        }
                     },
                     'empty': (event) => {
                         $.closest(event.target, '.mh-field__control')
@@ -125,8 +220,24 @@ export function init() {
                             .classList.add('mh-field__control--filled')
                     },
                     'focus': (event) => {
-                        $.closest(event.target, '.mh-field__control')
-                            .classList.add('mh-field__control--focused')
+                        const controlElm = $.closest(
+                            event.target,
+                            '.mh-field__control'
+                        )
+
+                        controlElm.classList.add('mh-field__control--focused')
+
+                        if (controlElm
+                            .classList
+                            .contains('mh-field__control--error')) {
+
+                            const errorElm = $.one(
+                                '.mh-field__error',
+                                controlElm
+                            )
+
+                            pinFieldError(event.currentTarget, errorElm)
+                        }
                     }
                 }
             )
