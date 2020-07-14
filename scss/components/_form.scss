@@ -130,7 +130,7 @@ $field_width: 600px;
             max-width: 1160px;
             padding: 20px;
             width: 100%;
-            z-index: 5;
+            z-index: 1001;
             display: flex;
             @include position(fixed, null null 0px null);
             @include transition(box-shadow 0.2s ease-in-out);
@@ -608,12 +608,6 @@ $field_width: 600px;
                         inset 1px 0 0 0 rgba(0, 0, 0, 0.25),
                         inset 0 3px 3px 0 rgba(0, 0, 0, 0.1);
                     color: $color-font;
-
-                    & + .mh-field__error {
-                        .mh-field__error-text {
-                            opacity: 1;
-                        }
-                    }
                 }
 
                 + .mh-field__error {
@@ -1029,5 +1023,28 @@ $field_width: 600px;
 
         &:first-child { margin-top: 0; }
         &:last-child { margin-bottom: 0; }
+    }
+}
+
+
+/**
+ * Pinned field errors.
+ */
+.mh-pinned-field-error {
+    background-color: $color-bkg-nav;
+    border-radius: $corner-radius;
+    display: block;
+    max-width: 220px;
+    padding: 5px 10px;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1000;
+    @include type(small, $color: #fff);
+
+    &:before {
+        content: '';
+        display: block;
+        @include position(absolute, 100% 21px null null);
+        @include triangle(10px, $color-bkg-nav, down);
     }
 }
