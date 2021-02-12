@@ -78,8 +78,8 @@ export function init() {
     // Add support for sorting rows by applicable column headers
     for (let thElm of $.many('th[data-mh-sort-with]')) {
 
-        // Find the form that contains the th element
-        formElm = $.one('.mh-form', $.closest(thElm, '.mh-main__box'))
+        // Find the form that contains the element
+        formElm = $.one('.mh-filter', $.one('[data-mh-main-content]'))
 
         // If the results are currently being sorted by this column indicate
         // this through the elements data attributes.
