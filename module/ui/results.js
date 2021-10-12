@@ -22,14 +22,21 @@ function rowLink(event) {
     // Get the URL associated with the row
     const url = event.currentTarget.dataset.mhUrl
 
+    let clicked = null
+    if ('button' in event) {
+        clicked = event.button
+    } else if ('buttons' in event) {
+        clicked = event.buttons
+    }
+
     // Implent linking behavior
-    if (event.buttons === 0) {
+    if (clicked === 0) {
         if (event.shifyKey || event.ctrlKey || event.metaKey) {
             window.open(url, '_blank')
         } else {
             window.location = url
         }
-    } else if (event.buttons === 1) {
+    } else if (clicked === 1) {
         window.open(url, '_blank')
     }
 }
@@ -67,7 +74,7 @@ export function init() {
 
     // Make rows within the results table behave as links
     for (let rowElm of $.many('tr[data-mh-url]')) {
-        $.listen(rowElm, {'click': rowLink})
+        $.listen(rowElm, {'click auxclick': rowLink})
     }
 
     // Prevent submission of 'jump to' page form if page value is empty
