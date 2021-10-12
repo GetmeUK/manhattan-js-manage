@@ -610,7 +610,8 @@ $field_width: 600px;
                     color: $color-font;
                 }
 
-                + .mh-field__error {
+                + .mh-field__error,
+                + * + .mh-field__error {
                     margin-top: 0;
                     padding-left: 0;
 
@@ -674,6 +675,17 @@ $field_width: 600px;
 
                 .mh-field__label {
                     color: $color-font !important;
+                }
+            }
+
+            .mh-field__text {
+                + .mh-field__error,
+                + * + .mh-field__error {
+                    height: $field-standard-height;
+                    pointer-events: none;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
                 }
             }
         }
