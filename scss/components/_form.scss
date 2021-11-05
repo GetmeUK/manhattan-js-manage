@@ -759,6 +759,7 @@ $field_width: 600px;
     &__select,
     &__textarea,
     &__asset {
+        background-clip: padding-box;
         background-color: #fff;
         border: none;
         border-radius: $corner-radius;
