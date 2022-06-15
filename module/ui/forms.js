@@ -2,7 +2,7 @@ import {field, gallery, imageSet} from 'manhattan-assets'
 import {CharacterCount} from 'manhattan-character-count'
 import {datePicker} from 'manhattan-date-picker'
 import * as $ from 'manhattan-essentials'
-import {addFilled} from 'manhattan-field-filled'
+import {addFilled, removeFilled} from 'manhattan-field-filled'
 import {timePicker} from 'manhattan-time-picker'
 import {tokenizer, typeahead} from 'manhattan-typeahead'
 
@@ -172,18 +172,119 @@ function preventAdvFilterClosing(inputElm) {
 }
 
 
-// -- Initializer --
+// -- Initializers --
 
-export function init() {
+function setup() {
 
-    let dataPrefix = null
+    // Assets
+
+    function mhFormData(inst, file, version) {
+
+        let dataPrefix = null
+        let inputElm = null
+
+        const data = new FormData()
+
+        if ($.one('[name="csrf_token"]')) {
+            data.append('csrf_token', $.one('[name="csrf_token"]').value)
+        }
+        data.append('file', file)
+
+        if (inst.gallery) {
+            dataPrefix = 'data-mh-gallery'
+            inputElm = inst.gallery.input
+        } else if (inst instanceof imageSet.ImageSet) {
+            dataPrefix = 'data-mh-image-set'
+            inputElm = inst.input
+        } else {
+            dataPrefix = 'data-mh-file-field'
+            inputElm = inst.input
+        }
+
+        data.append('field_name', inputElm.name)
+
+        if (inst.parentOptions) {
+            data.append('file_type', inst.parentOptions.fileType)
+        } else {
+            data.append('file_type', inst._options.fileType)
+        }
+
+        if (inputElm.getAttribute(`${dataPrefix}--blueprint`)) {
+            data.append(
+                'blueprint',
+                inputElm.getAttribute(`${dataPrefix}--blueprint`)
+            )
+        }
+
+        if (inputElm.hasAttribute(`${dataPrefix}--secure`)) {
+            data.append('secure', 'secure')
+        }
+
+        if (version && version !== inst.baseVersion) {
+            data.append('version', version)
+        }
+
+        return data
+    }
+
+    field.FileField.behaviours.formData['mhFormData'] = mhFormData
+    gallery.Gallery.behaviours.formData['mhFormData'] = mhFormData
+    imageSet.ImageSet.behaviours.formData['mhFormData'] = mhFormData
+
+
+    // Character count
+
+    CharacterCount.behaviours.counter['manhattan'] = (inst) => {
+
+        // Create a counter element
+        const cls = inst.constructor
+        const counter = $.create('div', {'class': cls.css['counter']})
+
+        // Insert the counter after the last element next to the
+        // input/textarea.
+        inst.input.parentNode.appendChild(counter)
+
+        return counter
+    }
+
+    // Tokenizer
+
+    tokenizer.Tokenizer.behaviours.store['jsonObjects'] = (inst) => {
+        const hiddenSelector = $.one(inst._options.hiddenSelector)
+        hiddenSelector.value = JSON.stringify(inst.tokens)
+    }
+
+    // Ask the user to confirm they want to leave the page if there are assets
+    // still uploading.
+    $.listen(window, {'beforeunload': confirmLeave})
+}
+
+export function applyFormBehaviours(container) {
+
+    // Addix form butons to the bottom of the page if the form is longer than
+    // the frame containing it.
+    const formElm = $.one('.mh-form--primary')
+    if (formElm) {
+        const frameElm = $.closest(formElm, '.mh-frame')
+        const btnsElm = $.one('.mh-field--btns', formElm)
+
+        // Flag whenever the buttons are anchored to the bottom of the form
+        const anchoredHandler = anchored(frameElm, formElm, btnsElm)
+        $.listen(window, {'resize scroll': anchoredHandler})
+        anchoredHandler()
+    }
+
+}
+
+export function applyFieldBehaviours(containerElm) {
+
     let inputElm = null
 
     // Squeeze labels
     const inputsSelector
         = '.mh-field__text, .mh-field__textarea, .mh-field__select'
 
-    for (inputElm of $.many(inputsSelector)) {
+    for (inputElm of $.many(inputsSelector, containerElm)) {
 
         if ($.closest(inputElm, '.mh-field__control')) {
             $.listen(
@@ -244,25 +345,12 @@ export function init() {
         }
     }
 
+    removeFilled(inputsSelector)
     addFilled(inputsSelector)
 
     // Character counters
 
-    // Add additional tokenizer behaviour
-    CharacterCount.behaviours.counter['manhattan'] = (inst) => {
-
-        // Create a counter element
-        const cls = inst.constructor
-        const counter = $.create('div', {'class': cls.css['counter']})
-
-        // Insert the counter after the last element next to the
-        // input/textarea.
-        inst.input.parentNode.appendChild(counter)
-
-        return counter
-    }
-
-    for(inputElm of $.many('[data-mh-character-count]')) {
+    for(inputElm of $.many('[data-mh-character-count]', containerElm)) {
         let characterCount = new CharacterCount(
             inputElm,
             {'counter': 'manhattan'}
@@ -271,7 +359,7 @@ export function init() {
     }
 
     // Date pickers
-    for (inputElm of $.many('[data-mh-date-picker]')) {
+    for (inputElm of $.many('[data-mh-date-picker]', containerElm)) {
         let picker = new datePicker.DatePicker(inputElm)
         picker.init()
 
@@ -286,7 +374,7 @@ export function init() {
     }
 
     // Time pickers
-    for (inputElm of $.many('[data-mh-time-picker]')) {
+    for (inputElm of $.many('[data-mh-time-picker]', containerElm)) {
         let picker = new timePicker.TimePicker(inputElm)
         picker.init()
 
@@ -301,7 +389,7 @@ export function init() {
     }
 
     // Typeaheads
-    for (inputElm of $.many('[data-mh-typeahead]')) {
+    for (inputElm of $.many('[data-mh-typeahead]', containerElm)) {
         let typeaheadInst = new typeahead.Typeahead(inputElm)
         typeaheadInst.init()
 
@@ -314,13 +402,7 @@ export function init() {
 
     // Tokenizers
 
-    // Add additional tokenizer behaviour
-    tokenizer.Tokenizer.behaviours.store['jsonObjects'] = (inst) => {
-        const hiddenSelector = $.one(inst._options.hiddenSelector)
-        hiddenSelector.value = JSON.stringify(inst.tokens)
-    }
-
-    for (inputElm of $.many('[data-mh-tokenizer]')) {
+    for (inputElm of $.many('[data-mh-tokenizer]', containerElm)) {
         let tokenizerInst = new tokenizer.Tokenizer(
             inputElm,
             {'store': 'json'}
@@ -343,58 +425,8 @@ export function init() {
 
     // Assets
 
-    function mhFormData(inst, file, version) {
-
-        const data = new FormData()
-
-        if ($.one('[name="csrf_token"]')) {
-            data.append('csrf_token', $.one('[name="csrf_token"]').value)
-        }
-        data.append('file', file)
-
-        if (inst.gallery) {
-            dataPrefix = 'data-mh-gallery'
-            inputElm = inst.gallery.input
-        } else if (inst instanceof imageSet.ImageSet) {
-            dataPrefix = 'data-mh-image-set'
-            inputElm = inst.input
-        } else {
-            dataPrefix = 'data-mh-file-field'
-            inputElm = inst.input
-        }
-
-        data.append('field_name', inputElm.name)
-
-        if (inst.parentOptions) {
-            data.append('file_type', inst.parentOptions.fileType)
-        } else {
-            data.append('file_type', inst._options.fileType)
-        }
-
-        if (inputElm.getAttribute(`${dataPrefix}--blueprint`)) {
-            data.append(
-                'blueprint',
-                inputElm.getAttribute(`${dataPrefix}--blueprint`)
-            )
-        }
-
-        if (inputElm.hasAttribute(`${dataPrefix}--secure`)) {
-            data.append('secure', 'secure')
-        }
-
-        if (version && version !== inst.baseVersion) {
-            data.append('version', version)
-        }
-
-        return data
-    }
-
-    field.FileField.behaviours.formData['mhFormData'] = mhFormData
-    gallery.Gallery.behaviours.formData['mhFormData'] = mhFormData
-    imageSet.ImageSet.behaviours.formData['mhFormData'] = mhFormData
-
     // Fields
-    for (inputElm of $.many('[data-mh-file-field]')) {
+    for (inputElm of $.many('[data-mh-file-field]', containerElm)) {
 
         let fileField = new field.FileField(
             inputElm,
@@ -418,7 +450,7 @@ export function init() {
     }
 
     // Galleries
-    for (inputElm of $.many('[data-mh-gallery]')) {
+    for (inputElm of $.many('[data-mh-gallery]', containerElm)) {
         let galleryInst = new gallery.Gallery(
             inputElm,
             {
@@ -442,7 +474,7 @@ export function init() {
     }
 
     // Image sets
-    for (inputElm of $.many('[data-mh-image-set]')) {
+    for (inputElm of $.many('[data-mh-image-set]', containerElm)) {
         let imageSetInst = new imageSet.ImageSet(
             inputElm,
             {
@@ -463,22 +495,10 @@ export function init() {
             }
         )
     }
+}
 
-    // Ask the user to confirm they want to leave the page if there are assets
-    // still uploading.
-    $.listen(window, {'beforeunload': confirmLeave})
-
-    // Addix form butons to the bottom of the page if the form is longer than
-    // the frame containing it.
-    const formElm = $.one('.mh-form--primary')
-    if (formElm) {
-        const frameElm = $.closest(formElm, '.mh-frame')
-        const btnsElm = $.one('.mh-field--btns', formElm)
-
-        // Flag whenever the buttons are anchored to the bottom of the form
-        const anchoredHandler = anchored(frameElm, formElm, btnsElm)
-        $.listen(window, {'resize scroll': anchoredHandler})
-        anchoredHandler()
-    }
-
+export function init() {
+    setup()
+    applyFormBehaviours()
+    applyFieldBehaviours()
 }
