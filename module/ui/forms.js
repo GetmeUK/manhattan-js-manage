@@ -64,6 +64,10 @@ function confirmLeave(event) {
     return null
 }
 
+export function getUploadCount() {
+    return uploading
+}
+
 /**
  * Decrease the uploading counter by 1, if the count reaches 0 enable .
  */
