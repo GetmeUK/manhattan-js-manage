@@ -4,6 +4,16 @@ import * as $ from 'manhattan-essentials'
 // -- Handlers --
 
 /**
+ * Support for changing the number of results displayed per page.
+ */
+function changePerPage(event) {
+    const formElm = $.closest(event.target, 'form')
+    const perPage = event.target.value
+    formElm.elements['page'].value = '1'
+    formElm.submit()
+}
+
+/**
  * Prevent the 'jump to' page form from being submitted if no page value has
  * been set.
  */
@@ -80,6 +90,11 @@ export function init() {
     // Prevent submission of 'jump to' page form if page value is empty
     for (formElm of $.many('.mh-paging__jump')) {
         $.listen(formElm, {'submit': noEmptyJumps})
+    }
+
+    // Add support for changing the number of results displayed per page
+    for (const perPageElm of $.many('.mh-paging__per-page-field')) {
+        $.listen(perPageElm, {'change': changePerPage})
     }
 
     // Add support for sorting rows by applicable column headers
