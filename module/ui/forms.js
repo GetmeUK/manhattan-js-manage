@@ -2,7 +2,6 @@ import {field, gallery, imageSet} from 'manhattan-assets'
 import {CharacterCount} from 'manhattan-character-count'
 import {datePicker} from 'manhattan-date-picker'
 import * as $ from 'manhattan-essentials'
-import {addFilled, removeFilled} from 'manhattan-field-filled'
 import {timePicker} from 'manhattan-time-picker'
 import {tokenizer, typeahead} from 'manhattan-typeahead'
 
@@ -349,8 +348,27 @@ export function applyFieldBehaviours(containerElm) {
         }
     }
 
-    removeFilled(inputsSelector)
-    addFilled(inputsSelector)
+    function onChange(ev) {
+        const field = ev.currentTarget
+        if (field.value === '') {
+            $.dispatch(field, 'empty')
+        } else {
+            $.dispatch(field, 'filled')
+        }
+    }
+
+    for (let field of $.many(inputsSelector)) {
+        $.listen(
+            field,
+            {
+                'change': onChange,
+                'input': onChange
+            }
+        )
+
+        // Set the initial state of the field
+        onChange({'currentTarget': field})
+    }
 
     // Character counters
 
