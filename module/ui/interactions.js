@@ -12,7 +12,7 @@ export function init() {
 
     // Back button
     for (const backButtonElement of $.many('[data-mh-back-button]')) {
-        $.listen(backButtonElement, {'click': history.back()})
+        $.listen(backButtonElement, {'click': (ev) => { history.back() }})
     }
 
     // Set up copy to clipboard behaviour
