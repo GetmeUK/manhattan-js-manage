@@ -10,6 +10,11 @@ import * as interactions from 'manhattan-interactions'
 
 export function init() {
 
+    // Back button
+    for (const backButtonElement of $.many('[data-mh-back-button]')) {
+        $.listen(backButtonElement, {'click': history.back()})
+    }
+
     // Set up copy to clipboard behaviour
     for (const copyElement of $.many('[data-mh-copy-to-clipboard]')) {
         $.listen(copyElement, {'click': interactions.copyToClipboard.onCopy()})
